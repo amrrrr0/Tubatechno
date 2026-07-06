@@ -1,4 +1,4 @@
-import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star } from "@/public/assets";
+import { people01, people02, people03, facebook, instagram, linkedin, twitter, send, shield, star } from "@/public/assets";
 
 export const navLinks = [
     {
@@ -183,18 +183,32 @@ export const socialMedia = [
 export const clients = [
     {
         id: "client-1",
-        logo: airbnb,
+        logo: "https://cdn.simpleicons.org/nextdotjs/000000",
+        name: "Next.js",
     },
     {
         id: "client-2",
-        logo: binance,
+        logo: "https://cdn.simpleicons.org/react/61DAFB",
+        name: "React",
     },
     {
         id: "client-3",
-        logo: coinbase,
+        logo: "https://cdn.simpleicons.org/typescript/3178C6",
+        name: "TypeScript",
     },
     {
         id: "client-4",
-        logo: dropbox,
+        logo: "https://cdn.simpleicons.org/nodedotjs/339933",
+        name: "Node.js",
+    },
+    {
+        id: "client-5",
+        logo: "https://cdn.simpleicons.org/laravel/FF2D20",
+        name: "Laravel",
+    },
+    {
+        id: "client-6",
+        logo: "https://cdn.simpleicons.org/flutter/54C5F8",
+        name: "Flutter",
     },
 ];

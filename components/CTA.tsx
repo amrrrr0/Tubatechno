@@ -3,50 +3,92 @@ import styles from "@/styles/style";
 
 const CTA: React.FC = () => {
   return (
-    <section id="contact" className={`${styles.marginY} w-full flex flex-col px-4 md:px-8`}>
-      {/* Location Header and Map */}
-      <div className="w-full">
-        <div className="mb-8">
-          <h4 className="font-poppins font-semibold text-[12px] tracking-[0.15em] text-dimWhite uppercase mb-1">
-            LOKASI KAMI
-          </h4>
-          <h2 className="font-poppins font-bold text-[32px] md:text-[42px] text-primary-dark leading-tight">
-            Surakarta, Indonesia
-          </h2>
-        </div>
+    <section id="contact" className={`${styles.marginY} w-full flex flex-col`}>
+      {/* Location Header */}
+      <div className="mb-6 px-4 md:px-8">
+        <h4 className="font-poppins font-semibold text-[12px] tracking-[0.15em] text-dimWhite uppercase mb-1">
+          LOKASI KAMI
+        </h4>
+        <h2 className="font-poppins font-bold text-[32px] md:text-[42px] text-primary-dark leading-tight">
+          Surakarta, Indonesia
+        </h2>
+      </div>
 
-        <div className="relative w-full h-[380px] md:h-[480px] rounded-[24px] overflow-hidden shadow-lg border border-gray-200/50 bg-[linear-gradient(135deg,#ecfeff_0%,#ffffff_48%,#e0f2fe_100%)]">
-          <div className="absolute inset-0 opacity-70">
-            <div className="absolute left-[8%] top-[18%] h-[1px] w-[88%] rotate-[-8deg] bg-cyan-200" />
-            <div className="absolute left-[3%] top-[54%] h-[1px] w-[94%] rotate-[10deg] bg-slate-200" />
-            <div className="absolute left-[20%] top-[8%] h-[90%] w-[1px] rotate-[18deg] bg-cyan-200" />
-            <div className="absolute right-[24%] top-[5%] h-[86%] w-[1px] rotate-[-15deg] bg-slate-200" />
-            <div className="absolute left-[10%] bottom-[18%] h-[82px] w-[82px] rounded-full border border-cyan-200" />
-            <div className="absolute right-[12%] top-[16%] h-[126px] w-[126px] rounded-full border border-slate-200" />
-          </div>
+      {/* Map Container - Full width, relative for floating card */}
+      <div className="relative w-full h-[420px] md:h-[520px] overflow-hidden">
+        {/* Google Maps Embed */}
+        <iframe
+          src="https://maps.google.com/maps?q=ITS+PKU+Muhammadiyah+Surakarta&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          className="absolute inset-0 w-full h-full border-0"
+          allowFullScreen={true}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Lokasi HelioNexus - ITS PKU Muhammadiyah Surakarta"
+        />
 
-          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
-            <div className="relative mb-5 h-20 w-20">
-              <span className="absolute inset-0 rounded-full bg-cyan-300/30 animate-ping" />
-              <span className="absolute inset-3 rounded-full bg-white shadow-[0_18px_50px_rgba(0,180,216,0.24)]" />
-              <span className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00b4d8]" />
+        {/* Floating Office Info Card — overlaid bottom-left like gits.id */}
+        <div className="absolute bottom-6 left-4 md:left-8 w-[260px] md:w-[300px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.18)] overflow-hidden z-10">
+          {/* Office Photo Placeholder */}
+          <div className="w-full h-[140px] bg-gradient-to-br from-[#e0f2fe] via-[#bae6fd] to-[#7dd3fc] relative overflow-hidden flex items-end">
+            {/* Illustrated building using divs */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-end gap-1.5">
+              {/* Building 1 */}
+              <div className="w-10 h-20 bg-[#0ea5e9]/80 rounded-t-md relative">
+                <div className="absolute inset-x-0 top-2 flex flex-wrap gap-0.5 px-1">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="w-2 h-2 bg-white/30 rounded-sm" />
+                  ))}
+                </div>
+              </div>
+              {/* Building 2 - taller */}
+              <div className="w-14 h-28 bg-[#0077b6]/90 rounded-t-lg relative">
+                <div className="absolute inset-x-0 top-2 flex flex-wrap gap-0.5 px-1.5">
+                  {[...Array(10)].map((_, i) => (
+                    <div key={i} className="w-2.5 h-2 bg-white/30 rounded-sm" />
+                  ))}
+                </div>
+              </div>
+              {/* Building 3 */}
+              <div className="w-10 h-16 bg-[#0ea5e9]/70 rounded-t-md relative">
+                <div className="absolute inset-x-0 top-2 flex flex-wrap gap-0.5 px-1">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="w-2 h-2 bg-white/30 rounded-sm" />
+                  ))}
+                </div>
+              </div>
             </div>
-            <h3 className="font-poppins text-[24px] font-bold text-primary-dark">
-              ITS PKU Muhammadiyah Surakarta
+            {/* Sky gradient overlay */}
+            <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#bfdbfe]/60 to-transparent" />
+            {/* Ground */}
+            <div className="absolute bottom-0 inset-x-0 h-4 bg-[#4ade80]/40" />
+          </div>
+
+          {/* Card Text Content */}
+          <div className="p-4">
+            <h3 className="font-poppins font-bold text-[16px] text-primary-dark mb-1">
+              Head Office
             </h3>
-            <p className="mt-2 max-w-[420px] font-poppins text-[15px] leading-[24px] text-dimWhite">
-              Jl. Tulang Bawang Tengah No. 26, Kadipiro, Banjarsari, Surakarta.
+            <p className="font-poppins font-normal text-[13px] text-dimWhite leading-[1.5]">
+              Jl. Tulang Bawang Tengah No. 26, Kadipiro, Banjarsari, Surakarta 57136
             </p>
-            <a
-              href="https://www.openstreetmap.org/?mlat=-7.5408&mlon=110.8190#map=15/-7.5408/110.8190"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 rounded-full bg-primary-dark px-6 py-3 font-poppins text-[14px] font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:bg-black"
-            >
-              Buka Peta
-            </a>
           </div>
         </div>
+
+        {/* Pin label popup (decorative, like gits.id) */}
+        <div className="absolute bottom-[calc(50%-20px)] left-1/2 -translate-x-1/2 -translate-y-4 z-10 hidden md:flex items-center bg-white text-primary-dark font-poppins font-semibold text-[13px] px-3.5 py-1.5 rounded-full shadow-lg border border-gray-200/60 whitespace-nowrap gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#00b4d8] flex-shrink-0" />
+          Head Office
+          <button type="button" className="text-gray-400 hover:text-gray-600 ml-1 font-normal text-[16px] leading-none cursor-pointer" aria-label="Tutup">×</button>
+        </div>
+
+        {/* Scroll-to-top button like gits.id */}
+        <a
+          href="#home"
+          className="absolute bottom-6 right-4 md:right-8 z-10 w-11 h-11 rounded-full bg-primary-dark text-white flex items-center justify-center shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all text-[18px] font-bold"
+          aria-label="Kembali ke atas"
+        >
+          ↑
+        </a>
       </div>
     </section>
   );

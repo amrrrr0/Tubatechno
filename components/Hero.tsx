@@ -4,30 +4,29 @@ import Image from "next/image";
 
 const Hero: React.FC = () => (
   <section id="home" className={`hero-section flex md:flex-row flex-col ${styles.paddingY}`}>
-    <div
-      className={`hero-copy flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}
-    >
+    <div className={`hero-copy flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
       <div className="motion-chip flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
-        <Image src={discount} alt="discount" className="w-[32px] h-[32px]" />
-        <p className={`${styles.paragraph} ml-2`}>
-          <span className="text-primary-dark font-semibold">Inovasi Riset</span> Kampus Universitas{" "}
+        <Image src={discount} alt="discount" className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px]" />
+        <p className={`${styles.paragraph} ml-2 text-[13px] sm:text-[16px]`}>
+          <span className="text-primary-dark font-semibold">Inovasi Riset</span> Kampus{" "}
+          <span className="text-primary-dark font-semibold hidden sm:inline">Universitas </span>
           <span className="text-primary-dark font-semibold">Muhammadiyah PKU Surakarta</span>
         </p>
       </div>
       <div className="flex flex-row justify-between items-center w-full">
-        <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-primary-dark ss:leading-[80px] leading-[60px]">
+        <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[40px] text-primary-dark ss:leading-[80px] leading-[50px]">
           Solusi <br className="sm:block hidden" />{" "}
           <span className="text-gradient">Teknologi</span>{" "}
         </h1>
       </div>
-      <h1 className="w-full font-poppins font-semibold ss:text-[68px] text-[52px] text-primary-dark ss:leading-[80px] leading-[60px] mt-2">
+      <h1 className="w-full font-poppins font-semibold ss:text-[68px] text-[40px] text-primary-dark ss:leading-[80px] leading-[50px] mt-2">
         Terbaik & Inovatif.
       </h1>
-      <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+      <p className={`${styles.paragraph} max-w-[470px] mt-5 text-[15px] sm:text-[18px]`}>
         HelioNexus adalah Software House tepercaya yang menghadirkan layanan Web Development, Mobile Apps, UI/UX Design, Artificial Intelligence, dan IoT untuk mendigitalisasi bisnis Anda.
       </p>
     </div>
-    <div className={`${styles.flexCenter} hero-visual flex-1 flex md:my-0 my-10 relative min-h-[520px]`}>
+    <div className={`${styles.flexCenter} hero-visual flex-1 flex md:my-0 my-10 relative min-h-[320px] sm:min-h-[520px]`}>
       <div className="website-3d-stage" aria-label="Preview website HelioNexus dalam tampilan tiga dimensi">
         <div className="website-3d-scene">
           <div className="website-panel website-panel-main">
