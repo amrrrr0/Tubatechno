@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  cacheComponents: true,
-};
+// trigger reload
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
-
