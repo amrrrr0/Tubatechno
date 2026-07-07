@@ -3,8 +3,8 @@ import { discount } from "@/public/assets";
 import Image from "next/image";
 
 const Hero: React.FC = () => (
-  <section id="home" className={`hero-section flex md:flex-row flex-col ${styles.paddingY}`}>
-    <div className={`hero-copy flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
+  <section id="home" className={`hero-section flex md:flex-row flex-col xl:gap-[5px] ${styles.paddingY}`}>
+    <div className={`hero-copy flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 xl:pl-[50px]`}>
       <div className="motion-chip flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
         <Image src={discount} alt="discount" className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px]" />
         <p className={`${styles.paragraph} ml-2 text-[13px] sm:text-[16px]`}>
@@ -26,7 +26,7 @@ const Hero: React.FC = () => (
         HelioNexus adalah Software House tepercaya yang menghadirkan layanan Web Development, Mobile Apps, UI/UX Design, Artificial Intelligence, dan IoT untuk mendigitalisasi bisnis Anda.
       </p>
     </div>
-    <div className={`${styles.flexCenter} hero-visual flex-1 flex md:my-0 my-10 relative min-h-[320px] sm:min-h-[520px]`}>
+    <div className={`${styles.flexCenter} hero-visual flex-1 flex md:my-0 my-10 relative min-h-[320px] sm:min-h-[520px] xl:pr-[20px]`}>
       <div className="website-3d-stage" aria-label="Preview website HelioNexus dalam tampilan tiga dimensi">
         <div className="website-3d-scene">
           <div className="website-panel website-panel-main">

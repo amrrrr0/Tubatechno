@@ -16,7 +16,6 @@ export const navLinks = [
     {
         id: "clients",
         title: "Testimoni",
-        externalUrl: "https://forms.gle/pctZiieNbLgiWihdA",
     },
 ];
 

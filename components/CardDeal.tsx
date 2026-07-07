@@ -343,9 +343,9 @@ const CardDeal: React.FC = () => {
 
                   <div>
                     {/* Header Info */}
-                    <div className="mb-6 flex flex-col items-start">
+                    <div className="mb-6 flex flex-col items-center text-center">
                       {/* Brand Logo Circle Wrapper */}
-                      <div className={`w-[52px] h-[52px] rounded-2xl flex items-center justify-center border shadow-sm mb-4 flex-shrink-0 overflow-hidden ${
+                      <div className={`w-[52px] h-[52px] rounded-2xl flex items-center justify-center border shadow-sm mb-4 flex-shrink-0 overflow-hidden mx-auto ${
                         unit.isFeatured
                           ? "bg-[#ecfeff] border-[#00b4d8]/20"
                           : "bg-slate-50 border-slate-100"

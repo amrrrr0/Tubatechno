@@ -1,5 +1,12 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "HelioNexus - Software House & Solusi Digital",
@@ -11,7 +18,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode; }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={plusJakartaSans.variable}>
       <body className="font-sans">
         {children}
       </body>
