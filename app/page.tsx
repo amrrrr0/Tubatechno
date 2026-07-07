@@ -1,5 +1,5 @@
 import styles from "@/styles/style";
-import { Navbar, Hero, Stats, Business, Billing, CardDeal, Testimonials, Clients, CTA, Footer } from "@/components"
+import { Navbar, Hero, Stats, Business, Billing, CardDeal, Testimonials, Clients, CTA, Footer, News } from "@/components"
 
 const Home = () => {
   return (
@@ -18,9 +18,23 @@ const Home = () => {
         <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
           <div className={`${styles.boxWidth}`}>
             <Stats />
-            <Business />
+          </div>
+        </div>
+
+        {/* Business section is rendered full-width with a smooth vertical gradient */}
+        <div className="w-full bg-gradient-to-b from-white via-[#f4feff] to-white">
+          <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+            <div className={`${styles.boxWidth}`}>
+              <Business />
+            </div>
+          </div>
+        </div>
+
+        <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
+          <div className={`${styles.boxWidth}`}>
             <Billing />
             <CardDeal />
+            <News isDashboard={true} />
             <Testimonials />
             <Clients />
             <CTA />

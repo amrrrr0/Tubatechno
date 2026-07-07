@@ -80,7 +80,6 @@ const Hero: React.FC = () => (
             <span>IoT</span>
           </div>
 
-          <div className="website-glass website-glass-one" />
           <div className="website-glass website-glass-two" />
         </div>
       </div>

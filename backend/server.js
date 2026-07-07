@@ -1,3 +1,6 @@
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
+
 const express = require("express");
 const cors = require("cors");
 
@@ -9,8 +12,14 @@ app.use(cors({ origin: ["http://localhost:3000", "http://127.0.0.1:3000"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ── Static files for uploads ──────────────────────────────────
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 // ── Routes ────────────────────────────────────────────────────
 app.use("/api/testimonials", require("./routes/testimonials"));
+app.use("/api/news", require("./routes/news"));
+app.use("/api/business-units", require("./routes/business"));
+app.use("/api/upload", require("./routes/upload"));
 
 // Health check
 app.get("/", (req, res) => {

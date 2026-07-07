@@ -9,6 +9,9 @@ import Footer from "./Footer";
 import Testimonials from "./Testimonials";
 import Hero from "./Hero";
 import TestimonialForm from "./TestimonialForm";
+import PublicTestimonialForm from "./PublicTestimonialForm";
+import News from "./News";
+import BusinessForm from "./BusinessForm";
 
 export {
     Navbar,
@@ -22,4 +25,7 @@ export {
     Testimonials,
     Hero,
     TestimonialForm,
+    PublicTestimonialForm,
+    News,
+    BusinessForm,
 };

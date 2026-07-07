@@ -3,7 +3,7 @@ import styles from "@/styles/style";
 
 const CTA: React.FC = () => {
   return (
-    <section id="contact" className={`${styles.marginY} w-full flex flex-col`}>
+    <section id="location" className={`${styles.marginY} w-full flex flex-col`}>
       {/* Location Header */}
       <div className="mb-6 px-4 md:px-8">
         <h4 className="font-poppins font-semibold text-[12px] tracking-[0.15em] text-dimWhite uppercase mb-1">
