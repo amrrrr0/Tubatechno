@@ -108,7 +108,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
             </div>
             <h3 className="font-poppins font-bold text-[18px] text-emerald-600">Berhasil Disimpan!</h3>
             <p className="font-poppins text-[14px] text-gray-500 mt-2 max-w-[280px]">
-              Berita Anda telah berhasil ditambahkan ke database CMS.
+              Berita Anda telah berhasil ditambahkan ke database.
             </p>
           </div>
         ) : (

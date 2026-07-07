@@ -311,16 +311,16 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
         <div>
           <h2 className="font-poppins font-semibold xs:text-[48px] text-[30px] text-primary-dark xs:leading-[76.8px] leading-[42px]">
             {isDashboard ? (
-              <>Artikel &amp; Berita CMS Pilihan Utama</>
+              <>Artikel &amp; Berita Pilihan Utama</>
             ) : (
-              <>Semua Artikel &amp; Berita CMS SEO Terintegrasi</>
+              <>Semua Artikel &amp; Berita SEO Terintegrasi</>
             )}
           </h2>
           <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[600px] mt-3 mx-auto">
             {isDashboard ? (
               "Pantau rilis teknologi terbaru dari tim HelioNexus. Klik berita lainnya untuk melihat koleksi lengkap artikel kami."
             ) : (
-              "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Fitur CMS SEO diaktifkan secara real-time."
+              "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Fitur SEO diaktifkan secara real-time."
             )}
           </p>
         </div>
