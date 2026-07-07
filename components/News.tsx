@@ -306,16 +306,16 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
       <div className="absolute z-[0] w-[40%] h-[40%] -left-[20%] rounded-full blue__gradient pointer-events-none opacity-40" />
 
       {/* Header Row */}
-      <div className="w-full flex justify-between items-end md:flex-row flex-col sm:mb-10 mb-8 relative z-[1] gap-6">
+      <div className="w-full flex flex-col items-center text-center sm:mb-10 mb-8 relative z-[1] gap-5">
         <div>
           <h2 className="font-poppins font-semibold xs:text-[48px] text-[30px] text-primary-dark xs:leading-[76.8px] leading-[42px]">
             {isDashboard ? (
-              <>Artikel & Berita CMS <br className="sm:block hidden" /> Pilihan Utama.</>
+              <>Artikel &amp; Berita CMS Pilihan Utama</>
             ) : (
-              <>Semua Artikel & Berita CMS <br className="sm:block hidden" /> SEO Terintegrasi.</>
+              <>Semua Artikel &amp; Berita CMS <br className="sm:block hidden" /> SEO Terintegrasi</>
             )}
           </h2>
-          <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[550px] mt-3">
+          <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[600px] mt-3 mx-auto">
             {isDashboard ? (
               "Pantau rilis teknologi terbaru dari tim HelioNexus. Klik berita lainnya untuk melihat koleksi lengkap artikel kami."
             ) : (
@@ -328,7 +328,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
         {!isDashboard && isAdmin && (
           <button
             onClick={() => setShowForm(true)}
-            className="flex-shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap self-start md:self-auto"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
@@ -518,6 +518,31 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
     setErrorMsg("");
   };
 
+  // Keyboard input handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key;
+      if (/^[0-9]$/.test(key)) {
+        e.preventDefault();
+        handleKeyPress(key);
+      } else if (key === "Backspace") {
+        e.preventDefault();
+        handleDelete();
+      } else if (key === "Delete" || key === "Escape") {
+        e.preventDefault();
+        if (key === "Escape") {
+          onClose();
+        } else {
+          handleClear();
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [pin]);
+
   if (!mounted) return null;
 
   return createPortal(
@@ -649,33 +674,38 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
-        className="relative w-full max-w-[340px] overflow-hidden rounded-[24px] bg-white flex flex-col p-6 border border-gray-100"
+        className="relative w-full max-w-[350px] overflow-hidden rounded-[28px] bg-white flex flex-col p-7 border border-slate-100"
         style={{
-          boxShadow: "0 32px 80px rgba(0,4,15,0.22), 0 0 0 1px rgba(0,180,216,0.10)",
+          boxShadow: "0 30px 70px rgba(15,23,42,0.18), 0 0 0 1px rgba(0,0,0,0.02)",
           animation: "cardRise 360ms cubic-bezier(0.16,1,0.3,1) both",
         }}
       >
-        <div className="absolute top-0 inset-x-0 h-[4px] bg-amber-500" />
-        <div className="flex flex-col items-center mt-3 mb-5 text-center">
-          <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center mb-3 border border-amber-200/45">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2.5">
+        {/* Top Decorative Line */}
+        <div className="absolute top-0 inset-x-0 h-[4.5px] bg-gradient-to-r from-red-500 to-amber-500" />
+        
+        {/* Warning Icon Center */}
+        <div className="flex flex-col items-center mt-2 mb-6 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center mb-4.5 text-rose-500 shadow-sm shadow-rose-100/50">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
               <polyline points="16 17 21 12 16 7" />
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
           </div>
-          <h3 className="font-poppins font-bold text-[17px] text-primary-dark">
-            Keluar dari Mode Admin?
+          <h3 className="font-poppins font-bold text-[18px] text-slate-800 tracking-tight">
+            Keluar Mode Admin?
           </h3>
-          <p className="font-poppins text-[11.5px] text-dimWhite mt-1.5 leading-normal max-w-[240px]">
-            Anda akan kehilangan akses kelola CMS seperti melihat artikel Draft dan tombol Tambah Berita.
+          <p className="font-poppins text-[12px] text-slate-400 mt-2 leading-relaxed px-1">
+            Anda akan kehilangan hak akses kelola CMS seperti mengedit berita, unit bisnis, dan testimoni.
           </p>
         </div>
-        <div className="flex gap-2.5">
+        
+        {/* Actions Button */}
+        <div className="flex gap-3 w-full">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 font-poppins font-semibold text-[13px] text-slate-500 transition-all cursor-pointer text-center"
+            className="flex-1 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 font-poppins font-semibold text-[13px] text-slate-500 transition-all cursor-pointer text-center"
           >
             Batal
           </button>
@@ -685,9 +715,9 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
               onConfirm();
               onClose();
             }}
-            className="flex-1 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 font-poppins font-semibold text-[13px] text-white transition-all cursor-pointer text-center shadow-md shadow-amber-500/10"
+            className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 font-poppins font-bold text-[13px] text-white transition-all cursor-pointer text-center shadow-lg shadow-rose-600/15 hover:shadow-rose-600/25"
           >
-            Keluar
+            Ya, Keluar
           </button>
         </div>
       </div>
