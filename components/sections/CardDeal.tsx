@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import BusinessForm from "./BusinessForm";
+import BusinessForm from "../forms/BusinessForm";
 
 interface UnitUsaha {
   id: number;
@@ -86,10 +86,121 @@ const staticUnits: UnitUsaha[] = [
   }
 ];
 
+const ContactForm: React.FC = () => {
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !contact.trim() || !messageText.trim()) {
+      setError("Semua kolom formulir wajib diisi.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    
+    // Simulate sending message
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setSuccess(true);
+      setName("");
+      setContact("");
+      setMessageText("");
+    } catch (err) {
+      setError("Gagal mengirim pesan. Silakan coba lagi.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 text-center">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4 border border-emerald-100">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <h5 className="font-poppins font-bold text-slate-800 text-[16px] mb-1.5">Pesan Berhasil Terkirim</h5>
+        <p className="font-poppins text-xs text-slate-400 max-w-[280px] leading-relaxed">
+          Terima kasih telah menghubungi kami. Tim kami akan segera menanggapi pesan Anda secepatnya.
+        </p>
+        <button
+          type="button"
+          onClick={() => setSuccess(false)}
+          className="mt-6 px-5 py-2 text-xs font-bold text-white bg-primary-dark hover:bg-primary-dark/95 rounded-full shadow-md transition-colors cursor-pointer"
+        >
+          Kirim Pesan Baru
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <p className="text-rose-500 text-xs font-semibold font-poppins">{error}</p>
+      )}
+      <div>
+        <label htmlFor="contact_name" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Nama Lengkap</label>
+        <input
+          type="text"
+          id="contact_name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Masukkan nama lengkap Anda"
+          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all"
+        />
+      </div>
+      <div>
+        <label htmlFor="contact_info" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Email atau No. WhatsApp</label>
+        <input
+          type="text"
+          id="contact_info"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          placeholder="contoh@mail.com atau 0812345..."
+          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all"
+        />
+      </div>
+      <div>
+        <label htmlFor="contact_message" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Pesan Anda</label>
+        <textarea
+          id="contact_message"
+          rows={4}
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
+          placeholder="Tuliskan kebutuhan sistem kustom atau detail diskusi proyek Anda di sini..."
+          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all resize-none"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] text-white font-poppins font-bold text-[12px] transition-all cursor-pointer text-center flex items-center justify-center gap-2 disabled:opacity-80 shadow-md shadow-[#00b4d8]/10"
+      >
+        {loading ? (
+          <>
+            <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            Mengirim Pesan...
+          </>
+        ) : (
+          "Kirim Pesan Sekarang"
+        )}
+      </button>
+    </form>
+  );
+};
+
 const CardDeal: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"bisnis" | "contact">("bisnis");
-  const [email, setEmail] = useState("arfazaim0202@gmail.com");
-  const [message, setMessage] = useState("");
   
   // Dynamic business units states
   const [unitUsahaList, setUnitUsahaList] = useState<UnitUsaha[]>(staticUnits);
@@ -186,11 +297,6 @@ const CardDeal: React.FC = () => {
     setIsFormOpen(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Pesan terkirim!\nEmail: ${email}\nPesan: ${message}`);
-    setMessage("");
-  };
 
   // Render logo: PNG image if URL provided, fallback to placeholder icon
   const renderLogo = (logoUrl: string) => {
@@ -225,7 +331,7 @@ const CardDeal: React.FC = () => {
 
       {/* Header Section */}
       <div className="flex flex-col items-center text-center max-w-[800px] mb-12 relative z-10 font-jakarta">
-        <h2 className="font-jakarta font-extrabold xs:text-[44px] text-[32px] text-primary-dark leading-[54px] mb-4 tracking-tight">
+        <h2 className="font-poppins font-semibold xs:text-[44px] text-[32px] text-primary-dark leading-[54px] mb-4 tracking-tight">
           Unit Bisnis UMPKU
         </h2>
         <p className="font-jakarta font-normal text-dimWhite text-[16px] leading-[28px] max-w-[650px]">
@@ -268,13 +374,12 @@ const CardDeal: React.FC = () => {
               setEditingUnit(null);
               setIsFormOpen(true);
             }}
-            className="px-6 py-2.5 rounded-xl font-poppins font-bold text-[12.5px] text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:shadow-lg hover:shadow-cyan-500/20 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer flex items-center gap-2"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14M5 12h14" />
             </svg>
-            <span>Tambah Unit Bisnis</span>
+            Tambah Unit Bisnis
           </button>
         </div>
       )}
@@ -412,109 +517,99 @@ const CardDeal: React.FC = () => {
               : "opacity-0 translate-x-12 scale-95 pointer-events-none absolute top-0 left-0"
           }`}
         >
-          <div className="w-full flex flex-col lg:flex-row gap-10 bg-slate-50/30 p-6 md:p-10 rounded-[32px] border border-gray-100/80 shadow-[0_20px_50px_rgba(0,0,0,0.02)] backdrop-blur-sm">
+          {/* Transparent container without gray card background/border */}
+          <div className="w-full flex flex-col lg:flex-row gap-12 pt-6">
             
-            {/* Left Column: Contact Cards */}
-            <div className="flex-1 flex flex-col justify-center space-y-6">
-              {/* Card 1: WhatsApp */}
-              <a 
-                href="https://wa.me/6281234567890" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="group/contact flex items-center gap-5 p-5 bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_12px_30px_rgba(0,180,216,0.05)] hover:border-[#00b4d8]/20 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-600 border border-green-100/50 group-hover/contact:scale-110 transition-transform duration-300">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-poppins font-bold text-slate-800 text-[15px]">WhatsApp Bisnis</h4>
-                  <p className="font-poppins text-xs text-slate-400 mt-0.5">+62 812-3456-7890</p>
-                </div>
-              </a>
+            {/* Column 1: Info & Links (42% width on lg) */}
+            <div className="w-full lg:w-[42%] flex flex-col justify-between text-left gap-6">
+              <div>
+                <span className="text-[11px] font-extrabold text-[#00b4d8] uppercase tracking-widest block mb-3">
+                  Hubungi Kami
+                </span>
+                <h3 className="font-poppins font-extrabold text-[28px] md:text-[36px] text-slate-800 leading-tight tracking-tight">
+                  Mari Mulai <br />Sesuatu yang Hebat.
+                </h3>
+                <p className="font-poppins font-normal text-slate-400 text-[14px] leading-relaxed mt-4">
+                  Punya ide proyek digital, kebutuhan sistem kustom, atau sekadar ingin berdiskusi? Tim teknologi HelioNexus siap membantu mewujudkannya.
+                </p>
+              </div>
 
-              {/* Card 2: Email */}
-              <a 
-                href="mailto:info@umpku.ac.id" 
-                className="group/contact flex items-center gap-5 p-5 bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_12px_30px_rgba(0,180,216,0.05)] hover:border-[#00b4d8]/20 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 border border-cyan-100/50 group-hover/contact:scale-110 transition-transform duration-300">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-poppins font-bold text-slate-800 text-[15px]">Email Layanan</h4>
-                  <p className="font-poppins text-xs text-slate-400 mt-0.5">info@umpku.ac.id</p>
-                </div>
-              </a>
+              {/* Instant Contact Links */}
+              <div className="flex flex-col gap-3.5 mt-2">
+                {/* WhatsApp */}
+                <a 
+                  href="https://wa.me/6281234567890" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-emerald-500/20 hover:shadow-[0_8px_20px_rgba(16,185,129,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center border border-emerald-100/30 group-hover/contact:scale-105 transition-transform duration-300">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">WhatsApp</h4>
+                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">+62 812-3456-7890</p>
+                    </div>
+                  </div>
+                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-emerald-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
+                </a>
 
-              {/* Card 3: Address */}
-              <div className="flex items-center gap-5 p-5 bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.01)]">
-                <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100/50">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-poppins font-bold text-slate-800 text-[15px]">Kantor Pusat</h4>
-                  <p className="font-poppins text-xs text-slate-400 mt-0.5 leading-normal max-w-[280px]">
-                    Jl. Tulang Bawang V No. 25, Kadipiro, Banjarsari, Surakarta
-                  </p>
-                </div>
+                {/* Email */}
+                <a 
+                  href="mailto:info@umpku.ac.id" 
+                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-cyan-500/20 hover:shadow-[0_8px_20px_rgba(6,182,212,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-cyan-50 text-cyan-500 flex items-center justify-center border border-cyan-100/30 group-hover/contact:scale-105 transition-transform duration-300">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">Email Korespondensi</h4>
+                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">info@umpku.ac.id</p>
+                    </div>
+                  </div>
+                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-cyan-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
+                </a>
+
+                {/* Address Map Link */}
+                <a 
+                  href="https://maps.google.com/?q=Jl.+Tulang+Bawang+V+No.+25,+Kadipiro,+Banjarsari,+Surakarta" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-indigo-500/20 hover:shadow-[0_8px_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center border border-indigo-100/30 group-hover/contact:scale-105 transition-transform duration-300">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">Kantor Pusat</h4>
+                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5 leading-normal max-w-[200px] truncate">
+                        Jl. Tulang Bawang V No. 25, Surakarta
+                      </p>
+                    </div>
+                  </div>
+                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-indigo-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
+                </a>
               </div>
             </div>
 
-            {/* Right Column: Interactive Form */}
-            <div className="flex-1 bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-[0_4px_25px_rgba(0,0,0,0.01)] flex flex-col justify-between">
-              <div>
-                <h3 className="font-poppins font-bold text-slate-800 text-[18px]">
-                  Kirim Pesan Cepat
-                </h3>
-                <p className="font-poppins text-xs text-slate-400 mt-1 max-w-[400px]">
-                  Hubungi kami secara langsung untuk mengajukan penawaran kerjasama atau sekadar bertanya.
-                </p>
-
-                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-poppins font-bold text-[10.5px] text-slate-400 uppercase tracking-widest">
-                      Alamat Email
-                    </label>
-                    <input 
-                      type="email" 
-                      required
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder="nama@perusahaan.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-cyan-500 font-poppins text-[13.5px]"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-poppins font-bold text-[10.5px] text-slate-400 uppercase tracking-widest">
-                      Detail Pesan
-                    </label>
-                    <textarea 
-                      rows={4}
-                      required
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      placeholder="Tulis pesan Anda disini..."
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-cyan-500 font-poppins text-[13.5px] resize-none"
-                    />
-                  </div>
-
-                  <button 
-                    type="submit"
-                    className="w-full py-3 rounded-xl font-poppins font-bold text-[13.5px] text-white bg-primary-dark hover:brightness-110 transition-all cursor-pointer shadow-md shadow-primary-dark/10"
-                  >
-                    Kirim Sekarang
-                  </button>
-                </form>
-              </div>
+            {/* Column 2: Direct Contact Form (58% width on lg) */}
+            <div className="w-full lg:w-[58%] bg-white border border-slate-150 rounded-3xl p-6 md:p-8 shadow-[0_4px_25px_rgba(15,23,42,0.03)] flex flex-col justify-center">
+              <h4 className="font-poppins font-bold text-[15px] text-slate-800 mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#00b4d8] animate-pulse" />
+                Hubungi Langsung
+              </h4>
+              <ContactForm />
             </div>
 
           </div>

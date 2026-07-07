@@ -278,13 +278,10 @@ async function initDB() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
-  // Pastikan ada nilai default untuk gsheet_csv_url
+  // Pastikan ada nilai default untuk gsheet_csv_url jika belum ada
   const [settingsRows] = await pool.query("SELECT COUNT(*) as count FROM settings WHERE key_name = 'gsheet_csv_url'");
   if (settingsRows[0].count === 0) {
     await pool.query("INSERT INTO settings (key_name, key_value) VALUES ('gsheet_csv_url', 'https://docs.google.com/spreadsheets/d/1AUBCbn-CdArfspvHv3fKppcJoYv6rtRp0LcS0R0CELE/export?format=csv')");
-  } else {
-    // Selalu update agar menunjuk ke URL baru jika database sudah terbentuk
-    await pool.query("UPDATE settings SET key_value = 'https://docs.google.com/spreadsheets/d/1AUBCbn-CdArfspvHv3fKppcJoYv6rtRp0LcS0R0CELE/export?format=csv' WHERE key_name = 'gsheet_csv_url'");
   }
 }
 

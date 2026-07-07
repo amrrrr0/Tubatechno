@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import TestimonialForm, { TestimonialEditData } from "./TestimonialForm";
-import PublicTestimonialForm from "./PublicTestimonialForm";
+import TestimonialForm, { TestimonialEditData } from "../forms/TestimonialForm";
+import PublicTestimonialForm from "../forms/PublicTestimonialForm";
 
 interface Testimonial {
   id: number;

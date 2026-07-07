@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
-  <!-- Flutter diamond -->
-  <polygon points="20,4 32,16 26,22 14,10" fill="#54C5F8"/>
-  <polygon points="14,22 26,22 20,28 8,28" fill="#01579B"/>
-  <polygon points="20,28 32,28 26,34 14,34" fill="#29B6F6"/>
-  <text x="40" y="26" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#000">Flutter</text>
-</svg>

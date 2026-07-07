@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "HelioNexus - Software House & Solusi Digital",
   description: "Software House inovatif Universitas Muhammadiyah PKU Surakarta, menghadirkan solusi Web, Mobile App, UI/UX, AI, dan IoT.",
   icons: {
-    icon: "/assets/logo-icon.svg",
+    icon: "/assets/brand/logo-icon.svg",
   },
 };
 

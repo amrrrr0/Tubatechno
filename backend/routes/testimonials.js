@@ -45,8 +45,9 @@ async function syncGoogleSheet() {
       return { success: false, message: "URL Google Sheets CSV belum dikonfigurasi." };
     }
 
-    console.log(`[GSheet Sync] Mengambil data dari URL: ${csvUrl}`);
-    const response = await fetch(csvUrl);
+    const fetchUrl = csvUrl.trim() + (csvUrl.includes("?") ? "&" : "?") + "nocache=" + Date.now();
+    console.log(`[GSheet Sync] Mengambil data dari URL: ${fetchUrl}`);
+    const response = await fetch(fetchUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -62,8 +63,8 @@ async function syncGoogleSheet() {
     
     // Temukan indeks kolom secara fleksibel
     const nameIdx = header.findIndex(h => h.includes("nama") || h.includes("name"));
-    const titleIdx = header.findIndex(h => h.includes("jabatan") || h.includes("peran") || h.includes("title") || h.includes("role") || h.includes("instansi"));
-    const contentIdx = header.findIndex(h => h.includes("testimoni") || h.includes("ulasan") || h.includes("content") || h.includes("review") || h.includes("saran"));
+    const titleIdx = header.findIndex(h => h.includes("jabatan") || h.includes("peran") || h.includes("title") || h.includes("role") || h.includes("instansi") || h.includes("pekerjaan") || h.includes("profesi"));
+    const contentIdx = header.findIndex(h => h.includes("testimoni") || h.includes("ulasan") || h.includes("content") || h.includes("review") || h.includes("saran") || h.includes("pesan") || h.includes("isi"));
     const ratingIdx = header.findIndex(h => h.includes("rating") || h.includes("bintang") || h.includes("skor") || h.includes("nilai"));
 
     if (nameIdx === -1 || titleIdx === -1 || contentIdx === -1) {

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
-  <!-- Laravel flame -->
-  <path d="M20 4 C20 4 8 14 8 22 C8 30 13 36 20 36 C27 36 32 30 32 22 C32 14 20 4 20 4Z" fill="#FF2D20"/>
-  <path d="M20 14 C20 14 13 20 13 25 C13 30 16 33 20 33 C24 33 27 30 27 25 C27 20 20 14 20 14Z" fill="white" opacity="0.3"/>
-  <text x="40" y="26" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#000">Laravel</text>
-</svg>

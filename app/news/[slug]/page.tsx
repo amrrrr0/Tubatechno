@@ -68,6 +68,14 @@ export default function ArticleDetailPage() {
     fetchDetailAndOthers();
   }, [slug]);
 
+  useEffect(() => {
+    if (news) {
+      document.title = `${news.seo_title || news.title} | HelioNexus`;
+    } else {
+      document.title = "Detail Berita | HelioNexus";
+    }
+  }, [news]);
+
   if (loading) {
     return (
       <main className="bg-primary w-full min-h-screen flex flex-col justify-between">

@@ -1,9 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
 import styles from "@/styles/style";
 import { Navbar, Footer, News } from "@/components";
 
 export default function NewsPage() {
+  useEffect(() => {
+    document.title = "Daftar Berita | HelioNexus";
+  }, []);
+
   return (
     <main className="motion-page bg-primary w-full overflow-hidden min-h-screen flex flex-col justify-between">
       {/* Navbar Wrapper */}

@@ -1,22 +1,16 @@
 
-import logo from "./logo.svg";
-import quotes from "./quotes.svg";
-import send from "./Send.svg";
-import shield from "./Shield.svg";
-import star from "./Star.svg";
-import menu from "./menu.svg";
-import close from "./close.svg";
-import google from "./google.svg";
-import apple from "./apple.svg";
-import arrowUp from "./arrow-up.svg";
-import discount from "./Discount.svg";
-import facebook from "./facebook.svg";
-import instagram from "./instagram.svg";
-import linkedin from "./linkedin.svg";
-import twitter from "./twitter.svg";
-import people01 from "./people01.png";
-import people02 from "./people02.png";
-import people03 from "./people03.png";
+import logo from "./brand/logo.svg";
+import quotes from "./icons/quotes.svg";
+import send from "./icons/Send.svg";
+import shield from "./icons/Shield.svg";
+import star from "./icons/Star.svg";
+import menu from "./icons/menu.svg";
+import close from "./icons/close.svg";
+import discount from "./icons/Discount.svg";
+import facebook from "./socials/facebook.svg";
+import instagram from "./socials/instagram.svg";
+import linkedin from "./socials/linkedin.svg";
+import twitter from "./socials/twitter.svg";
 
 export {
   logo,
@@ -26,15 +20,9 @@ export {
   star,
   menu,
   close,
-  google,
-  apple,
-  arrowUp,
   discount,
   facebook,
   instagram,
   linkedin,
   twitter,
-  people01,
-  people02,
-  people03,
 };

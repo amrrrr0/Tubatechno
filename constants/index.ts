@@ -1,4 +1,4 @@
-import { people01, people02, people03, facebook, instagram, linkedin, twitter, send, shield, star } from "@/public/assets";
+import { facebook, instagram, linkedin, twitter, send, shield, star } from "@/public/assets";
 
 export const navLinks = [
     {
@@ -43,32 +43,6 @@ export const features = [
     },
 ];
 
-export const feedback = [
-    {
-        id: "feedback-1",
-        content:
-            "Layanan web development HelioNexus sangat responsif. Web kustom kami membantu digitalisasi transaksi koperasi dengan sangat cepat dan mudah dipahami anggota.",
-        name: "Dr. H. Ahmad Fauzi",
-        title: "Ketua Koperasi Mitra Surakarta",
-        img: people01,
-    },
-    {
-        id: "feedback-2",
-        content:
-            "Integrasi IoT dari HelioNexus untuk otomatisasi sistem pemantauan klinik kami bekerja sangat akurat. Timnya sangat komunikatif dan profesional.",
-        name: "Rina Astuti, S.Kep.",
-        title: "Kepala Administrasi Klinik PKU",
-        img: people02,
-    },
-    {
-        id: "feedback-3",
-        content:
-            "Desain UI/UX aplikasi mobile yang dibuat sangat modern dan elegan. Pengguna kami sangat menyukai navigasinya yang intuitif dan estetik.",
-        name: "Budi Prasetyo, M.T.",
-        title: "Direktur PT Tekno Inovasi",
-        img: people03,
-    },
-];
 
 export const stats = [
     {
@@ -210,5 +184,45 @@ export const clients = [
         id: "client-6",
         logo: "https://cdn.simpleicons.org/flutter/54C5F8",
         name: "Flutter",
+    },
+    {
+        id: "client-7",
+        logo: "https://cdn.simpleicons.org/nuxt/00DC82",
+        name: "Nuxt.js",
+    },
+    {
+        id: "client-8",
+        logo: "https://cdn.simpleicons.org/vuedotjs/4FC08D",
+        name: "Vue.js",
+    },
+    {
+        id: "client-9",
+        logo: "https://cdn.simpleicons.org/express/000000",
+        name: "Express.js",
+    },
+    {
+        id: "client-10",
+        logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4",
+        name: "Tailwind CSS",
+    },
+    {
+        id: "client-11",
+        logo: "https://cdn.simpleicons.org/bootstrap/7952B3",
+        name: "Bootstrap",
+    },
+    {
+        id: "client-12",
+        logo: "https://cdn.simpleicons.org/python/3776AB",
+        name: "Python",
+    },
+    {
+        id: "client-13",
+        logo: "https://cdn.simpleicons.org/go/00ADD8",
+        name: "Go",
+    },
+    {
+        id: "client-14",
+        logo: "https://cdn.simpleicons.org/docker/2496ED",
+        name: "Docker",
     },
 ];

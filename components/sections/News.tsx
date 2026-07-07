@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import NewsForm from "./NewsForm";
+import NewsForm from "../forms/NewsForm";
 
 interface NewsItem {
   id: number;
@@ -312,7 +312,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
             {isDashboard ? (
               <>Artikel &amp; Berita CMS Pilihan Utama</>
             ) : (
-              <>Semua Artikel &amp; Berita CMS <br className="sm:block hidden" /> SEO Terintegrasi</>
+              <>Semua Artikel &amp; Berita CMS SEO Terintegrasi</>
             )}
           </h2>
           <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[600px] mt-3 mx-auto">
@@ -431,13 +431,19 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
       </div>
 
       {/* Berita Lainnya button below grid - Visible in Dashboard */}
-      {isDashboard && filteredNews.length > 3 && (
-        <div className="flex justify-center mt-12 relative z-[1]">
+      {isDashboard && filteredNews.length > 0 && (
+        <div className="flex justify-center mt-10 relative z-[1]">
           <Link
             href="/news"
-            className="px-8 py-3.5 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 duration-200 select-none"
+            className="group/btn font-poppins font-semibold text-[15px] text-[#00b4d8] hover:text-[#0077b6] flex items-center gap-1.5 transition-colors duration-200 cursor-pointer select-none"
           >
-            Berita Lainnya
+            Lihat Semua Berita
+            <svg
+              width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+              className="transform group-hover/btn:translate-x-1 transition-transform duration-200"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </Link>
         </div>
       )}
@@ -490,9 +496,12 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
 
   const handleKeyPress = (num: string) => {
     setErrorMsg("");
-    if (pin.length < 4) {
-      setPin((prev) => prev + num);
-    }
+    setPin((prev) => {
+      if (prev.length < 4) {
+        return prev + num;
+      }
+      return prev;
+    });
   };
 
   // Automatically submit when PIN reaches 4 characters
@@ -541,7 +550,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [pin]);
+  }, [onClose]);
 
   if (!mounted) return null;
 
@@ -681,7 +690,7 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
         }}
       >
         {/* Top Decorative Line */}
-        <div className="absolute top-0 inset-x-0 h-[4.5px] bg-gradient-to-r from-red-500 to-amber-500" />
+        <div className="absolute top-0 inset-x-0 h-[4.5px] bg-gradient-to-r from-red-500 to-rose-600" />
         
         {/* Warning Icon Center */}
         <div className="flex flex-col items-center mt-2 mb-6 text-center">

@@ -11,9 +11,3 @@ export interface ButtonProps {
     styles?: string;
 }
 
-export interface FeedBackProps {
-    content: string;
-    title: string;
-    name: string;
-    img: StaticImageData;
-}
