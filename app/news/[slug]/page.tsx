@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "@/styles/style";
 import { Navbar, Footer } from "@/components";
+import { getApiUrl } from "@/utils/api";
 
 interface NewsItem {
   id: number;
@@ -38,18 +39,18 @@ export default function ArticleDetailPage() {
       setError(false);
       try {
         // Fetch article detail
-        const res = await fetch(`http://localhost:5000/api/news/${slug}`);
+        const res = await fetch(getApiUrl(`/api/news/${slug}`));
         const data = await res.json();
         if (data.success) {
           setNews(data.data);
           
           // Increment view count
-          fetch(`http://localhost:5000/api/news/id/${data.data.id}/view`, {
+          fetch(getApiUrl(`/api/news/id/${data.data.id}/view`), {
             method: "POST",
           }).catch((err) => console.error("View increment error:", err));
 
           // Fetch other news list (excluding current slug)
-          const listRes = await fetch("http://localhost:5000/api/news?status=published");
+          const listRes = await fetch(getApiUrl("/api/news?status=published"));
           const listData = await listRes.json();
           if (listData.success) {
             setOtherNewsList(listData.data.filter((item: NewsItem) => item.slug !== slug));

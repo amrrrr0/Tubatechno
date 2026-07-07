@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import BusinessForm from "../forms/BusinessForm";
+import { getApiUrl } from "@/utils/api";
 
 interface UnitUsaha {
   id: number;
@@ -211,7 +212,7 @@ const CardDeal: React.FC = () => {
   // Fetch business units from API
   const fetchBusinessUnits = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/business-units");
+      const res = await fetch(getApiUrl("/api/business-units"));
       const data = await res.json();
       if (data.success && Array.isArray(data.data)) {
         // Map API response: logoUrl comes from logo_type field, websiteUrl from website_url
@@ -274,7 +275,7 @@ const CardDeal: React.FC = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/business-units/${id}`, {
+      const res = await fetch(getApiUrl(`/api/business-units/${id}`), {
         method: "DELETE"
       });
       const data = await res.json();
@@ -332,10 +333,10 @@ const CardDeal: React.FC = () => {
       {/* Header Section */}
       <div className="flex flex-col items-center text-center max-w-[800px] mb-12 relative z-10 font-jakarta">
         <h2 className="font-poppins font-semibold xs:text-[44px] text-[32px] text-primary-dark leading-[54px] mb-4 tracking-tight">
-          Unit Bisnis UMPKU
+          Unit Bisnis Helio Nexus
         </h2>
         <p className="font-jakarta font-normal text-dimWhite text-[16px] leading-[28px] max-w-[650px]">
-          Sinergi unit usaha Universitas Muhammadiyah PKU Surakarta untuk menyajikan layanan profesional bernilai sosial-ekonomi tinggi.
+          Sinergi unit usaha Helio Nexus untuk menyajikan layanan profesional bernilai sosial-ekonomi tinggi.
         </p>
 
         {/* Decorative Toggle */}

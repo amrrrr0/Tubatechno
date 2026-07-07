@@ -43,7 +43,7 @@ router.post("/logo", upload.single("logo"), (req, res) => {
       return res.status(400).json({ success: false, message: "Tidak ada file yang diunggah." });
     }
 
-    const fileUrl = `http://localhost:5000/uploads/logos/${req.file.filename}`;
+    const fileUrl = `http://${req.headers.host}/uploads/logos/${req.file.filename}`;
     return res.json({
       success: true,
       message: "Logo berhasil diunggah.",

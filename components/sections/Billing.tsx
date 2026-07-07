@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styles, { layout } from "@/styles/style";
+import { getApiUrl } from "@/utils/api";
 
 interface BusinessUnit {
   id: number;
@@ -22,7 +23,7 @@ const Billing: React.FC = () => {
   useEffect(() => {
     const fetchUnits = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/business-units");
+        const res = await fetch(getApiUrl("/api/business-units"));
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
           setUnits(data.data);

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NewsForm from "../forms/NewsForm";
+import { getApiUrl } from "@/utils/api";
 
 interface NewsItem {
   id: number;
@@ -174,7 +175,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
     setError(false);
     try {
       // Fetching all (both draft and published) to filter client side
-      const res = await fetch("http://localhost:5000/api/news?status=all");
+      const res = await fetch(getApiUrl("/api/news?status=all"));
       const data = await res.json();
       if (data.success) {
         setAllNews(data.data);

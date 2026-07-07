@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { getApiUrl } from "@/utils/api";
 
 export interface TestimonialEditData {
   id: number;
@@ -110,8 +111,8 @@ const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
 
     try {
       const url = isEdit
-        ? `http://localhost:5000/api/testimonials/${editData!.id}`
-        : "http://localhost:5000/api/testimonials";
+        ? getApiUrl(`/api/testimonials/${editData!.id}`)
+        : getApiUrl("/api/testimonials");
       const method = isEdit ? "PUT" : "POST";
 
       const res = await fetch(url, {

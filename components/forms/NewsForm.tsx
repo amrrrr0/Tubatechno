@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { getApiUrl } from "@/utils/api";
 
 interface Props {
   onClose: () => void;
@@ -47,7 +48,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
     setErrorMsg("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/news", {
+      const res = await fetch(getApiUrl("/api/news"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

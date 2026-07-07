@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import TestimonialForm, { TestimonialEditData } from "../forms/TestimonialForm";
 import PublicTestimonialForm from "../forms/PublicTestimonialForm";
+import { getApiUrl } from "@/utils/api";
 
 interface Testimonial {
   id: number;
@@ -182,7 +183,7 @@ const Testimonials: React.FC = () => {
   // Ambil data settings gsheet
   const fetchSyncUrl = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/testimonials/settings");
+      const res = await fetch(getApiUrl("/api/testimonials/settings"));
       const data = await res.json();
       if (data.success) {
         setSyncUrl(data.gsheet_csv_url || "");
@@ -222,7 +223,7 @@ const Testimonials: React.FC = () => {
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch("http://localhost:5000/api/testimonials");
+      const res = await fetch(getApiUrl("/api/testimonials"));
       const data = await res.json();
       if (data.success) setTestimonials(data.data);
       else setError(true);
@@ -245,7 +246,7 @@ const Testimonials: React.FC = () => {
   const handleDeleteConfirm = async () => {
     if (deleteConfirmId === null) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/testimonials/${deleteConfirmId}`, { method: "DELETE" });
+      const res = await fetch(getApiUrl(`/api/testimonials/${deleteConfirmId}`), { method: "DELETE" });
       const data = await res.json();
       if (data.success) setTestimonials(prev => prev.filter(t => t.id !== deleteConfirmId));
     } catch { /* ignore */ }
@@ -260,7 +261,7 @@ const Testimonials: React.FC = () => {
 
     try {
       // 1. Simpan URL ke tabel settings
-      const saveRes = await fetch("http://localhost:5000/api/testimonials/settings", {
+      const saveRes = await fetch(getApiUrl("/api/testimonials/settings"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ gsheet_csv_url: syncUrl })
@@ -269,7 +270,7 @@ const Testimonials: React.FC = () => {
       if (!saveData.success) throw new Error(saveData.message || "Gagal menyimpan URL.");
 
       // 2. Trigger sync di backend
-      const syncRes = await fetch("http://localhost:5000/api/testimonials/sync-gsheet", {
+      const syncRes = await fetch(getApiUrl("/api/testimonials/sync-gsheet"), {
         method: "POST"
       });
       const syncData = await syncRes.json();

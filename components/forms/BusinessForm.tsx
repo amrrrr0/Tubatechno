@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { getApiUrl } from "@/utils/api";
 
 interface BusinessFormProps {
   isOpen: boolean;
@@ -94,7 +95,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
     formData.append("logo", file);
 
     try {
-      const res = await fetch("http://localhost:5000/api/upload/logo", {
+      const res = await fetch(getApiUrl("/api/upload/logo"), {
         method: "POST",
         body: formData
       });
@@ -175,8 +176,8 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
 
     try {
       const url = editData
-        ? `http://localhost:5000/api/business-units/${editData.id}`
-        : "http://localhost:5000/api/business-units";
+        ? getApiUrl(`/api/business-units/${editData.id}`)
+        : getApiUrl("/api/business-units");
 
       const res = await fetch(url, {
         method: editData ? "PUT" : "POST",
