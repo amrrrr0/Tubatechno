@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { close, logo, menu } from "@/public/assets";
 import { navLinks } from "@/constants";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const [toggle, setToggle] = useState(false);
@@ -87,6 +88,8 @@ const Navbar: React.FC = () => {
                       <line x1="10" y1="14" x2="21" y2="3" />
                     </svg>
                   </a>
+                ) : (nav as any).route ? (
+                  <Link href={(nav as any).route}>{nav.title}</Link>
                 ) : (
                   <a href={getLinkHref(nav.id)}>{nav.title}</a>
                 )}
@@ -141,6 +144,10 @@ const Navbar: React.FC = () => {
                           <line x1="10" y1="14" x2="21" y2="3" />
                         </svg>
                       </a>
+                    ) : (nav as any).route ? (
+                      <Link href={(nav as any).route} onClick={() => setToggle(false)}>
+                        {nav.title}
+                      </Link>
                     ) : (
                       <a href={getLinkHref(nav.id)} onClick={() => setToggle(false)}>
                         {nav.title}

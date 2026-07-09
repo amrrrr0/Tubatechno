@@ -250,6 +250,7 @@ const CardDeal: React.FC = () => {
     };
   }, []);
 
+
   // Listen to hash change for scrolling to contact form
   useEffect(() => {
     const checkHash = () => {

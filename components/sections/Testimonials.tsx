@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import TestimonialForm, { TestimonialEditData } from "../forms/TestimonialForm";
-import PublicTestimonialForm from "../forms/PublicTestimonialForm";
 import { getApiUrl } from "@/utils/api";
 
 interface Testimonial {
@@ -169,7 +168,7 @@ const Testimonials: React.FC = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [showPublicForm, setShowPublicForm] = useState(false);
+  const [isPublicFormOpen, setIsPublicFormOpen] = useState(false);
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [syncUrl, setSyncUrl] = useState("");
@@ -378,7 +377,7 @@ const Testimonials: React.FC = () => {
               </p>
               <button
                 type="button"
-                onClick={() => setShowPublicForm(true)}
+                onClick={() => setIsPublicFormOpen(true)}
                 className="font-poppins text-[13px] text-[#00b4d8] hover:underline cursor-pointer"
               >
                 Tulis testimoni sekarang →
@@ -414,9 +413,10 @@ const Testimonials: React.FC = () => {
       </section>
 
       {/* Public submit form */}
-      {showPublicForm && (
-        <PublicTestimonialForm
-          onClose={() => setShowPublicForm(false)}
+      {isPublicFormOpen && (
+        <TestimonialForm
+          isPublic={true}
+          onClose={() => setIsPublicFormOpen(false)}
           onSuccess={fetchTestimonials}
         />
       )}

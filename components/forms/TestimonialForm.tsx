@@ -16,6 +16,7 @@ interface Props {
   onClose: () => void;
   onSuccess: () => void;
   editData?: TestimonialEditData | null;
+  isPublic?: boolean;
 }
 
 const StarSelector: React.FC<{
@@ -53,8 +54,8 @@ const StarSelector: React.FC<{
   );
 };
 
-const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
-  const isEdit = !!editData;
+const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData, isPublic = false }) => {
+  const isEdit = !!editData && !isPublic;
   const [form, setForm] = useState({
     name: editData?.name ?? "",
     title: editData?.title ?? "",
@@ -161,10 +162,10 @@ const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
               </div>
               <div>
                 <h3 className="font-poppins font-bold text-slate-800 text-[19px] leading-tight">
-                  {isEdit ? "Edit Testimoni" : "Tambah Testimoni"}
+                  {isPublic ? "Berikan Testimoni Anda" : (isEdit ? "Edit Testimoni" : "Tambah Testimoni")}
                 </h3>
                 <p className="font-poppins text-xs text-slate-400 mt-0.5">
-                  {isEdit ? "Perbarui data testimoni yang ada" : "Tambahkan testimoni baru secara manual"}
+                  {isPublic ? "Bagikan pengalaman Anda tentang kami" : (isEdit ? "Perbarui data testimoni yang ada" : "Tambahkan testimoni baru secara manual")}
                 </p>
               </div>
             </div>
@@ -185,7 +186,7 @@ const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
               </div>
               <div className="text-center">
                 <p className="font-poppins font-bold text-[16px] text-slate-800">
-                  {isEdit ? "Testimoni Berhasil Diperbarui!" : "Testimoni Berhasil Ditambahkan!"}
+                  {isPublic ? "Testimoni Berhasil Dikirim!" : (isEdit ? "Testimoni Berhasil Diperbarui!" : "Testimoni Berhasil Ditambahkan!")}
                 </p>
                 <p className="font-poppins text-[13px] text-slate-400 mt-1">Halaman akan diperbarui...</p>
               </div>
@@ -315,7 +316,7 @@ const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
               ) : (
                 <>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
-                  {isEdit ? "Perbarui" : "Simpan Testimoni"}
+                  {isPublic ? "Kirim Testimoni" : (isEdit ? "Perbarui" : "Simpan Testimoni")}
                 </>
               )}
             </button>

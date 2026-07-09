@@ -9,12 +9,14 @@ import Footer from "./layout/Footer";
 import Testimonials from "./sections/Testimonials";
 import Hero from "./sections/Hero";
 import TestimonialForm from "./forms/TestimonialForm";
-import PublicTestimonialForm from "./forms/PublicTestimonialForm";
+
 import News from "./sections/News";
 import BusinessForm from "./forms/BusinessForm";
+import Pricing from "./sections/Pricing";
 
 export {
     Navbar,
+    Pricing,
     Billing,
     CardDeal,
     Business,
@@ -25,7 +27,7 @@ export {
     Testimonials,
     Hero,
     TestimonialForm,
-    PublicTestimonialForm,
+
     News,
     BusinessForm,
 };

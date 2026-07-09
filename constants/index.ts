@@ -17,6 +17,11 @@ export const navLinks = [
         id: "clients",
         title: "Testimoni",
     },
+    {
+        id: "pricing",
+        title: "Harga",
+        route: "/pricing",
+    },
 ];
 
 export const features = [

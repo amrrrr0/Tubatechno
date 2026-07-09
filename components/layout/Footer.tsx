@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
         <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-6">
           <p
             onClick={handleFooterClick}
-            className="font-poppins font-normal text-slate-400 text-[13px] hover:text-slate-700 transition-colors cursor-pointer select-none text-center sm:text-left leading-relaxed"
+            className="font-poppins font-normal text-[#8ba3b8] text-[13px] transition-colors select-none text-center sm:text-left leading-relaxed"
           >
             &copy; 2026 HelioNexus - Universitas Muhammadiyah PKU Surakarta. All Rights Reserved.
           </p>

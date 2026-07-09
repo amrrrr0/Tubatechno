@@ -283,6 +283,67 @@ async function initDB() {
   if (settingsRows[0].count === 0) {
     await pool.query("INSERT INTO settings (key_name, key_value) VALUES ('gsheet_csv_url', 'https://docs.google.com/spreadsheets/d/1AUBCbn-CdArfspvHv3fKppcJoYv6rtRp0LcS0R0CELE/export?format=csv')");
   }
+
+  // 8. Buat tabel pricing_packages jika belum ada
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS pricing_packages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(150) NOT NULL,
+      price VARCHAR(100) NOT NULL,
+      period VARCHAR(100) DEFAULT '',
+      billing_type VARCHAR(50) NOT NULL, -- 'subscription' or 'lifetime'
+      features TEXT NOT NULL, -- JSON array
+      is_popular TINYINT(1) NOT NULL DEFAULT 0,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // 9. Cek data default pricing_packages dan seed jika kosong
+  const [pricingRows] = await pool.query("SELECT COUNT(*) as count FROM pricing_packages");
+  if (pricingRows[0].count === 0) {
+    const pricingSeedData = [
+      // Subscription Plans
+      [
+        "Starter", "Rp299.000", "/bulan", "subscription",
+        JSON.stringify(["25 User", "1 Admin", "Cloud Hosting", "Backup Harian", "SSL", "Update Sistem", "Support"]),
+        0
+      ],
+      [
+        "Business", "Rp799.000", "/bulan", "subscription",
+        JSON.stringify(["150 User", "Multi Admin", "Domain Gratis", "Cloud Hosting", "Backup", "API", "Prioritas Support"]),
+        1
+      ],
+      [
+        "Enterprise", "Custom", "", "subscription",
+        JSON.stringify(["Unlimited User", "Unlimited Cabang", "Dedicated Server", "Custom Fitur", "Integrasi API", "Training", "SLA"]),
+        0
+      ],
+      // Lifetime Plans
+      [
+        "Basic License", "Rp12.000.000", "/sekali bayar", "lifetime",
+        JSON.stringify(["Source Code", "Instalasi", "Dokumentasi", "1 Tahun Support"]),
+        0
+      ],
+      [
+        "Professional", "Rp25.000.000", "/sekali bayar", "lifetime",
+        JSON.stringify(["Source Code", "Custom Branding", "Training", "2 Tahun Support"]),
+        1
+      ],
+      [
+        "Enterprise", "Custom", "Pricing", "lifetime",
+        JSON.stringify(["Source Code", "Custom Development", "Integrasi Sistem", "Multi Cabang", "Maintenance"]),
+        0
+      ]
+    ];
+
+    await pool.query(
+      `INSERT INTO pricing_packages (name, price, period, billing_type, features, is_popular) VALUES ?`,
+      [pricingSeedData]
+    );
+
+    console.log("✅ Database MySQL di-seed dengan 6 paket harga default.");
+  }
 }
 
 function ensureDB() {

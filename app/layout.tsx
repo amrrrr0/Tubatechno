@@ -9,7 +9,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "HelioNexus - Software House & Solusi Digital",
+  title: "HelioNexus",
   description: "Software House inovatif Universitas Muhammadiyah PKU Surakarta, menghadirkan solusi Web, Mobile App, UI/UX, AI, dan IoT.",
   icons: {
     icon: "/assets/brand/logo-icon.svg",
