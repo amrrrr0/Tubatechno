@@ -94,15 +94,12 @@ body {
   animation: pageEnter 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.motion-page section {
-  animation: sectionReveal 820ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 80ms;
-}
+/* section reveal dihandle oleh ScrollReveal (IntersectionObserver) */
 
-.motion-page :where(a, button, input, textarea, iframe, img) {
-  transition-duration: 280ms;
-  transition-property: background-color, border-color, box-shadow, color, filter, opacity, transform;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+/* Hanya tombol & link yang perlu hover transition — property minimal */
+.motion-page :where(a, button) {
+  transition: opacity 200ms ease, transform 200ms ease;
 }
 
 .motion-page :where(a, button):focus-visible,
@@ -1149,14 +1146,46 @@ body {
   }
 }
 
-@supports (animation-timeline: view()) {
-  .motion-page section:not(.hero-section) {
-    animation-duration: 1ms;
-    animation-delay: 0ms;
-    animation-timeline: view();
-    animation-range: entry 0% cover 28%;
+/* ═══════════════════════════════════════════════════════
+   SCROLL REVEAL — Professional Fade System
+   ─────────────────────────────────────────────────────── */
+
+/* ── Base state: hanya 2 property GPU-composited ── */
+.scroll-anim {
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 900ms;
+}
+
+/* ── Visible: kelas ditambahkan oleh shared IntersectionObserver ── */
+.scroll-anim--visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ── Hidden state: translateY saja (zero compositing overhead vs scale) ── */
+.scroll-anim--fade-up,
+.scroll-anim--fade-down,
+.scroll-anim--fade-left,
+.scroll-anim--fade-right,
+.scroll-anim--zoom-in,
+.scroll-anim--slide-up {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-anim {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
+
+
+
+
 
 @media (max-width: 1060px) {
   .website-3d-stage {

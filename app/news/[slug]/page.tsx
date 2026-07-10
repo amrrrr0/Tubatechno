@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import styles from "@/styles/style";
 import { Navbar, Footer } from "@/components";
 import { getApiUrl } from "@/utils/api";
+import ScrollReveal from "@/components/ScrollReveal";
 
 interface NewsItem {
   id: number;
@@ -38,18 +39,15 @@ export default function ArticleDetailPage() {
       setLoading(true);
       setError(false);
       try {
-        // Fetch article detail
         const res = await fetch(getApiUrl(`/api/news/${slug}`));
         const data = await res.json();
         if (data.success) {
           setNews(data.data);
-          
-          // Increment view count
+
           fetch(getApiUrl(`/api/news/id/${data.data.id}/view`), {
             method: "POST",
           }).catch((err) => console.error("View increment error:", err));
 
-          // Fetch other news list (excluding current slug)
           const listRes = await fetch(getApiUrl("/api/news?status=published"));
           const listData = await listRes.json();
           if (listData.success) {
@@ -77,10 +75,10 @@ export default function ArticleDetailPage() {
     }
   }, [news]);
 
+  /* ── Loading state ── */
   if (loading) {
     return (
       <main className="bg-primary w-full min-h-screen flex flex-col justify-between">
-        {/* Navbar Wrapper */}
         <div className={`${styles.paddingX} ${styles.flexCenter}`}>
           <div className={`${styles.boxWidth}`}>
             <Navbar />
@@ -95,7 +93,6 @@ export default function ArticleDetailPage() {
           <span className="font-poppins text-[14px] text-dimWhite">Memuat artikel...</span>
         </div>
 
-        {/* Footer */}
         <div className={`bg-primary ${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Footer />
@@ -105,10 +102,10 @@ export default function ArticleDetailPage() {
     );
   }
 
+  /* ── Error state ── */
   if (error || !news) {
     return (
       <main className="bg-primary w-full min-h-screen flex flex-col justify-between">
-        {/* Navbar Wrapper */}
         <div className={`${styles.paddingX} ${styles.flexCenter}`}>
           <div className={`${styles.boxWidth}`}>
             <Navbar />
@@ -128,7 +125,6 @@ export default function ArticleDetailPage() {
           </a>
         </div>
 
-        {/* Footer */}
         <div className={`bg-primary ${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Footer />
@@ -156,6 +152,7 @@ export default function ArticleDetailPage() {
 
   return (
     <main className="motion-page bg-primary w-full overflow-hidden min-h-screen flex flex-col justify-between">
+
       {/* Navbar */}
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
@@ -166,41 +163,44 @@ export default function ArticleDetailPage() {
       {/* Content */}
       <div className={`bg-primary ${styles.paddingX} flex-1 pb-16`}>
         <div className={`${styles.boxWidth} mt-8`}>
+
           {/* Back button */}
-          <div className="mb-6">
-            <a
-              href="/news"
-              className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                className="group-hover:-translate-x-1 transition-transform"
+          <ScrollReveal variant="fade-up" duration={700} threshold={0.01}>
+            <div className="mb-6">
+              <a
+                href="/news"
+                className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group"
               >
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-              </svg>
-              Kembali ke Semua Berita
-            </a>
-          </div>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  className="group-hover:-translate-x-1 transition-transform"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                Kembali ke Semua Berita
+              </a>
+            </div>
+          </ScrollReveal>
 
-          {/* Two-Column Grid: Sidebar (Left) and Article Content (Right) */}
+          {/* Two-Column Grid */}
           <div className="flex flex-col lg:flex-row gap-8 items-start">
-            
-            {/* Sidebar Column (Left on Desktop) */}
-            <aside className="w-full lg:w-[220px] xl:w-[260px] flex-shrink-0">
-              <div className="sticky top-6">
-                <h3 className="font-poppins font-bold text-[13px] text-[#00b4d8] uppercase tracking-wider mb-4 pb-2.5 border-b border-gray-800 select-none">
-                  Berita Lainnya
-                </h3>
 
-                <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto pr-1 scrollbar-thin">
-                  {otherNewsList.map((item) => {
-                    return (
+            {/* Sidebar */}
+            <ScrollReveal variant="fade-up" duration={900} delay={100} threshold={0.04}>
+              <aside className="w-full lg:w-[220px] xl:w-[260px] flex-shrink-0">
+                <div className="sticky top-6">
+                  <h3 className="font-poppins font-bold text-[13px] text-[#00b4d8] uppercase tracking-wider mb-4 pb-2.5 border-b border-gray-800 select-none">
+                    Berita Lainnya
+                  </h3>
+
+                  <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto pr-1 scrollbar-thin">
+                    {otherNewsList.map((item) => (
                       <a
                         key={item.id}
                         href={`/news/${item.slug}`}
@@ -210,104 +210,109 @@ export default function ArticleDetailPage() {
                           • {item.title}
                         </h4>
                       </a>
-                    );
-                  })}
+                    ))}
 
-                  {otherNewsList.length === 0 && (
-                    <p className="text-[12px] font-poppins text-gray-500 italic py-2 select-none">
-                      Tidak ada berita lain.
-                    </p>
+                    {otherNewsList.length === 0 && (
+                      <p className="text-[12px] font-poppins text-gray-500 italic py-2 select-none">
+                        Tidak ada berita lain.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </aside>
+            </ScrollReveal>
+
+            {/* Article */}
+            <ScrollReveal variant="fade-up" duration={1000} delay={60} threshold={0.03}>
+              <article className="flex-1 bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-slate-100/40">
+
+                {/* Image Header */}
+                <div className="relative w-full h-[280px] sm:h-[360px] bg-slate-900 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"}
+                    alt={news.title}
+                    className="w-full h-full object-cover opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </div>
+
+                {/* Article Content */}
+                <div className="p-6 sm:p-10">
+                  <span className="inline-block px-3 py-1 rounded-full font-poppins font-semibold text-[10px] uppercase tracking-wider mb-4 text-white bg-[#00b4d8]">
+                    Berita & Artikel
+                  </span>
+
+                  <h1 className="font-poppins font-bold text-[22px] sm:text-[28px] leading-tight text-primary-dark mb-4">
+                    {news.title}
+                  </h1>
+
+                  {/* Metadata */}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-gray-500 font-poppins border-b border-gray-100 pb-5 mb-6">
+                    <span className="flex items-center gap-1">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      Penulis: <strong className="text-gray-800">{news.author}</strong>
+                    </span>
+                    <span className="text-gray-300">|</span>
+                    <span className="flex items-center gap-1">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                      {publishDate}
+                    </span>
+                    <span className="text-gray-300">|</span>
+                    <span className="flex items-center gap-1">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      {news.views + 1} dilihat
+                    </span>
+                  </div>
+
+                  {/* Body */}
+                  <p className="font-poppins text-[14px] sm:text-[15px] leading-[26px] text-gray-700 whitespace-pre-line">
+                    {news.content}
+                  </p>
+
+                  {/* Keywords */}
+                  {keywordsArray.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-gray-100">
+                      <span className="font-poppins text-[12px] text-gray-400 mr-2">Tags:</span>
+                      {keywordsArray.map((keyword, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-1 rounded-md bg-[#e0f7fa]/60 text-[#0077b6] text-[11px] font-poppins border border-[#00b4d8]/10"
+                        >
+                          #{keyword}
+                        </span>
+                      ))}
+                    </div>
                   )}
                 </div>
-              </div>
-            </aside>
 
-            {/* Article Content Column (Right on Desktop) */}
-            <article className="flex-1 bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-slate-100/40">
-              {/* Image Header */}
-              <div className="relative w-full h-[280px] sm:h-[360px] bg-slate-900 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"}
-                  alt={news.title}
-                  className="w-full h-full object-cover opacity-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              </div>
-
-              {/* Article Content Area */}
-              <div className="p-6 sm:p-10">
-                {/* Category/Status badge */}
-                <span className="inline-block px-3 py-1 rounded-full font-poppins font-semibold text-[10px] uppercase tracking-wider mb-4 text-white bg-[#00b4d8]">
-                  Berita & Artikel
-                </span>
-
-                {/* Title */}
-                <h1 className="font-poppins font-bold text-[22px] sm:text-[28px] leading-tight text-primary-dark mb-4">
-                  {news.title}
-                </h1>
-
-                {/* Metadata */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-gray-500 font-poppins border-b border-gray-100 pb-5 mb-6">
-                  <span className="flex items-center gap-1">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                    Penulis: <strong className="text-gray-800">{news.author}</strong>
-                  </span>
-                  <span className="text-gray-300">|</span>
-                  <span className="flex items-center gap-1">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    {publishDate}
-                  </span>
-                  <span className="text-gray-300">|</span>
-                  <span className="flex items-center gap-1">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    {news.views + 1} dilihat
-                  </span>
-                </div>
-
-                {/* Text content */}
-                <p className="font-poppins text-[14px] sm:text-[15px] leading-[26px] text-gray-700 whitespace-pre-line">
-                  {news.content}
-                </p>
-
-                {/* Keywords */}
-                {keywordsArray.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-gray-100">
-                    <span className="font-poppins text-[12px] text-gray-400 mr-2">Tags:</span>
-                    {keywordsArray.map((keyword, i) => (
-                      <span
-                        key={i}
-                        className="px-2.5 py-1 rounded-md bg-[#e0f7fa]/60 text-[#0077b6] text-[11px] font-poppins border border-[#00b4d8]/10"
-                      >
-                        #{keyword}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
+              </article>
+            </ScrollReveal>
 
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className={`bg-primary ${styles.paddingX}`}>
-        <div className={`${styles.boxWidth}`}>
-          <Footer />
+      <ScrollReveal variant="fade-up" duration={800} threshold={0.03}>
+        <div className={`bg-primary ${styles.paddingX}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Footer />
+          </div>
         </div>
-      </div>
+      </ScrollReveal>
+
     </main>
   );
 }

@@ -9,6 +9,8 @@ import Footer from "./layout/Footer";
 import Testimonials from "./sections/Testimonials";
 import Hero from "./sections/Hero";
 import TestimonialForm from "./forms/TestimonialForm";
+import ScrollReveal from "./ScrollReveal";
+import ScrollProgressBar from "./ScrollProgressBar";
 
 import News from "./sections/News";
 import BusinessForm from "./forms/BusinessForm";
@@ -27,6 +29,8 @@ export {
     Testimonials,
     Hero,
     TestimonialForm,
+    ScrollReveal,
+    ScrollProgressBar,
 
     News,
     BusinessForm,

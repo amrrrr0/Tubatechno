@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode; }) => {
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body className="font-sans">
+        <ScrollToTop />
         {children}
       </body>
     </html>

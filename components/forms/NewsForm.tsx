@@ -7,9 +7,11 @@ import { getApiUrl } from "@/utils/api";
 interface Props {
   onClose: () => void;
   onSuccess: () => void;
+  editData?: any; // Add editData prop
 }
 
-const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
+const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
+  const isEdit = !!editData;
   const [form, setForm] = useState({
     title: "",
     content: "",
@@ -22,10 +24,28 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
     seo_keywords: "",
   });
 
-  const [showSeo, setShowSeo] = useState(false);
+  // Pre-fill form if editing
+  useEffect(() => {
+    if (editData) {
+      setForm({
+        title: editData.title || "",
+        content: editData.content || "",
+        author: editData.author || "",
+        image_url: editData.image_url || "",
+        status: editData.status || "draft",
+        slug: editData.slug || "",
+        seo_title: editData.seo_title || "",
+        seo_description: editData.seo_description || "",
+        seo_keywords: editData.seo_keywords || "",
+      });
+    }
+  }, [editData]);
+
+  const [showSeo, setShowSeo] = useState(true);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -48,8 +68,11 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
     setErrorMsg("");
 
     try {
-      const res = await fetch(getApiUrl("/api/news"), {
-        method: "POST",
+      const url = isEdit ? getApiUrl(`/api/news/${editData.id}`) : getApiUrl("/api/news");
+      const method = isEdit ? "PUT" : "POST";
+      
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
@@ -76,6 +99,37 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
     } catch {
       setErrorMsg("Tidak dapat terhubung ke server. Pastikan backend berjalan.");
       setSubmitStatus("error");
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    setErrorMsg("");
+
+    const formData = new FormData();
+    formData.append("logo", file); // The endpoint expects 'logo' field name
+
+    try {
+      const res = await fetch(getApiUrl("/api/upload/logo"), {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setForm(prev => ({ ...prev, image_url: data.url }));
+      } else {
+        setErrorMsg(data.message || "Gagal mengunggah gambar.");
+      }
+    } catch (err) {
+      setErrorMsg("Tidak dapat terhubung ke server upload.");
+    } finally {
+      setUploadingImage(false);
+      // Reset input value so same file can be uploaded again if needed
+      if (e.target) e.target.value = '';
     }
   };
 
@@ -108,7 +162,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
             </div>
             <h3 className="font-poppins font-bold text-[18px] text-emerald-600">Berhasil Disimpan!</h3>
             <p className="font-poppins text-[14px] text-gray-500 mt-2 max-w-[280px]">
-              Berita Anda telah berhasil ditambahkan ke database.
+              {isEdit ? "Berita Anda telah berhasil diperbarui di database." : "Berita Anda telah berhasil ditambahkan ke database."}
             </p>
           </div>
         ) : (
@@ -129,7 +183,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                       <polyline points="10 9 9 9 8 9" />
                     </svg>
                     <h2 className="font-poppins font-bold text-[18px] text-primary-dark">
-                      Tambah Berita & Artikel
+                      {isEdit ? "Edit Berita & Artikel" : "Tambah Berita & Artikel"}
                     </h2>
                   </div>
 
@@ -208,7 +262,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                       {/* Status Berita */}
                       <div className="flex flex-col gap-1.5 mb-5">
                         <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
-                          Status Berita
+                          {isEdit ? "Perbarui Berita" : "Simpan Berita"}
                         </label>
                         <div className="relative">
                           <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 z-10 pointer-events-none">
@@ -235,24 +289,59 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                         <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                           URL Gambar Header
                         </label>
-                        <div className="relative">
-                          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                              <circle cx="8.5" cy="8.5" r="1.5" />
-                              <polyline points="21 15 16 10 5 21" />
-                            </svg>
-                          </span>
-                          <input
-                            type="url"
-                            name="image_url"
-                            value={form.image_url}
-                            onChange={handleChange}
-                            placeholder="https://images.unsplash.com/... (atau kosongkan)"
-                            className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
-                          />
+                        <div className="relative flex gap-2">
+                          <div className="relative flex-1">
+                            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                              </svg>
+                            </span>
+                            <input
+                              type="url"
+                              name="image_url"
+                              value={form.image_url}
+                              onChange={handleChange}
+                              placeholder="URL atau unggah ->"
+                              className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                            />
+                          </div>
+                          
+                          {/* Upload Button */}
+                          <div className="relative flex-shrink-0">
+                            <input
+                              type="file"
+                              accept="image/png, image/jpeg, image/jpg, image/webp"
+                              onChange={handleImageUpload}
+                              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                              disabled={uploadingImage}
+                              title="Unggah Gambar Lokal"
+                            />
+                            <button
+                              type="button"
+                              disabled={uploadingImage}
+                              className="w-11 h-11 flex items-center justify-center rounded-xl bg-[#e0f7fa]/60 text-[#0077b6] border border-[#00b4d8]/20 hover:bg-[#cbf1f6] hover:border-[#00b4d8]/40 transition-colors pointer-events-none"
+                            >
+                              {uploadingImage ? (
+                                <svg className="animate-spin h-5 w-5 text-[#00b4d8]" viewBox="0 0 24 24" fill="none">
+                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                </svg>
+                              ) : (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                  <polyline points="17 8 12 3 7 8" />
+                                  <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                              )}
+                            </button>
+                          </div>
                         </div>
-                        <span className="text-[12px] text-gray-400 font-poppins mt-0.5">Opsional</span>
+                        <span className="text-[12px] text-gray-400 font-poppins mt-0.5 flex justify-between">
+                          <span>Tempel URL atau unggah file.</span>
+                          <span>(Maks 2MB)</span>
+                        </span>
                       </div>
 
                       {/* Divider Line */}
