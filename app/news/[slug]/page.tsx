@@ -1,11 +1,12 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import React from "react";
 import styles from "@/styles/style";
 import { Navbar, Footer } from "@/components";
 import { getApiUrl } from "@/utils/api";
 import ScrollReveal from "@/components/ScrollReveal";
+import ViewCounter from "./ViewCounter";
+import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 
 interface NewsItem {
   id: number;
@@ -21,89 +22,100 @@ interface NewsItem {
   views: number;
   published_at: string | null;
   created_at: string;
+  updated_at?: string;
 }
 
-export default function ArticleDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  const [news, setNews] = useState<NewsItem | null>(null);
-  const [otherNewsList, setOtherNewsList] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
+  try {
+    const res = await fetch(getApiUrl(`/api/news/${slug}`), {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return data.success ? data.data : null;
+  } catch (err) {
+    console.error("Gagal mengambil detail berita di server:", err);
+    return null;
+  }
+}
 
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchDetailAndOthers = async () => {
-      setLoading(true);
-      setError(false);
-      try {
-        const res = await fetch(getApiUrl(`/api/news/${slug}`));
-        const data = await res.json();
-        if (data.success) {
-          setNews(data.data);
-
-          fetch(getApiUrl(`/api/news/id/${data.data.id}/view`), {
-            method: "POST",
-          }).catch((err) => console.error("View increment error:", err));
-
-          const listRes = await fetch(getApiUrl("/api/news?status=published"));
-          const listData = await listRes.json();
-          if (listData.success) {
-            setOtherNewsList(listData.data.filter((item: NewsItem) => item.slug !== slug));
-          }
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        console.error(err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDetailAndOthers();
-  }, [slug]);
-
-  useEffect(() => {
-    if (news) {
-      document.title = `${news.seo_title || news.title} | HelioNexus`;
-    } else {
-      document.title = "Detail Berita | HelioNexus";
+async function getOtherPublishedNews(excludeId: number): Promise<NewsItem[]> {
+  try {
+    const res = await fetch(getApiUrl("/api/news?status=published"), {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    if (data.success) {
+      return data.data.filter((item: NewsItem) => item.id !== excludeId);
     }
-  }, [news]);
+    return [];
+  } catch (err) {
+    console.error("Gagal mengambil berita lain di server:", err);
+    return [];
+  }
+}
 
-  /* ── Loading state ── */
-  if (loading) {
-    return (
-      <main className="bg-primary w-full min-h-screen flex flex-col justify-between">
-        <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-          <div className={`${styles.boxWidth}`}>
-            <Navbar />
-          </div>
-        </div>
+function getReadingTime(text: string): number {
+  const wordsPerMinute = 225; // Average adult reading speed
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / wordsPerMinute));
+}
 
-        <div className="flex-1 flex items-center justify-center py-20 gap-3">
-          <svg className="animate-spin h-6 w-6 text-[#00b4d8]" viewBox="0 0 24 24" fill="none">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-          </svg>
-          <span className="font-poppins text-[14px] text-dimWhite">Memuat artikel...</span>
-        </div>
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const news = await getNewsBySlug(slug);
 
-        <div className={`bg-primary ${styles.paddingX}`}>
-          <div className={`${styles.boxWidth}`}>
-            <Footer />
-          </div>
-        </div>
-      </main>
-    );
+  if (!news) {
+    return {
+      title: "Artikel Tidak Ditemukan | HelioNexus",
+      description: "Maaf, artikel yang Anda cari tidak dapat ditemukan di portal kami.",
+    };
   }
 
-  /* ── Error state ── */
-  if (error || !news) {
+  const title = `${news.seo_title || news.title} | HelioNexus`;
+  const description = news.seo_description || news.content.substring(0, 160).replace(/<[^>]*>/g, "");
+  const keywords = news.seo_keywords || "helionexus, berita, iot, software house";
+  const imageUrl = news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80";
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: `/news/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `/news/${slug}`,
+      images: [{ url: imageUrl }],
+      publishedTime: news.published_at || news.created_at,
+      modifiedTime: news.updated_at || news.created_at,
+      authors: [news.author],
+      siteName: "HelioNexus",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  };
+}
+
+export default async function ArticleDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const news = await getNewsBySlug(slug);
+
+  if (!news) {
     return (
       <main className="bg-primary w-full min-h-screen flex flex-col justify-between">
         <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -134,6 +146,8 @@ export default function ArticleDetailPage() {
     );
   }
 
+  const otherNewsList = await getOtherPublishedNews(news.id);
+
   const publishDate = news.published_at
     ? new Date(news.published_at).toLocaleDateString("id-ID", {
         day: "numeric",
@@ -150,8 +164,44 @@ export default function ArticleDetailPage() {
     ? news.seo_keywords.split(",").map((k) => k.trim())
     : [];
 
+  const readingTime = getReadingTime(news.content);
+
+  // JSON-LD Schema Markup
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": news.title,
+    "description": news.seo_description || news.content.substring(0, 160).replace(/<[^>]*>/g, ""),
+    "image": [
+      news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+    ],
+    "datePublished": news.published_at || news.created_at,
+    "dateModified": news.updated_at || news.created_at,
+    "author": [
+      {
+        "@type": "Person",
+        "name": news.author || "Tim HelioNexus"
+      }
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "HelioNexus",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://helionexus.co/assets/brand/logo-icon.png"
+      }
+    }
+  };
+
   return (
     <main className="motion-page bg-primary w-full overflow-hidden min-h-screen flex flex-col justify-between">
+      {/* Schema Markup Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {/* View counter client component */}
+      <ViewCounter id={news.id} />
 
       {/* Navbar */}
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -164,12 +214,21 @@ export default function ArticleDetailPage() {
       <div className={`bg-primary ${styles.paddingX} flex-1 pb-16`}>
         <div className={`${styles.boxWidth} mt-8`}>
 
-          {/* Back button */}
-          <ScrollReveal variant="fade-up" duration={700} threshold={0.01}>
-            <div className="mb-6">
+          {/* Breadcrumbs & Back button */}
+          <ScrollReveal variant="fade-up" duration={700}>
+            <div className="mb-6 flex flex-col gap-3">
+              {/* Remah Roti (Breadcrumbs) */}
+              <nav className="flex text-[11px] font-poppins text-dimWhite/65 items-center gap-1.5 select-none tracking-wide">
+                <a href="/" className="hover:text-[#00b4d8] transition-colors">Beranda</a>
+                <span className="text-gray-600">/</span>
+                <a href="/news" className="hover:text-[#00b4d8] transition-colors">Berita</a>
+                <span className="text-gray-600">/</span>
+                <span className="text-[#00b4d8] font-semibold truncate max-w-[200px] sm:max-w-xs">{news.title}</span>
+              </nav>
+
               <a
                 href="/news"
-                className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group"
+                className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group w-fit"
               >
                 <svg
                   width="16"
@@ -192,7 +251,7 @@ export default function ArticleDetailPage() {
           <div className="flex flex-col lg:flex-row gap-8 items-start">
 
             {/* Sidebar */}
-            <ScrollReveal variant="fade-up" duration={900} delay={100} threshold={0.04}>
+            <ScrollReveal variant="fade-up" duration={900} delay={100}>
               <aside className="w-full lg:w-[220px] xl:w-[260px] flex-shrink-0">
                 <div className="sticky top-6">
                   <h3 className="font-poppins font-bold text-[13px] text-[#00b4d8] uppercase tracking-wider mb-4 pb-2.5 border-b border-gray-800 select-none">
@@ -223,7 +282,7 @@ export default function ArticleDetailPage() {
             </ScrollReveal>
 
             {/* Article */}
-            <ScrollReveal variant="fade-up" duration={1000} delay={60} threshold={0.03}>
+            <ScrollReveal variant="fade-up" duration={1000} delay={60}>
               <article className="flex-1 bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-slate-100/40">
 
                 {/* Image Header */}
@@ -239,9 +298,18 @@ export default function ArticleDetailPage() {
 
                 {/* Article Content */}
                 <div className="p-6 sm:p-10">
-                  <span className="inline-block px-3 py-1 rounded-full font-poppins font-semibold text-[10px] uppercase tracking-wider mb-4 text-white bg-[#00b4d8]">
-                    Berita & Artikel
-                  </span>
+                  <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <span className="inline-block px-3 py-1 rounded-full font-poppins font-semibold text-[10px] uppercase tracking-wider text-white bg-[#00b4d8]">
+                      Berita &amp; Artikel
+                    </span>
+                    <span className="flex items-center gap-1 text-[11px] font-poppins text-gray-400 select-none">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      {readingTime} menit membaca
+                    </span>
+                  </div>
 
                   <h1 className="font-poppins font-bold text-[22px] sm:text-[28px] leading-tight text-primary-dark mb-4">
                     {news.title}
@@ -305,7 +373,7 @@ export default function ArticleDetailPage() {
       </div>
 
       {/* Footer */}
-      <ScrollReveal variant="fade-up" duration={800} threshold={0.03}>
+      <ScrollReveal variant="fade-up" duration={800}>
         <div className={`bg-primary ${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Footer />

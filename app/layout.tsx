@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import ScrollToTop from "@/components/ScrollToTop";
+import AdminFloatingBar from "@/components/AdminFloatingBar";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode; }) => {
     <html lang="en" className={plusJakartaSans.variable}>
       <body className="font-sans">
         <ScrollToTop />
+        <AdminFloatingBar />
         {children}
       </body>
     </html>

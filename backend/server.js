@@ -21,6 +21,10 @@ app.use("/api/news", require("./routes/news"));
 app.use("/api/business-units", require("./routes/business"));
 app.use("/api/upload", require("./routes/upload"));
 app.use("/api/pricing", require("./routes/pricing"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/orders", require("./routes/orders"));
+app.use("/api/payment", require("./routes/payment"));
+
 
 // Health check
 app.get("/", (req, res) => {

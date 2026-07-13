@@ -7,8 +7,9 @@ import Image from "next/image";
 
 const Footer: React.FC = () => {
   const handleFooterClick = () => {
-    window.dispatchEvent(new CustomEvent("trigger-admin-login"));
+    window.location.href = "/admin/login";
   };
+
 
   return (
     <footer className="w-full bg-white border-t border-slate-100 pt-16 pb-12 relative z-10">

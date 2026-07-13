@@ -98,6 +98,7 @@ const Pricing: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+
   useEffect(() => {
     // Sync initial admin state
     setIsAdmin(localStorage.getItem("isAdmin") === "true");

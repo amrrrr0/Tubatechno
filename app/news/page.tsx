@@ -1,14 +1,47 @@
-"use client";
-
-import { useEffect } from "react";
 import styles from "@/styles/style";
 import { Navbar, Footer, News } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
+import { getApiUrl } from "@/utils/api";
+import type { Metadata } from "next";
 
-export default function NewsPage() {
-  useEffect(() => {
-    document.title = "Daftar Berita | HelioNexus";
-  }, []);
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
+  description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Dapatkan artikel edukatif gratis.",
+  keywords: "helionexus, berita teknologi, iot indonesia, software house surakarta, umpk",
+  alternates: {
+    canonical: "/news",
+  },
+  openGraph: {
+    title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Dapatkan artikel edukatif gratis.",
+    type: "website",
+    url: "/news",
+    siteName: "HelioNexus",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus.",
+  }
+};
+
+async function getPublishedNews() {
+  try {
+    const res = await fetch(getApiUrl("/api/news?status=published"), {
+      cache: "no-store", // Don't cache on server so it updates instantly
+    });
+    const data = await res.json();
+    return data.success ? data.data : [];
+  } catch (err) {
+    console.error("Gagal mengambil berita di server:", err);
+    return [];
+  }
+}
+
+export default async function NewsPage() {
+  const initialNews = await getPublishedNews();
 
   return (
     <main className="motion-page bg-primary w-full overflow-hidden min-h-screen flex flex-col justify-between">
@@ -38,7 +71,7 @@ export default function NewsPage() {
           </ScrollReveal>
 
           <ScrollReveal>
-            <News isDashboard={false} />
+            <News isDashboard={false} initialNews={initialNews} />
           </ScrollReveal>
         </div>
       </div>

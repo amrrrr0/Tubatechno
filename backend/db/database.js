@@ -344,7 +344,55 @@ async function initDB() {
 
     console.log("✅ Database MySQL di-seed dengan 6 paket harga default.");
   }
+
+  // 10. Buat tabel orders jika belum ada
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS orders (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      order_id VARCHAR(50) UNIQUE NOT NULL,
+      customer_name VARCHAR(150) NOT NULL,
+      email VARCHAR(150) NOT NULL,
+      phone VARCHAR(30),
+      package_id INT DEFAULT NULL,
+      package_name VARCHAR(150) NOT NULL,
+      amount DECIMAL(15,2) NOT NULL DEFAULT 0,
+      status ENUM('pending','paid','processing','cancelled','expired','deny') NOT NULL DEFAULT 'pending',
+      payment_method VARCHAR(100) DEFAULT NULL,
+      midtrans_order_id VARCHAR(100) DEFAULT NULL,
+      payment_link VARCHAR(500) DEFAULT NULL,
+      notes TEXT DEFAULT NULL,
+      paid_at TIMESTAMP NULL DEFAULT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      INDEX idx_orders_status (status),
+      INDEX idx_orders_order_id (order_id),
+      INDEX idx_orders_created (created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Migration: tambahkan kolom payment_link jika belum ada
+  try {
+    await pool.query("SELECT payment_link FROM orders LIMIT 1");
+  } catch (err) {
+    console.log("⚠️ Kolom 'payment_link' tidak ditemukan di tabel orders. Melakukan migrasi...");
+    await pool.query("ALTER TABLE orders ADD COLUMN payment_link VARCHAR(500) DEFAULT NULL");
+    console.log("✅ Kolom 'payment_link' berhasil ditambahkan ke tabel orders.");
+  }
+
+  // Migration: tambahkan kolom tanggal kerja dan spk jika belum ada
+  try {
+    await pool.query("SELECT work_start_date FROM orders LIMIT 1");
+  } catch (err) {
+    console.log("⚠️ Kolom-kolom tanggal kerja / SPK tidak ditemukan di tabel orders. Melakukan migrasi...");
+    await pool.query("ALTER TABLE orders ADD COLUMN work_start_date DATE DEFAULT NULL");
+    await pool.query("ALTER TABLE orders ADD COLUMN work_end_date DATE DEFAULT NULL");
+    await pool.query("ALTER TABLE orders ADD COLUMN spk_pdf_path VARCHAR(255) DEFAULT NULL");
+    console.log("✅ Kolom work_start_date, work_end_date, dan spk_pdf_path berhasil ditambahkan.");
+  }
+
+  console.log("✅ Tabel orders siap.");
 }
+
 
 function ensureDB() {
   if (!initPromise) {

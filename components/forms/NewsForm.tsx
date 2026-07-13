@@ -38,10 +38,16 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
         seo_description: editData.seo_description || "",
         seo_keywords: editData.seo_keywords || "",
       });
+      if (editData.seo_keywords) {
+        const firstKwd = editData.seo_keywords.split(",")[0].trim();
+        setFocusKeyword(firstKwd);
+      }
     }
   }, [editData]);
 
   const [showSeo, setShowSeo] = useState(true);
+  const [focusKeyword, setFocusKeyword] = useState("");
+  const [previewMode, setPreviewMode] = useState<"desktop" | "mobile">("mobile");
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [mounted, setMounted] = useState(false);
@@ -60,6 +66,17 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleFixSlug = () => {
+    const clean = form.slug
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/-+/g, "-") // Replace multiple - with single -
+      .replace(/(^-|-$)/g, ""); // Trim - from start and end
+    setForm(prev => ({ ...prev, slug: clean }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -132,6 +149,33 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
       if (e.target) e.target.value = '';
     }
   };
+
+  // SEO Analysis calculations
+  const seoTitleLength = form.seo_title.trim() ? form.seo_title.length : (form.title.trim() ? form.title.length + 13 : 0);
+  const seoDescLength = form.seo_description.trim() ? form.seo_description.length : Math.min(160, form.content.replace(/<[^>]*>/g, "").length);
+  const isTitleLengthOk = seoTitleLength >= 40 && seoTitleLength <= 60;
+  const isDescLengthOk = seoDescLength >= 120 && seoDescLength <= 160;
+  const isSlugValid = !form.slug || /^[a-z0-9-]+$/.test(form.slug);
+
+  const getWordCount = (text: string) => {
+    return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  };
+
+  const getKeywordCount = (text: string, keyword: string) => {
+    if (!keyword.trim() || !text.trim()) return 0;
+    const escapedKwd = keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const regex = new RegExp(escapedKwd, "gi"); // Search globally case-insensitive
+    const matches = text.match(regex);
+    return matches ? matches.length : 0;
+  };
+
+  const wordCount = getWordCount(form.content);
+  const keywordCount = getKeywordCount(form.content, focusKeyword);
+  const keywordDensity = wordCount > 0 ? (keywordCount / wordCount) * 100 : 0;
+
+  const hasKeywordInTitle = focusKeyword.trim() ? (form.seo_title || form.title).toLowerCase().includes(focusKeyword.toLowerCase()) : false;
+  const hasKeywordInDesc = focusKeyword.trim() ? (form.seo_description || (form.content.substring(0, 160))).toLowerCase().includes(focusKeyword.toLowerCase()) : false;
+  const hasKeywordInContent = focusKeyword.trim() ? form.content.toLowerCase().includes(focusKeyword.toLowerCase()) : false;
 
   if (!mounted) return null;
 
@@ -381,10 +425,23 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                   {/* Sub-column 2: SEO Fields (Conditional) */}
                   {showSeo && (
                     <div className="flex-1 min-w-[260px] flex flex-col gap-3.5 border-t md:border-t-0 md:border-l border-gray-200 pt-5 md:pt-0 md:pl-6 transition-all duration-300">
+                      {/* URL Slug */}
                       <div className="flex flex-col gap-1">
-                        <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
-                          Kustom URL Slug
-                        </label>
+                        <div className="flex justify-between items-center">
+                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                            Kustom URL Slug
+                          </label>
+                          {!isSlugValid && (
+                            <button
+                              type="button"
+                              onClick={handleFixSlug}
+                              className="px-2 py-0.5 rounded bg-amber-500 text-white font-poppins text-[9px] font-bold hover:bg-amber-600 transition-colors active:scale-95 cursor-pointer"
+                              title="Bersihkan slug otomatis"
+                            >
+                              Auto-Fix
+                            </button>
+                          )}
+                        </div>
                         <div className="relative">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -398,15 +455,30 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             value={form.slug}
                             onChange={handleChange}
                             placeholder="contoh-url-slug"
-                            className="w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                            className={`w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border ${isSlugValid ? "border-gray-200" : "border-red-400 focus:border-red-500 focus:ring-red-500/15"} rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60`}
                           />
                         </div>
+                        {!isSlugValid && (
+                          <span className="text-[9.5px] font-poppins text-red-500 font-semibold mt-0.5">
+                            * Slug tidak valid. Gunakan huruf kecil, angka, dan tanda hubung (-).
+                          </span>
+                        )}
                       </div>
 
+                      {/* Meta Title */}
                       <div className="flex flex-col gap-1">
-                        <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
-                          Meta Title
-                        </label>
+                        <div className="flex justify-between items-center">
+                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                            Meta Title
+                          </label>
+                          <span className={`text-[9px] font-bold font-poppins px-1.5 py-0.5 rounded ${
+                            seoTitleLength > 60 ? "bg-red-100 text-red-600 border border-red-200" :
+                            seoTitleLength >= 40 ? "bg-emerald-100 text-emerald-600 border border-emerald-200" :
+                            "bg-amber-100 text-amber-600 border border-amber-200"
+                          }`}>
+                            {seoTitleLength} / 60
+                          </span>
+                        </div>
                         <div className="relative">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -424,10 +496,20 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         </div>
                       </div>
 
+                      {/* Meta Description */}
                       <div className="flex flex-col gap-1">
-                        <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
-                          Meta Description
-                        </label>
+                        <div className="flex justify-between items-center">
+                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                            Meta Description
+                          </label>
+                          <span className={`text-[9px] font-bold font-poppins px-1.5 py-0.5 rounded ${
+                            seoDescLength > 160 ? "bg-red-100 text-red-600 border border-red-200" :
+                            seoDescLength >= 120 ? "bg-emerald-100 text-emerald-600 border border-emerald-200" :
+                            "bg-amber-100 text-amber-600 border border-amber-200"
+                          }`}>
+                            {seoDescLength} / 160
+                          </span>
+                        </div>
                         <textarea
                           name="seo_description"
                           rows={2}
@@ -438,6 +520,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         />
                       </div>
 
+                      {/* Meta Keywords */}
                       <div className="flex flex-col gap-1">
                         <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
                           Meta Keywords
@@ -458,6 +541,148 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             className="w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                           />
                         </div>
+                      </div>
+
+                      {/* SEO Real-Time Analyzer Card */}
+                      <div className="p-3.5 rounded-2xl border border-gray-200 bg-white shadow-sm flex flex-col gap-2.5">
+                        <span className="font-poppins font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5 border-b border-gray-100 pb-2 select-none">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                          </svg>
+                          SEO Real-Time Analyzer
+                        </span>
+
+                        <div className="flex flex-col gap-2.5 font-poppins text-[11px] text-gray-600">
+                          {/* Focus Keyword input */}
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-semibold text-gray-500">Kata Kunci Fokus:</span>
+                            <input
+                              type="text"
+                              placeholder="Ketik kata kunci..."
+                              value={focusKeyword}
+                              onChange={(e) => setFocusKeyword(e.target.value)}
+                              className="px-2.5 py-1 border border-gray-200 rounded-lg text-[11px] focus:outline-none focus:border-[#00b4d8] w-36 bg-gray-50/50 font-poppins"
+                            />
+                          </div>
+
+                          {/* Analysis Checklist */}
+                          <div className="flex flex-col gap-2 pt-1 border-t border-gray-50">
+                            <div className="flex items-center gap-2">
+                              <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isTitleLengthOk ? "bg-emerald-500" : "bg-amber-500"}`}>
+                                {isTitleLengthOk ? "✓" : "!"}
+                              </span>
+                              <span>Panjang Judul SEO: {seoTitleLength}/60 karakter</span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isDescLengthOk ? "bg-emerald-500" : "bg-amber-500"}`}>
+                                {isDescLengthOk ? "✓" : "!"}
+                              </span>
+                              <span>Panjang Deskripsi: {seoDescLength}/160 karakter</span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isSlugValid ? "bg-emerald-500" : "bg-red-500"}`}>
+                                {isSlugValid ? "✓" : "✗"}
+                              </span>
+                              <span className={isSlugValid ? "" : "text-red-500 font-semibold"}>URL Slug: {isSlugValid ? "Valid" : "Format Salah"}</span>
+                            </div>
+
+                            {focusKeyword.trim() ? (
+                              <>
+                                <div className="flex items-center gap-2">
+                                  <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInTitle ? "bg-emerald-500" : "bg-amber-500"}`}>
+                                    {hasKeywordInTitle ? "✓" : "!"}
+                                  </span>
+                                  <span>Kata kunci di Judul: {hasKeywordInTitle ? "Ditemukan" : "Tidak ada"}</span>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInDesc ? "bg-emerald-500" : "bg-amber-500"}`}>
+                                    {hasKeywordInDesc ? "✓" : "!"}
+                                  </span>
+                                  <span>Kata kunci di Deskripsi: {hasKeywordInDesc ? "Ditemukan" : "Tidak ada"}</span>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInContent && keywordDensity >= 0.8 && keywordDensity <= 2.5 ? "bg-emerald-500" : "bg-amber-500"}`}>
+                                    {hasKeywordInContent && keywordDensity >= 0.8 && keywordDensity <= 2.5 ? "✓" : "!"}
+                                  </span>
+                                  <span>
+                                    Kepadatan Kata Kunci: {keywordDensity.toFixed(1)}% ({keywordCount}x)
+                                    {keywordDensity > 2.5 ? " - Terlalu Tinggi!" : keywordDensity < 0.8 ? " - Terlalu Rendah" : " - Optimal"}
+                                  </span>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="text-[9.5px] text-slate-400 italic mt-1 leading-normal select-none">
+                                * Masukkan kata kunci fokus di atas untuk menganalisis kepadatan kata dan optimasi SEO halaman.
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Google Search Mockup Snippet */}
+                      <div className="p-3.5 rounded-2xl border border-gray-200 bg-white shadow-sm flex flex-col gap-2.5">
+                        <div className="flex items-center justify-between border-b border-gray-100 pb-2 select-none">
+                          <span className="font-poppins font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            Google SERP Preview
+                          </span>
+                          <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+                            <button
+                              type="button"
+                              onClick={() => setPreviewMode("mobile")}
+                              className={`px-2 py-0.5 text-[9px] font-poppins font-semibold rounded-md transition-all cursor-pointer ${previewMode === "mobile" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
+                            >
+                              Mobile
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setPreviewMode("desktop")}
+                              className={`px-2 py-0.5 text-[9px] font-poppins font-semibold rounded-md transition-all cursor-pointer ${previewMode === "desktop" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
+                            >
+                              Desktop
+                            </button>
+                          </div>
+                        </div>
+
+                        {previewMode === "mobile" ? (
+                          <div className="p-3 border border-slate-100 rounded-xl bg-white flex flex-col font-sans max-w-[270px] select-none text-left">
+                            <div className="flex items-center gap-1 text-[10px] text-gray-500 mb-0.5">
+                              <span className="font-semibold text-gray-800">HelioNexus</span>
+                              <span>›</span>
+                              <span>news</span>
+                              <span>›</span>
+                              <span className="truncate max-w-[70px]">{form.slug || "slug-berita"}</span>
+                            </div>
+                            <h4 className="text-[#1a0dab] font-medium text-[14px] leading-tight hover:underline mb-1 line-clamp-2">
+                              {form.seo_title || (form.title ? `${form.title} | HelioNexus` : "Judul Berita | HelioNexus")}
+                            </h4>
+                            <p className="text-[#4d5156] text-[11px] leading-relaxed line-clamp-3">
+                              {form.seo_description || (form.content ? form.content.substring(0, 140).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="p-3 border border-slate-100 rounded-xl bg-white flex flex-col font-sans select-none text-left">
+                            <div className="text-[11px] text-gray-500 mb-0.5 flex items-center gap-1">
+                              <span>http://localhost:3000</span>
+                              <span>›</span>
+                              <span>news</span>
+                              <span>›</span>
+                              <span className="truncate max-w-[120px]">{form.slug || "slug-berita"}</span>
+                            </div>
+                            <h4 className="text-[#1a0dab] text-[16px] font-medium leading-normal hover:underline mb-1">
+                              {form.seo_title || (form.title ? `${form.title} | HelioNexus` : "Judul Berita | HelioNexus")}
+                            </h4>
+                            <p className="text-[#4d5156] text-[12px] leading-relaxed line-clamp-2">
+                              {form.seo_description || (form.content ? form.content.substring(0, 150).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

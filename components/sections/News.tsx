@@ -185,14 +185,15 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
 
 interface NewsProps {
   isDashboard?: boolean;
+  initialNews?: NewsItem[];
 }
 
-const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
+const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
   const router = useRouter();
 
-  const [allNews, setAllNews] = useState<NewsItem[]>([]);
+  const [allNews, setAllNews] = useState<NewsItem[]>(initialNews || []);
   const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialNews);
   const [error, setError] = useState(false);
 
   // Filter & Search states
@@ -229,16 +230,19 @@ const News: React.FC<NewsProps> = ({ isDashboard = false }) => {
   }, []);
 
   useEffect(() => {
-    fetchNews();
-  }, [fetchNews]);
+    if (!initialNews) {
+      fetchNews();
+    }
+  }, [fetchNews, initialNews]);
 
   // Read admin state on mount
   useEffect(() => {
     const stored = localStorage.getItem("isAdmin");
     if (stored === "true") {
       setIsAdmin(true);
+      fetchNews(); // Refetch to get drafts if admin
     }
-  }, []);
+  }, [fetchNews]);
 
   // Listen to custom event from Footer
   useEffect(() => {

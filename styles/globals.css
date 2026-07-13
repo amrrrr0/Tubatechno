@@ -6,6 +6,26 @@
   --color-secondary: #00f6ff;
   --color-dimWhite: #555a64;
   --color-dimBlue: rgba(9, 151, 124, 0.1);
+  --color-brand-50: #ecf3ff;
+  --color-brand-100: #dde9ff;
+  --color-brand-200: #c2d6ff;
+  --color-brand-500: #465fff;
+  --color-brand-600: #3641f5;
+  --color-brand-700: #2a31d8;
+  --color-success-50: #ecfdf3;
+  --color-success-500: #12b76a;
+  --color-success-600: #039855;
+  --color-success-700: #027a48;
+  --color-warning-50: #fffaeb;
+  --color-warning-500: #f79009;
+  --color-warning-600: #dc6803;
+  --color-warning-700: #b54708;
+  --color-error-50: #fef3f2;
+  --color-error-200: #fecdca;
+  --color-error-500: #f04438;
+  --color-error-600: #d92d20;
+  --color-error-700: #b42318;
+  --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   --font-poppins: var(--font-plus-jakarta-sans), sans-serif;
   --font-jakarta: var(--font-plus-jakarta-sans), sans-serif;
   --breakpoint-xs: 480px;
@@ -14,6 +34,18 @@
   --breakpoint-md: 1060px;
   --breakpoint-lg: 1200px;
   --breakpoint-xl: 1700px;
+}
+
+@utility form-input {
+  @apply w-full rounded-lg border border-stone-200 bg-white px-3.5 py-2.5 text-xs text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-stone-400 focus:ring-2 focus:ring-stone-200/50 disabled:cursor-not-allowed disabled:bg-stone-50 disabled:text-stone-400;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 :root {
@@ -1467,4 +1499,3 @@ body {
     transform: none;
   }
 }
-
