@@ -12,9 +12,9 @@ interface BusinessUnit {
 }
 
 const staticFallbackUnits: BusinessUnit[] = [
-  { id: 1, title: "UMPKU Tirta", category: "Layanan Umum", tagline: "Air Minum Alami" },
-  { id: 2, title: "UMPKU Boga", category: "Layanan Umum", tagline: "Kuliner & Katering" },
-  { id: 3, title: "HelioNexus", category: "Solusi Digital", tagline: "Software House" },
+  { id: 1, title: "SIMAWA", category: "Sistem Informasi", tagline: "Klien: Univ. Muhammadiyah PKU" },
+  { id: 2, title: "EDUAPP", category: "EdTech", tagline: "Platform E-Learning" },
+  { id: 3, title: "MAWASTING", category: "HealthTech", tagline: "Monitoring Stunting" },
 ];
 
 const Billing: React.FC = () => {

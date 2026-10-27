@@ -379,9 +379,9 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
           </h2>
           <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[600px] mt-3 mx-auto">
             {isDashboard ? (
-              "Pantau rilis teknologi terbaru dari tim HelioNexus. Klik berita lainnya untuk melihat koleksi lengkap artikel kami."
+              "Pantau rilis teknologi terbaru dari tim HelioTechno. Klik berita lainnya untuk melihat koleksi lengkap artikel kami."
             ) : (
-              "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Fitur SEO diaktifkan secara real-time."
+              "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Fitur SEO diaktifkan secara real-time."
             )}
           </p>
         </div>

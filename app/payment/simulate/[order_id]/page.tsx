@@ -426,7 +426,7 @@ export default function PaymentSimulatorPage() {
         {/* Footer */}
         <div className="bg-slate-50 border-t border-slate-100 px-6 py-4 text-center">
           <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
-            HelioNexus Technology Center · Sandbox Mode
+            HelioTechno Technology Center · Sandbox Mode
           </p>
         </div>
       </div>

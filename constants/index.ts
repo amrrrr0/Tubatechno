@@ -28,9 +28,9 @@ export const features = [
     {
         id: "feature-1",
         icon: star,
-        title: "Inovasi Akademis",
+        title: "Teknologi Terdepan",
         content:
-            "Dikembangkan di bawah naungan Universitas Muhammadiyah PKU Surakarta, menggabungkan riset mutakhir dengan teknologi industri.",
+            "Menggabungkan standar industri terbaik, arsitektur modern, dan pendekatan kustom untuk menghadirkan produk digital berkinerja tinggi.",
     },
     {
         id: "feature-2",
@@ -96,10 +96,10 @@ export const footerLinks = [
     },
     {
         id: "footerLinks-2",
-        title: "Komunitas & Riset",
+        title: "Klien & Ekosistem",
         links: [
             {
-                name: "UMPKU Surakarta",
+                name: "Universitas Muhammadiyah PKU Surakarta",
                 link: "https://itspkusurakarta.ac.id/",
             },
             {

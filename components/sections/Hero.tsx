@@ -8,9 +8,8 @@ const Hero: React.FC = () => (
       <div className="motion-chip flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
         <Image src={discount} alt="discount" className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px]" />
         <p className={`${styles.paragraph} ml-2 text-[13px] sm:text-[16px]`}>
-          <span className="text-primary-dark font-semibold">Inovasi Riset</span> Kampus{" "}
-          <span className="text-primary-dark font-semibold hidden sm:inline">Universitas </span>
-          <span className="text-primary-dark font-semibold">Muhammadiyah PKU Surakarta</span>
+          <span className="text-primary-dark font-semibold">Software House</span> &{" "}
+          <span className="text-primary-dark font-semibold">Business Technology Partner</span>
         </p>
       </div>
       <div className="flex flex-row justify-between items-center w-full">
@@ -23,18 +22,18 @@ const Hero: React.FC = () => (
         Terbaik & Inovatif.
       </h1>
       <p className={`${styles.paragraph} max-w-[470px] mt-5 text-[15px] sm:text-[18px]`}>
-        HelioNexus adalah Software House tepercaya yang menghadirkan layanan Web Development, Mobile Apps, UI/UX Design, Artificial Intelligence, dan IoT untuk mendigitalisasi bisnis Anda.
+        HelioTechno adalah Software House tepercaya yang menghadirkan layanan Web Development, Mobile Apps, UI/UX Design, Artificial Intelligence, dan IoT untuk mendigitalisasi bisnis Anda.
       </p>
     </div>
     <div className={`${styles.flexCenter} hero-visual flex-1 flex md:my-0 my-10 relative min-h-[320px] sm:min-h-[520px] xl:pr-[20px]`}>
-      <div className="website-3d-stage" aria-label="Preview website HelioNexus dalam tampilan tiga dimensi">
+      <div className="website-3d-stage" aria-label="Preview website HelioTechno dalam tampilan tiga dimensi">
         <div className="website-3d-scene">
           <div className="website-panel website-panel-main">
             <div className="website-browser-bar">
               <span />
               <span />
               <span />
-              <div className="website-url">helionexus.id</div>
+              <div className="website-url">heliotechno.id</div>
             </div>
             <div className="website-screen">
               <div className="website-sidebar">

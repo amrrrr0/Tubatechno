@@ -5,7 +5,7 @@
       <stop offset="100%" stop-color="#0077b6"/>
     </linearGradient>
   </defs>
-  <!-- HelioNexus Tech Icon -->
+  <!-- HelioTechno Tech Icon -->
   <circle cx="32" cy="32" r="14" fill="url(#nexus_gradient_logo)"/>
   <path d="M 32,8 A 24,24 0 0,1 56,32" stroke="#00b4d8" stroke-width="4" fill="none" stroke-linecap="round"/>
   <path d="M 32,56 A 24,24 0 0,1 8,32" stroke="#005f73" stroke-width="4" fill="none" stroke-linecap="round"/>

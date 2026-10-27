@@ -653,14 +653,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         {previewMode === "mobile" ? (
                           <div className="p-3 border border-slate-100 rounded-xl bg-white flex flex-col font-sans max-w-[270px] select-none text-left">
                             <div className="flex items-center gap-1 text-[10px] text-gray-500 mb-0.5">
-                              <span className="font-semibold text-gray-800">HelioNexus</span>
+                              <span className="font-semibold text-gray-800">HelioTechno</span>
                               <span>›</span>
                               <span>news</span>
                               <span>›</span>
                               <span className="truncate max-w-[70px]">{form.slug || "slug-berita"}</span>
                             </div>
                             <h4 className="text-[#1a0dab] font-medium text-[14px] leading-tight hover:underline mb-1 line-clamp-2">
-                              {form.seo_title || (form.title ? `${form.title} | HelioNexus` : "Judul Berita | HelioNexus")}
+                              {form.seo_title || (form.title ? `${form.title} | HelioTechno` : "Judul Berita | HelioTechno")}
                             </h4>
                             <p className="text-[#4d5156] text-[11px] leading-relaxed line-clamp-3">
                               {form.seo_description || (form.content ? form.content.substring(0, 140).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}
@@ -676,7 +676,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                               <span className="truncate max-w-[120px]">{form.slug || "slug-berita"}</span>
                             </div>
                             <h4 className="text-[#1a0dab] text-[16px] font-medium leading-normal hover:underline mb-1">
-                              {form.seo_title || (form.title ? `${form.title} | HelioNexus` : "Judul Berita | HelioNexus")}
+                              {form.seo_title || (form.title ? `${form.title} | HelioTechno` : "Judul Berita | HelioTechno")}
                             </h4>
                             <p className="text-[#4d5156] text-[12px] leading-relaxed line-clamp-2">
                               {form.seo_description || (form.content ? form.content.substring(0, 150).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}

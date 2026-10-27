@@ -154,7 +154,7 @@ const NewsDetailsModal: React.FC<Props> = ({ news, onClose }) => {
                 {news.seo_title}
               </div>
               <div className="text-[12px] text-[#006621] font-sans truncate mb-1">
-                https://helionexus.co.id/news/{news.slug}
+                https://heliotechno.co.id/news/{news.slug}
               </div>
               <p className="text-[13px] leading-snug text-[#545454] font-sans font-normal line-clamp-2">
                 {news.seo_description}

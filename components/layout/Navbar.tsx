@@ -54,14 +54,14 @@ const Navbar: React.FC = () => {
           >
             <Image
               src={logo}
-              alt="HelioNexus"
+              alt="HelioTechno"
               width={28}
               height={28}
               style={{ width: "28px", height: "28px" }}
               className="object-contain"
             />
             <span className="font-jakarta font-extrabold text-[17px] text-primary-dark tracking-wide">
-              Helio<span className="text-[#00b4d8] font-semibold">Nexus</span>
+              Helio<span className="text-[#00b4d8] font-semibold">Techno</span>
             </span>
           </a>
 

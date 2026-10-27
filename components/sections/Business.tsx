@@ -116,7 +116,7 @@ const Business: React.FC = () => (
         Fokus pada Bisnis <br /> Anda, Kami Tangani <br /> Teknologinya.
       </h2>
       <p className="font-poppins font-normal text-slate-500 text-[14.5px] sm:text-[16px] leading-[24px] sm:leading-[26px] mt-5 max-w-[480px]">
-        Dengan solusi teknologi yang tepat, Anda dapat mempercepat digitalisasi bisnis, meningkatkan efisiensi operasional, dan menjangkau pelanggan lebih luas. HelioNexus hadir sebagai mitra teknologi tepercaya untuk pertumbuhan Anda.
+        Dengan solusi teknologi yang tepat, Anda dapat mempercepat digitalisasi bisnis, meningkatkan efisiensi operasional, dan menjangkau pelanggan lebih luas. HelioTechno hadir sebagai mitra teknologi tepercaya untuk pertumbuhan Anda.
       </p>
       
       {/* Pelajari Lebih Lanjut button matching mockup */}

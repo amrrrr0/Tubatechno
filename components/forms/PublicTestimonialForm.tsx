@@ -114,7 +114,7 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
             <div>
               <h3 className="font-poppins font-bold text-slate-800 text-[20px]">Tulis Testimoni</h3>
               <p className="font-poppins text-[13px] text-slate-400 mt-1">
-                Bagikan pengalaman Anda bersama HelioNexus
+                Bagikan pengalaman Anda bersama HelioTechno
               </p>
             </div>
             <button
@@ -216,7 +216,7 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                 <textarea
                   name="content"
                   rows={4}
-                  placeholder="Ceritakan pengalaman Anda menggunakan layanan HelioNexus..."
+                  placeholder="Ceritakan pengalaman Anda menggunakan layanan HelioTechno..."
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all resize-none leading-relaxed"
                   value={form.content}
                   onChange={handleChange}

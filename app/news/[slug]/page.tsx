@@ -70,14 +70,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!news) {
     return {
-      title: "Artikel Tidak Ditemukan | HelioNexus",
+      title: "Artikel Tidak Ditemukan | HelioTechno",
       description: "Maaf, artikel yang Anda cari tidak dapat ditemukan di portal kami.",
     };
   }
 
-  const title = `${news.seo_title || news.title} | HelioNexus`;
+  const title = `${news.seo_title || news.title} | HelioTechno`;
   const description = news.seo_description || news.content.substring(0, 160).replace(/<[^>]*>/g, "");
-  const keywords = news.seo_keywords || "helionexus, berita, iot, software house";
+  const keywords = news.seo_keywords || "heliotechno, berita, iot, software house";
   const imageUrl = news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80";
 
   return {
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       publishedTime: news.published_at || news.created_at,
       modifiedTime: news.updated_at || news.created_at,
       authors: [news.author],
-      siteName: "HelioNexus",
+      siteName: "HelioTechno",
     },
     twitter: {
       card: "summary_large_image",
@@ -180,15 +180,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     "author": [
       {
         "@type": "Person",
-        "name": news.author || "Tim HelioNexus"
+        "name": news.author || "Tim HelioTechno"
       }
     ],
     "publisher": {
       "@type": "Organization",
-      "name": "HelioNexus",
+      "name": "HelioTechno",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://helionexus.co/assets/brand/logo-icon.png"
+        "url": "https://heliotechno.co/assets/brand/logo-icon.png"
       }
     }
   };

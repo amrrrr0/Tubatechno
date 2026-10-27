@@ -3,8 +3,8 @@ import { Navbar, Pricing, Footer } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
-  title: "Harga Layanan | HelioNexus",
-  description: "Daftar harga dan paket layanan pembuatan website dan aplikasi HelioNexus. Solusi digital terbaik untuk bisnis Anda.",
+  title: "Harga Layanan | HelioTechno",
+  description: "Daftar harga dan paket layanan pembuatan website dan aplikasi HelioTechno. Solusi digital terbaik untuk bisnis Anda.",
 };
 
 const PricingPage = () => {

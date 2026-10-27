@@ -275,7 +275,7 @@ const TestimonialForm: React.FC<Props> = ({ onClose, onSuccess, editData, isPubl
                 <textarea
                   name="content"
                   rows={4}
-                  placeholder="Tulis pengalaman atau ulasan tentang layanan HelioNexus... (min. 20 karakter)"
+                  placeholder="Tulis pengalaman atau ulasan tentang layanan HelioTechno... (min. 20 karakter)"
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/40 text-[13.5px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all resize-none leading-relaxed"
                   value={form.content}
                   onChange={handleChange}

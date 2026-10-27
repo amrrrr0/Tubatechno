@@ -23,7 +23,7 @@ const CTA: React.FC = () => {
           allowFullScreen={true}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Lokasi HelioNexus - Head Office"
+          title="Lokasi HelioTechno - Head Office"
         />
 
         {/* Floating Office Info Card — overlaid bottom-left like gits.id */}
@@ -34,7 +34,7 @@ const CTA: React.FC = () => {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/assets/images/campus-illustration.png" 
-              alt="Universitas Muhammadiyah PKU Surakarta" 
+              alt="HelioTechno Head Office" 
               className="w-full h-full object-cover"
             />
             {/* Subtle overlay gradient */}

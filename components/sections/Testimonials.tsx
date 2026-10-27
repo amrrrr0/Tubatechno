@@ -308,7 +308,7 @@ const Testimonials: React.FC = () => {
         <div className="w-full flex flex-col items-center text-center sm:mb-10 mb-8 relative z-[1] gap-5">
           <div>
             <h1 className="font-poppins font-semibold xs:text-[48px] text-[30px] text-primary-dark xs:leading-[76.8px] leading-[42px]">
-              Apa Kata Mitra Tentang HelioNexus
+              Apa Kata Mitra Tentang HelioTechno
             </h1>
             <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[680px] mt-3 mx-auto">
               Testimoni nyata dari pelaku UMKM dan instansi yang telah mendigitalisasi operasional mereka bersama solusi teknologi kami

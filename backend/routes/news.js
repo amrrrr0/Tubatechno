@@ -105,7 +105,7 @@ router.post("/", async (req, res) => {
   }
 
   // Set default SEO fields if not provided
-  const finalSeoTitle = seo_title?.trim() ? seo_title.trim() : `${title.trim()} | HelioNexus`;
+  const finalSeoTitle = seo_title?.trim() ? seo_title.trim() : `${title.trim()} | HelioTechno`;
   const finalSeoDescription = seo_description?.trim() 
     ? seo_description.trim() 
     : content.trim().substring(0, 160).replace(/<[^>]*>/g, ""); // Strip HTML if any
@@ -220,7 +220,7 @@ router.put("/:id", async (req, res) => {
 
     if (seo_title !== undefined) {
       updateFields.push("seo_title = ?");
-      params.push(seo_title.trim() || `${(title || currentNews.title).trim()} | HelioNexus`);
+      params.push(seo_title.trim() || `${(title || currentNews.title).trim()} | HelioTechno`);
     }
 
     if (seo_description !== undefined) {

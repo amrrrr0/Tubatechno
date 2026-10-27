@@ -11,7 +11,7 @@ interface NewsItem {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Base URL production HelioNexus
+  // Base URL production HelioTechno
   const baseUrl = "http://localhost:3000"; // Can be updated to production domain when ready
 
   // 1. Jalur statis utama

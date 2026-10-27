@@ -525,7 +525,7 @@ function Sidebar({
               <LogoIcon />
               <div>
                 <span className="block text-[15px] font-extrabold tracking-tight text-stone-900 leading-none">
-                  Helio<span className="text-[#00b4d8]">Nexus</span>
+                  Helio<span className="text-[#00b4d8]">Techno</span>
                 </span>
                 <span className="block text-[10px] font-semibold uppercase tracking-widest text-stone-400 mt-0.5">
                   Admin Portal
@@ -618,7 +618,7 @@ function Sidebar({
         {!collapsed && (
           <div className="border-t border-stone-100 px-5 py-4">
             <p className="text-[10px] text-stone-400 leading-relaxed">
-              HelioNexus &copy; {new Date().getFullYear()}
+              HelioTechno &copy; {new Date().getFullYear()}
             </p>
           </div>
         )}

@@ -22,17 +22,17 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-2.5 select-none">
               <Image
                 src={logo}
-                alt="HelioNexus Logo"
+                alt="HelioTechno Logo"
                 width={36}
                 height={36}
                 className="w-9 h-9 object-contain"
               />
               <span className="font-poppins font-bold text-[20px] text-slate-800 tracking-tight">
-                Helio<span className="text-[#00b4d8]">Nexus</span>
+                Helio<span className="text-[#00b4d8]">Techno</span>
               </span>
             </div>
             <p className="font-poppins font-normal text-slate-400 text-[14px] leading-relaxed mt-4.5">
-              Solusi teknologi inovatif, tepercaya, dan kolaboratif dari Universitas Muhammadiyah PKU Surakarta.
+              Mitra teknologi & software house inovatif untuk pengembangan sistem web, mobile, dan digitalisasi bisnis.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
             onClick={handleFooterClick}
             className="font-poppins font-normal text-[#8ba3b8] text-[13px] transition-colors select-none text-center sm:text-left leading-relaxed"
           >
-            &copy; 2026 HelioNexus - Universitas Muhammadiyah PKU Surakarta. All Rights Reserved.
+            &copy; 2026 HelioTechno. All Rights Reserved.
           </p>
 
           {/* Social Icons */}

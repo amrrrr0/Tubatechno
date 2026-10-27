@@ -19,33 +19,33 @@ interface UnitUsaha {
 const staticUnits: UnitUsaha[] = [
   {
     id: 1,
-    slug: "tirta",
-    title: "UMPKU Tirta",
-    tagline: "Air Minum Alami & Higienis",
-    category: "Layanan Umum",
+    slug: "simawa",
+    title: "SIMAWA",
+    tagline: "Sistem Informasi Kemahasiswaan & Akademik",
+    category: "Sistem Informasi",
     features: [
-      "Sumber air pegunungan alami",
-      "Proses filtrasi ultra-modern",
-      "Sertifikasi Halal & BPOM resmi",
-      "Kemasan praktis berbagai ukuran",
-      "Distribusi cepat area Surakarta"
+      "Klien: Univ. Muhammadiyah PKU Surakarta",
+      "Portal terintegrasi mahasiswa & dosen",
+      "Manajemen data beasiswa & prestasi",
+      "Keamanan data terenkripsi standar tinggi",
+      "Dashboard analitik aktivitas kampus"
     ],
-    isFeatured: false,
+    isFeatured: true,
     logoUrl: "https://cdn-icons-png.flaticon.com/512/3105/3105807.png",
-    websiteUrl: "#"
+    websiteUrl: "https://simawa.umpku.ac.id/"
   },
   {
     id: 2,
-    slug: "boga",
-    title: "UMPKU Boga",
-    tagline: "Kuliner Sehat & Katering Premium",
-    category: "Layanan Umum",
+    slug: "eduapp",
+    title: "EDUAPP",
+    tagline: "Platform Manajemen Edukasi Pintar",
+    category: "EdTech",
     features: [
-      "Katering kustom event & rapat",
-      "Bahan masakan segar & organik",
-      "Cita rasa Nusantara & Modern",
-      "Higienitas tinggi terakreditasi",
-      "Penyediaan konsumsi kampus rutin"
+      "Solusi pembelajaran digital interaktif",
+      "Sistem asesmen & pelaporan otomatis",
+      "Multi-role: Guru, Siswa, & Wali Murid",
+      "Akses responsif mobile & desktop",
+      "Integrasi absensi & presensi digital"
     ],
     isFeatured: false,
     logoUrl: "https://cdn-icons-png.flaticon.com/512/2921/2921822.png",
@@ -53,36 +53,19 @@ const staticUnits: UnitUsaha[] = [
   },
   {
     id: 3,
-    slug: "helio",
-    title: "HelioNexus",
-    tagline: "Techno Creative & Software House",
-    category: "Solusi Digital",
+    slug: "mawasting",
+    title: "MAWASTING",
+    tagline: "Aplikasi Pencegahan & Monitoring Stunting",
+    category: "HealthTech",
     features: [
-      "Web & Mobile App custom",
-      "Integrasi IoT Industri",
-      "Implementasi Kecerdasan Buatan (AI)",
-      "UI/UX Design modern & responsif",
-      "Konsultasi IT & digitalisasi UMKM"
-    ],
-    isFeatured: true,
-    logoUrl: "https://cdn-icons-png.flaticon.com/512/606/606547.png",
-    websiteUrl: "https://helionexus.co"
-  },
-  {
-    id: 4,
-    slug: "bmt",
-    title: "BMT UMPKU",
-    tagline: "Finansial Mikro & Simpanan Syariah",
-    category: "Koperasi Syariah",
-    features: [
-      "Simpanan syariah aman & amanah",
-      "Pembiayaan modal UMKM lokal",
-      "Bagi hasil kompetitif & transparan",
-      "Layanan jemput bola nasabah",
-      "Kemitraan usaha produktif civitas"
+      "Klien: Institusi Layanan Kesehatan",
+      "Pemantauan status gizi balita real-time",
+      "Sistem peringatan dini risiko stunting",
+      "Grafik pertumbuhan standar WHO",
+      "Terhubung dengan posyandu & puskesmas"
     ],
     isFeatured: false,
-    logoUrl: "https://cdn-icons-png.flaticon.com/512/2953/2953363.png",
+    logoUrl: "https://cdn-icons-png.flaticon.com/512/606/606547.png",
     websiteUrl: "#"
   }
 ];
@@ -334,10 +317,10 @@ const CardDeal: React.FC = () => {
       {/* Header Section */}
       <div className="flex flex-col items-center text-center max-w-[800px] mb-12 relative z-10 font-jakarta">
         <h2 className="font-poppins font-semibold xs:text-[44px] text-[32px] text-primary-dark leading-[54px] mb-4 tracking-tight">
-          Unit Bisnis Helio Nexus
+          Layanan & Portofolio HelioTechno
         </h2>
         <p className="font-jakarta font-normal text-dimWhite text-[16px] leading-[28px] max-w-[650px]">
-          Sinergi unit usaha Helio Nexus untuk menyajikan layanan profesional bernilai sosial-ekonomi tinggi.
+          Solusi teknologi dan produk digital unggulan yang kami kembangkan untuk memenuhi kebutuhan mitra dan klien kami.
         </p>
 
         {/* Decorative Toggle */}
@@ -532,7 +515,7 @@ const CardDeal: React.FC = () => {
                   Mari Mulai <br />Sesuatu yang Hebat.
                 </h3>
                 <p className="font-poppins font-normal text-slate-400 text-[14px] leading-relaxed mt-4">
-                  Punya ide proyek digital, kebutuhan sistem kustom, atau sekadar ingin berdiskusi? Tim teknologi HelioNexus siap membantu mewujudkannya.
+                  Punya ide proyek digital, kebutuhan sistem kustom, atau sekadar ingin berdiskusi? Tim teknologi HelioTechno siap membantu mewujudkannya.
                 </p>
               </div>
 
@@ -561,7 +544,7 @@ const CardDeal: React.FC = () => {
 
                 {/* Email */}
                 <a 
-                  href="mailto:info@umpku.ac.id" 
+                  href="mailto:contact@heliotechno.co" 
                   className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-cyan-500/20 hover:shadow-[0_8px_20px_rgba(6,182,212,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
                 >
                   <div className="flex items-center gap-3">
@@ -573,7 +556,7 @@ const CardDeal: React.FC = () => {
                     </div>
                     <div className="text-left">
                       <h4 className="font-poppins font-bold text-slate-700 text-[13px]">Email Korespondensi</h4>
-                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">info@umpku.ac.id</p>
+                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">contact@heliotechno.co</p>
                     </div>
                   </div>
                   <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-cyan-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>

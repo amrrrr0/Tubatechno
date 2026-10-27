@@ -7,23 +7,23 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
-  description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Dapatkan artikel edukatif gratis.",
-  keywords: "helionexus, berita teknologi, iot indonesia, software house surakarta, umpk",
+  title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
+  description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Dapatkan artikel edukatif gratis.",
+  keywords: "heliotechno, berita teknologi, iot indonesia, software house surakarta, umpk",
   alternates: {
     canonical: "/news",
   },
   openGraph: {
-    title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
-    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus. Dapatkan artikel edukatif gratis.",
+    title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Dapatkan artikel edukatif gratis.",
     type: "website",
     url: "/news",
-    siteName: "HelioNexus",
+    siteName: "HelioTechno",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Semua Berita & Artikel Teknologi Terbaru | HelioNexus",
-    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioNexus.",
+    title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno.",
   }
 };
 

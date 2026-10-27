@@ -238,7 +238,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
               </label>
               <input
                 type="text"
-                placeholder="Contoh: UMPKU Tirta"
+                placeholder="Contoh: SIMAWA Mobile"
                 className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
