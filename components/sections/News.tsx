@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NewsForm from "../forms/NewsForm";
 import { getApiUrl } from "@/utils/api";
+import { staticNews } from "@/constants/staticData";
 
 interface NewsItem {
   id: number;
@@ -50,7 +51,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
 
   // Modern cover image selection (uses Unsplash or default abstract image)
   const coverImage =
-    item.image_url ||
+    (item.image_url ? item.image_url.replace(/^https?:\/\/localhost:5000/, "") : null) ||
     `https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80`;
 
   return (
@@ -173,7 +174,7 @@ interface NewsProps {
 const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
   const router = useRouter();
 
-  const [allNews, setAllNews] = useState<NewsItem[]>(initialNews || []);
+  const [allNews, setAllNews] = useState<NewsItem[]>(initialNews || staticNews);
   const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(!initialNews);
   const [error, setError] = useState(false);
@@ -199,13 +200,13 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
       // Fetching all (both draft and published) to filter client side
       const res = await fetch(getApiUrl("/api/news?status=all"));
       const data = await res.json();
-      if (data.success) {
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         setAllNews(data.data);
       } else {
-        setError(true);
+        setAllNews(staticNews);
       }
     } catch {
-      setError(true);
+      setAllNews(staticNews);
     } finally {
       setLoading(false);
     }
@@ -430,8 +431,8 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
           </div>
         )}
 
-        {error && !loading && (
-          <div className="flex flex-col items-center justify-center py-16 gap-3 border border-dashed border-gray-200 rounded-2xl bg-gray-50">
+        {error && !loading && displayedNews.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-16 gap-3 border border-slate-800 rounded-2xl bg-[#070b14]/90 backdrop-blur-xl">
             <p className="font-jakarta text-[14px] text-dimWhite">
               Gagal memuat berita. Harap pastikan server backend menyala.
             </p>
@@ -447,7 +448,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
           </div>
         )}
 
-        {!loading && !error && (
+        {!loading && displayedNews.length > 0 && (
           <div className="flex flex-wrap gap-5">
             {displayedNews.map((news, index) => (
               <NewsCard

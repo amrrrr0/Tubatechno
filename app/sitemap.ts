@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { getApiUrl } from "@/utils/api";
+import { staticNews } from "@/constants/staticData";
 
 export const dynamic = "force-static";
 
@@ -55,6 +56,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (err) {
     console.error("Gagal memuat rute berita untuk sitemap:", err);
+  }
+
+  if (newsRoutes.length === 0) {
+    newsRoutes = staticNews.map((item) => {
+      const dateStr = item.published_at || item.created_at;
+      return {
+        url: `${baseUrl}/news/${item.slug}`,
+        lastModified: dateStr ? new Date(dateStr) : new Date(),
+        changeFrequency: "monthly",
+        priority: 0.64,
+      };
+    });
   }
 
   return [...staticRoutes, ...newsRoutes];

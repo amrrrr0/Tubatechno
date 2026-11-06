@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/styles/style";
 import { getApiUrl } from "@/utils/api";
+import { staticPricingPackages } from "@/constants/staticData";
 import PricingForm from "../forms/PricingForm";
 
 const motion = {
@@ -38,11 +39,11 @@ const calculateDiscount = (original: string, current: string) => {
 
 const Pricing: React.FC = () => {
   const [billingMode, setBillingMode] = useState<"monthly" | "annual" | "lifetime">("monthly");
-  const [packages, setPackages] = useState<any[]>([]);
+  const [packages, setPackages] = useState<any[]>(staticPricingPackages);
   const [isAdmin, setIsAdmin] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editData, setEditData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
@@ -84,11 +85,17 @@ const Pricing: React.FC = () => {
       try {
         const res = await fetch(getApiUrl("/api/pricing"));
         const data = await res.json();
-        if (data.success) {
-          setPackages(data.data);
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          const parsed = data.data.map((p: any) => ({
+            ...p,
+            features: Array.isArray(p.features) ? p.features : (typeof p.features === "string" ? JSON.parse(p.features) : [])
+          }));
+          setPackages(parsed);
+        } else {
+          setPackages(staticPricingPackages);
         }
       } catch (error) {
-        console.error("Gagal mengambil data pricing:", error);
+        setPackages(staticPricingPackages);
       } finally {
         setLoading(false);
       }

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/styles/style";
 import { Navbar, Footer } from "@/components";
 import { getApiUrl } from "@/utils/api";
+import { staticNews } from "@/constants/staticData";
 import ScrollReveal from "@/components/ScrollReveal";
 import ViewCounter from "./ViewCounter";
 import type { Metadata } from "next";
@@ -16,11 +17,7 @@ export async function generateStaticParams() {
   } catch {
     // Backend unreachable during build
   }
-  return [
-    { slug: "tubatechno-hadirkan-dashboard-analitik-baru" },
-    { slug: "pentingnya-desain-ui-ux-modern-untuk-aplikasi-mobile-umkm" },
-    { slug: "tubatechno-luncurkan-solusi-iot-pintar-untuk-digitalisasi-klinik-kesehatan" },
-  ];
+  return staticNews.map((item) => ({ slug: item.slug }));
 }
 
 interface NewsItem {
@@ -46,31 +43,27 @@ interface PageProps {
 
 async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   try {
-    const res = await fetch(getApiUrl(`/api/news/${slug}`), {
-      
-    });
+    const res = await fetch(getApiUrl(`/api/news/${slug}`), {});
     const data = await res.json();
-    return data.success ? data.data : null;
+    if (data.success && data.data) return data.data;
   } catch (err) {
     console.error("Gagal mengambil detail berita di server:", err);
-    return null;
   }
+  const fallback = staticNews.find((n) => n.slug === slug);
+  return (fallback as NewsItem) || null;
 }
 
 async function getOtherPublishedNews(excludeId: number): Promise<NewsItem[]> {
   try {
-    const res = await fetch(getApiUrl("/api/news?status=published"), {
-      
-    });
+    const res = await fetch(getApiUrl("/api/news?status=published"), {});
     const data = await res.json();
-    if (data.success) {
+    if (data.success && Array.isArray(data.data) && data.data.length > 0) {
       return data.data.filter((item: NewsItem) => item.id !== excludeId);
     }
-    return [];
   } catch (err) {
     console.error("Gagal mengambil berita lain di server:", err);
-    return [];
   }
+  return staticNews.filter((item) => item.id !== excludeId) as NewsItem[];
 }
 
 function getReadingTime(text: string): number {
@@ -304,7 +297,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 <div className="relative w-full h-[280px] sm:h-[360px] bg-slate-900 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"}
+                    src={(news.image_url ? news.image_url.replace(/^https?:\/\/localhost:5000/, "") : null) || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"}
                     alt={news.title}
                     className="w-full h-full object-cover opacity-90"
                   />

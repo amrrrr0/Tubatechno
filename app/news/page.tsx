@@ -2,6 +2,7 @@ import styles from "@/styles/style";
 import { Navbar, Footer, News } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
 import { getApiUrl } from "@/utils/api";
+import { staticNews } from "@/constants/staticData";
 import type { Metadata } from "next";
 
 
@@ -33,10 +34,10 @@ async function getPublishedNews() {
        // Don't cache on server so it updates instantly
     });
     const data = await res.json();
-    return data.success ? data.data : [];
+    return (data.success && Array.isArray(data.data) && data.data.length > 0) ? data.data : staticNews;
   } catch (err) {
     console.error("Gagal mengambil berita di server:", err);
-    return [];
+    return staticNews;
   }
 }
 

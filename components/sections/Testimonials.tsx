@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import TestimonialForm, { TestimonialEditData } from "../forms/TestimonialForm";
 import { getApiUrl } from "@/utils/api";
+import { staticTestimonials } from "@/constants/staticData";
 
 interface Testimonial {
   id: number;
@@ -165,7 +166,7 @@ const StaticGrid: React.FC<{
 
 // ── Main Testimonials section ─────────────────────────────────
 const Testimonials: React.FC = () => {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(staticTestimonials);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isPublicFormOpen, setIsPublicFormOpen] = useState(false);
@@ -224,10 +225,16 @@ const Testimonials: React.FC = () => {
     try {
       const res = await fetch(getApiUrl("/api/testimonials"));
       const data = await res.json();
-      if (data.success) setTestimonials(data.data);
-      else setError(true);
-    } catch { setError(true); }
-    finally { setLoading(false); }
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+        setTestimonials(data.data);
+      } else {
+        setTestimonials(staticTestimonials);
+      }
+    } catch {
+      setTestimonials(staticTestimonials);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => { fetchTestimonials(); }, [fetchTestimonials]);
@@ -359,7 +366,7 @@ const Testimonials: React.FC = () => {
             </div>
           )}
 
-          {error && !loading && (
+          {error && !loading && testimonials.length === 0 && (
             <div className="flex flex-col items-center justify-center py-14 gap-3">
               <p className="font-jakarta text-[14px] text-dimWhite">
                 Tidak dapat memuat testimoni. Pastikan backend berjalan.
@@ -390,7 +397,7 @@ const Testimonials: React.FC = () => {
             </div>
           )}
 
-          {!loading && !error && testimonials.length > 0 && (
+          {!loading && testimonials.length > 0 && (
             useCarousel ? (
               <InfiniteMarquee
                 testimonials={testimonials}
