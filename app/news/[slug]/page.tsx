@@ -6,7 +6,22 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ViewCounter from "./ViewCounter";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(getApiUrl("/api/news?status=published"));
+    const data = await res.json();
+    if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+      return data.data.map((item: any) => ({ slug: item.slug }));
+    }
+  } catch {
+    // Backend unreachable during build
+  }
+  return [
+    { slug: "tubatechno-hadirkan-dashboard-analitik-baru" },
+    { slug: "pentingnya-desain-ui-ux-modern-untuk-aplikasi-mobile-umkm" },
+    { slug: "tubatechno-luncurkan-solusi-iot-pintar-untuk-digitalisasi-klinik-kesehatan" },
+  ];
+}
 
 interface NewsItem {
   id: number;
@@ -32,7 +47,7 @@ interface PageProps {
 async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   try {
     const res = await fetch(getApiUrl(`/api/news/${slug}`), {
-      cache: "no-store",
+      
     });
     const data = await res.json();
     return data.success ? data.data : null;
@@ -45,7 +60,7 @@ async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
 async function getOtherPublishedNews(excludeId: number): Promise<NewsItem[]> {
   try {
     const res = await fetch(getApiUrl("/api/news?status=published"), {
-      cache: "no-store",
+      
     });
     const data = await res.json();
     if (data.success) {

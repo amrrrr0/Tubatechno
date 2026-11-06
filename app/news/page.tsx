@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { getApiUrl } from "@/utils/api";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = {
   title: "Semua Berita & Artikel Teknologi Terbaru | TubaTechno",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 async function getPublishedNews() {
   try {
     const res = await fetch(getApiUrl("/api/news?status=published"), {
-      cache: "no-store", // Don't cache on server so it updates instantly
+       // Don't cache on server so it updates instantly
     });
     const data = await res.json();
     return data.success ? data.data : [];
