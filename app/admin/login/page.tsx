@@ -105,7 +105,7 @@ export default function AdminLoginPage() {
   /* ── Setelah login: tampilkan 2 pilihan (TEMA TERANG) ── */
   if (loggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-poppins">
+      <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-jakarta">
         <div className="w-full max-w-xl">
           {/* Logo */}
           <div className="text-center mb-8">
@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
                   <path d="M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">HelioTechno</span>
+              <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">TubaTechno</span>
             </div>
             <p className="text-slate-500 text-sm">Selamat datang, Admin. Silakan pilih menu manajemen:</p>
           </div>
@@ -185,7 +185,7 @@ export default function AdminLoginPage() {
 
   /* ── Form Login PIN (TEMA TERANG) ── */
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-poppins relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-jakarta relative">
       <div className="w-full max-w-sm">
         {/* Header */}
         <div className="text-center mb-8">
@@ -197,7 +197,7 @@ export default function AdminLoginPage() {
                 <path d="M2 12l10 5 10-5" />
               </svg>
             </div>
-            <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">HelioTechno</span>
+            <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">TubaTechno</span>
           </div>
           <h1 className="text-slate-800 font-bold text-lg">Akses Pengelola</h1>
           <p className="text-slate-400 text-xs mt-1">Masukkan 4-digit PIN untuk melanjutkan</p>
@@ -275,7 +275,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-slate-400 text-[10px] mt-6">
-          HelioTechno Pengelola © {new Date().getFullYear()}
+          TubaTechno Pengelola © {new Date().getFullYear()}
         </p>
       </div>
     </div>

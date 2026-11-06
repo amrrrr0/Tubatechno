@@ -26,6 +26,7 @@
   --color-error-600: #d92d20;
   --color-error-700: #b42318;
   --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --font-sans: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, sans-serif;
   --font-poppins: var(--font-plus-jakarta-sans), sans-serif;
   --font-jakarta: var(--font-plus-jakarta-sans), sans-serif;
   --breakpoint-xs: 480px;
@@ -66,7 +67,8 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
+  background: #060913;
+  color: #f8fafc;
   font-family: var(--font-plus-jakarta-sans), sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -74,10 +76,9 @@ body {
 
 .text-gradient {
   background: linear-gradient(135deg,
-      #005f73 0%,
-      #0a9396 30%,
-      #00b4d8 70%,
-      #0077b6 100%);
+      #38bdf8 0%,
+      #00b4d8 50%,
+      #e0f2fe 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

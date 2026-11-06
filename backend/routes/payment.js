@@ -57,7 +57,7 @@ router.post("/create", requireAuth, async (req, res) => {
           id: order_id,
           price: parseInt(amount),
           quantity: 1,
-          name: package_name || "Layanan HelioTechno",
+          name: package_name || "Layanan TubaTechno",
         },
       ],
       callbacks: {

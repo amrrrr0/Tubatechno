@@ -226,20 +226,20 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
               </svg>
-              <h2 className="font-poppins font-bold text-[18px] text-primary-dark">
+              <h2 className="font-jakarta font-bold text-[18px] text-primary-dark">
                 {editData ? "Edit Unit Bisnis" : "Tambah Unit Bisnis"}
               </h2>
             </div>
 
             {/* Nama Unit */}
             <div className="flex flex-col gap-1.5">
-              <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+              <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                 Nama Unit Bisnis <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Contoh: SIMAWA Mobile"
-                className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
+                className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
               />
@@ -247,13 +247,13 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
 
             {/* Slogan */}
             <div className="flex flex-col gap-1.5">
-              <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+              <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                 Slogan / Tagline <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Contoh: Air Minum Alami & Higienis"
-                className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
+                className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
                 value={tagline}
                 onChange={e => setTagline(e.target.value)}
               />
@@ -261,13 +261,13 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
 
             {/* Kategori */}
             <div className="flex flex-col gap-1.5">
-              <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+              <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                 Kategori <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Contoh: Layanan Umum, Solusi Digital"
-                className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
+                className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
               />
@@ -275,7 +275,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
 
             {/* Website URL */}
             <div className="flex flex-col gap-1.5">
-              <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+              <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                 URL Website Unit
                 <span className="ml-1.5 font-normal normal-case text-slate-400">— tombol &quot;Selengkapnya&quot; akan membuka link ini</span>
               </label>
@@ -289,7 +289,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                 <input
                   type="url"
                   placeholder="https://website-unit.com"
-                  className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
+                  className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40"
                   value={websiteUrl}
                   onChange={e => setWebsiteUrl(e.target.value)}
                 />
@@ -305,7 +305,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
               <div className="flex-1 min-w-[260px] flex flex-col gap-4">
                 {/* ── LOGO UPLOAD ── */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                  <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                     Logo Unit (PNG / JPG / SVG)
                   </label>
                   <div
@@ -333,7 +333,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                             <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
                           </div>
                         )}
-                        <span className="text-[10px] font-poppins text-slate-400">Klik atau seret untuk ganti</span>
+                        <span className="text-[10px] font-jakarta text-slate-400">Klik atau seret untuk ganti</span>
                       </>
                     ) : (
                       <>
@@ -349,8 +349,8 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                           </div>
                         )}
                         <div className="text-center px-2">
-                          <p className="font-poppins font-semibold text-[11.5px] text-slate-600">Klik untuk pilih gambar</p>
-                          <p className="font-poppins text-[9.5px] text-slate-400 mt-0.5 leading-tight">atau seret &amp; lepas</p>
+                          <p className="font-jakarta font-semibold text-[11.5px] text-slate-600">Klik untuk pilih gambar</p>
+                          <p className="font-jakarta text-[9.5px] text-slate-400 mt-0.5 leading-tight">atau seret &amp; lepas</p>
                         </div>
                       </>
                     )}
@@ -358,8 +358,8 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                   <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml" className="hidden" onChange={handleFileInputChange} />
                   {logoPreview && (
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 px-2.5 py-1 rounded-xl border border-slate-200 bg-white text-[10px] font-poppins text-slate-500 truncate">{logoUrl || logoPreview}</div>
-                      <button type="button" onClick={handleRemoveLogo} className="px-2 py-1 rounded-xl bg-red-50 hover:bg-red-100 text-red-500 text-[10px] font-poppins font-semibold cursor-pointer transition-colors flex-shrink-0 border border-red-100">Hapus</button>
+                      <div className="flex-1 px-2.5 py-1 rounded-xl border border-slate-200 bg-white text-[10px] font-jakarta text-slate-500 truncate">{logoUrl || logoPreview}</div>
+                      <button type="button" onClick={handleRemoveLogo} className="px-2 py-1 rounded-xl bg-red-50 hover:bg-red-100 text-red-500 text-[10px] font-jakarta font-semibold cursor-pointer transition-colors flex-shrink-0 border border-red-100">Hapus</button>
                     </div>
                   )}
                 </div>
@@ -367,8 +367,8 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                 {/* Jadikan Unggulan toggle */}
                 <div className="flex items-center justify-between p-3.5 bg-white border border-slate-200/70 rounded-xl">
                   <div>
-                    <span className="text-[12px] font-poppins font-bold text-slate-700">Jadikan Unggulan</span>
-                    <span className="block text-[10px] font-poppins text-slate-400 mt-0.5">Sorotan warna &amp; glow</span>
+                    <span className="text-[12px] font-jakarta font-bold text-slate-700">Jadikan Unggulan</span>
+                    <span className="block text-[10px] font-jakarta text-slate-400 mt-0.5">Sorotan warna &amp; glow</span>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer select-none">
                     <input type="checkbox" checked={isFeatured} onChange={e => setIsFeatured(e.target.checked)} className="sr-only peer" />
@@ -382,7 +382,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2.5" className="flex-shrink-0 mt-0.5">
                       <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                    <p className="font-poppins text-[12px] text-rose-600 leading-normal font-medium">{error}</p>
+                    <p className="font-jakarta text-[12px] text-rose-600 leading-normal font-medium">{error}</p>
                   </div>
                 )}
               </div>
@@ -393,13 +393,13 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
               {/* Right Sub-column: Daftar Fitur / Layanan */}
               <div className="flex-1 min-w-[260px] flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                  <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                     Daftar Fitur / Layanan <span className="text-red-500">*</span>
                   </label>
                   <button
                     type="button"
                     onClick={handleAddFeature}
-                    className="text-[11px] font-poppins font-bold text-cyan-600 hover:text-cyan-700 cursor-pointer flex items-center gap-1"
+                    className="text-[11px] font-jakarta font-bold text-cyan-600 hover:text-cyan-700 cursor-pointer flex items-center gap-1"
                   >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                     Tambah Baris
@@ -408,11 +408,11 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                 <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-0.5">
                   {features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-2">
-                      <span className="text-[10px] font-poppins text-slate-400 font-semibold w-4 text-right flex-shrink-0">{idx + 1}</span>
+                      <span className="text-[10px] font-jakarta text-slate-400 font-semibold w-4 text-right flex-shrink-0">{idx + 1}</span>
                       <input
                         type="text"
                         placeholder={`Fitur atau layanan ke-${idx + 1}`}
-                        className="flex-1 px-3 py-2 rounded-xl border border-gray-200 bg-white text-[12.5px] font-poppins text-primary-dark placeholder:text-gray-300 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all"
+                        className="flex-1 px-3 py-2 rounded-xl border border-gray-200 bg-white text-[12.5px] font-jakarta text-primary-dark placeholder:text-gray-300 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all"
                         value={feature}
                         onChange={e => handleFeatureChange(idx, e.target.value)}
                       />
@@ -436,7 +436,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="px-6 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-white bg-slate-500 hover:bg-slate-600 disabled:opacity-50 transition-all cursor-pointer"
+            className="px-6 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-white bg-slate-500 hover:bg-slate-600 disabled:opacity-50 transition-all cursor-pointer"
           >
             Batal
           </button>
@@ -444,7 +444,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
             type="button"
             onClick={handleSubmit}
             disabled={loading || uploadLoading}
-            className="px-6 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
+            className="px-6 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
           >
             {loading ? (
               <><svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>Menyimpan...</>

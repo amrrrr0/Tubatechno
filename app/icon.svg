@@ -1,0 +1,67 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- TubaTechno Cyan-to-Blue Tech Gradient -->
+    <linearGradient id="tuba_gradient_logo" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="45%" stop-color="#00b4d8"/>
+      <stop offset="100%" stop-color="#0077b6"/>
+    </linearGradient>
+
+    <!-- Bone Core Gradient (Tech Azure) -->
+    <linearGradient id="tuba_bone_gradient" x1="24" y1="18" x2="40" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0096c7"/>
+      <stop offset="100%" stop-color="#023e8a"/>
+    </linearGradient>
+
+    <!-- Accent Arc Gradient -->
+    <linearGradient id="tuba_arc_gradient" x1="20" y1="16" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="100%" stop-color="#00b4d8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============================================== -->
+  <!-- 1. BAWANG (Onion Bulb Outer Curved Layers)     -->
+  <!-- ============================================== -->
+  <!-- Kelopak Bawang Kiri -->
+  <path d="M 32 5 C 28 17, 8 25, 8 41 C 8 51, 18 58, 28 58 C 21 54, 15 46, 15 39 C 15 27, 27 16, 32 5 Z" 
+        fill="url(#tuba_gradient_logo)"/>
+
+  <!-- Kelopak Bawang Kanan -->
+  <path d="M 32 5 C 36 17, 56 25, 56 41 C 56 51, 46 58, 36 58 C 43 54, 49 46, 49 39 C 49 27, 37 16, 32 5 Z" 
+        fill="url(#tuba_gradient_logo)"/>
+
+  <!-- Lapisan Lengkung Dalam Bawang (Data Arcs) -->
+  <path d="M 32 14 C 29 22, 18 28, 18 39 C 18 45, 22 50, 27 51" 
+        stroke="url(#tuba_arc_gradient)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M 32 14 C 35 22, 46 28, 46 39 C 46 45, 42 50, 37 51" 
+        stroke="url(#tuba_arc_gradient)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+
+  <!-- ============================================== -->
+  <!-- 2. TULANG (Bone Backbone Core Architecture)    -->
+  <!-- ============================================== -->
+  <!-- Bonggol Tulang Atas (Dual Knuckles) -->
+  <circle cx="27" cy="23" r="4.2" fill="url(#tuba_bone_gradient)"/>
+  <circle cx="37" cy="23" r="4.2" fill="url(#tuba_bone_gradient)"/>
+  
+  <!-- Bonggol Tulang Bawah (Dual Knuckles) -->
+  <circle cx="26" cy="46" r="4.6" fill="url(#tuba_bone_gradient)"/>
+  <circle cx="38" cy="46" r="4.6" fill="url(#tuba_bone_gradient)"/>
+
+  <!-- Batang Tulang (Bone Shaft) -->
+  <path d="M 28 23 L 36 23 L 34.2 46 L 29.8 46 Z" fill="url(#tuba_bone_gradient)"/>
+
+  <!-- Highlight Batang Tulang -->
+  <rect x="30.5" y="27" width="3" height="15" rx="1.5" fill="#ffffff" opacity="0.85"/>
+
+  <!-- ============================================== -->
+  <!-- 3. TECH NODES & SPARK                          -->
+  <!-- ============================================== -->
+  <!-- Titik Inti Sirkuit Digital -->
+  <circle cx="32" cy="34.5" r="3.2" fill="url(#tuba_gradient_logo)"/>
+  <circle cx="32" cy="34.5" r="1.6" fill="#ffffff"/>
+
+  <!-- Puncak Bawang (Apex Beacon) -->
+  <circle cx="32" cy="5.5" r="2.2" fill="url(#tuba_gradient_logo)"/>
+  <circle cx="32" cy="5.5" r="1.2" fill="#ffffff"/>
+</svg>

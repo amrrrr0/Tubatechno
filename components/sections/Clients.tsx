@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import { clients } from "@/constants";
 
 const Clients: React.FC = () => {
@@ -5,40 +8,52 @@ const Clients: React.FC = () => {
   const marqueeClients = [...clients, ...clients, ...clients, ...clients];
 
   return (
-    <section className="flex justify-center items-center my-8 overflow-hidden relative" style={{
-      maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-      WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)"
-    }}>
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes clients-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-100% / 4)); }
-        }
-        `
-      }} />
-      <div 
-        className="flex w-max items-center"
+    <section className="w-full py-14 sm:py-16 border-t border-slate-800/80 overflow-hidden relative font-jakarta">
+      {/* Label */}
+      <div className="text-center mb-8">
+        <span className="text-[11px] font-semibold tracking-[0.22em] text-slate-500 uppercase">
+          DIPERCAYA OLEH MITRA INSTITUSI & EKOSISTEM BISNIS
+        </span>
+      </div>
+
+      <div
+        className="flex justify-center items-center overflow-hidden relative"
         style={{
-          animation: "clients-scroll 40s linear infinite"
+          maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)"
         }}
       >
-        {marqueeClients.map((client, index) => (
-          <div
-            key={`${client.id}-${index}`}
-            className="flex flex-col items-center justify-center gap-2 px-6 sm:px-10 py-2 min-w-[100px] sm:min-w-[140px] flex-shrink-0 group cursor-pointer"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={client.logo}
-              alt={client.name}
-              className="h-[32px] sm:h-[42px] w-auto object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300"
-            />
-            <span className="font-poppins font-medium text-[11px] sm:text-[13px] text-dimWhite group-hover:text-primary-dark transition-colors duration-300 whitespace-nowrap">
-              {client.name}
-            </span>
-          </div>
-        ))}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          @keyframes clients-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-100% / 4)); }
+          }
+          `
+        }} />
+        <div 
+          className="flex w-max items-center"
+          style={{
+            animation: "clients-scroll 40s linear infinite"
+          }}
+        >
+          {marqueeClients.map((client, index) => (
+            <div
+              key={`${client.id}-${index}`}
+              className="flex flex-col items-center justify-center gap-2.5 px-8 sm:px-12 py-2 min-w-[120px] sm:min-w-[150px] flex-shrink-0 group cursor-pointer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={client.logo}
+                alt={client.name}
+                className="h-[34px] sm:h-[44px] w-auto object-contain opacity-40 group-hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
+              />
+              <span className="font-medium text-[11.5px] sm:text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors duration-300 whitespace-nowrap">
+                {client.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

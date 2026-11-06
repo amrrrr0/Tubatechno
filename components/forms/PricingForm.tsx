@@ -125,7 +125,7 @@ const PricingForm: React.FC<PricingFormProps> = ({ isOpen, onClose, onSave, edit
       
       <div className="relative bg-white rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-10">
-          <h3 className="font-poppins font-bold text-[18px] text-primary-dark">
+          <h3 className="font-jakarta font-bold text-[18px] text-primary-dark">
             {editData ? "Edit Paket Harga" : "Tambah Paket Harga Baru"}
           </h3>
           <button onClick={onClose} className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors">
@@ -255,10 +255,10 @@ const PricingForm: React.FC<PricingFormProps> = ({ isOpen, onClose, onSave, edit
         </div>
 
         <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 sticky bottom-0">
-          <button type="button" onClick={onClose} disabled={loading} className="px-5 py-2.5 rounded-xl font-poppins font-medium text-[13px] text-slate-600 hover:bg-slate-200 transition-colors">
+          <button type="button" onClick={onClose} disabled={loading} className="px-5 py-2.5 rounded-xl font-jakarta font-medium text-[13px] text-slate-600 hover:bg-slate-200 transition-colors">
             Batal
           </button>
-          <button type="submit" form="pricing-form" disabled={loading} className="px-6 py-2.5 rounded-xl font-poppins font-bold text-[13px] text-white bg-[#00b4d8] hover:bg-[#0096b4] shadow-md shadow-[#00b4d8]/20 transition-all flex items-center gap-2">
+          <button type="submit" form="pricing-form" disabled={loading} className="px-6 py-2.5 rounded-xl font-jakarta font-bold text-[13px] text-white bg-[#00b4d8] hover:bg-[#0096b4] shadow-md shadow-[#00b4d8]/20 transition-all flex items-center gap-2">
             {loading ? (
               <>
                 <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">

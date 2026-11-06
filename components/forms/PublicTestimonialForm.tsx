@@ -33,7 +33,7 @@ const StarSelector: React.FC<{ value: number; onChange: (v: number) => void }> =
         </button>
       ))}
       {(hovered || value) > 0 && (
-        <span className="ml-1 font-poppins text-[12px] text-amber-600 font-semibold">
+        <span className="ml-1 font-jakarta text-[12px] text-amber-600 font-semibold">
           {labels[hovered || value]}
         </span>
       )}
@@ -112,9 +112,9 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
           {/* Header */}
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h3 className="font-poppins font-bold text-slate-800 text-[20px]">Tulis Testimoni</h3>
-              <p className="font-poppins text-[13px] text-slate-400 mt-1">
-                Bagikan pengalaman Anda bersama HelioTechno
+              <h3 className="font-jakarta font-bold text-slate-800 text-[20px]">Tulis Testimoni</h3>
+              <p className="font-jakarta text-[13px] text-slate-400 mt-1">
+                Bagikan pengalaman Anda bersama TubaTechno
               </p>
             </div>
             <button
@@ -137,8 +137,8 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                 </svg>
               </div>
               <div className="text-center">
-                <p className="font-poppins font-bold text-[17px] text-slate-800">Terima Kasih!</p>
-                <p className="font-poppins text-[13px] text-slate-500 mt-1.5">
+                <p className="font-jakarta font-bold text-[17px] text-slate-800">Terima Kasih!</p>
+                <p className="font-jakarta text-[13px] text-slate-500 mt-1.5">
                   Testimoni Anda telah berhasil dikirim dan akan segera tampil.
                 </p>
               </div>
@@ -149,7 +149,7 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
           {status !== "success" && (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 pb-6">
               {errorMsg && (
-                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-[12.5px] font-poppins">
+                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-[12.5px] font-jakarta">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
                   {errorMsg}
                 </div>
@@ -165,8 +165,8 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
                     className="w-10 h-10 rounded-full object-contain bg-white border border-slate-200"
                   />
                   <div>
-                    <p className="font-poppins font-semibold text-[13px] text-slate-700">{form.name}</p>
-                    <p className="font-poppins text-[10.5px] text-slate-400">Avatar otomatis dari nama Anda</p>
+                    <p className="font-jakarta font-semibold text-[13px] text-slate-700">{form.name}</p>
+                    <p className="font-jakarta text-[10.5px] text-slate-400">Avatar otomatis dari nama Anda</p>
                   </div>
                 </div>
               )}
@@ -174,28 +174,28 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
               {/* Nama + Jabatan row */}
               <div className="flex gap-3">
                 <div className="flex-1 flex flex-col gap-1.5">
-                  <label className="font-poppins font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
+                  <label className="font-jakarta font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
                     Nama <span className="text-red-400">*</span>
                   </label>
                   <input
                     name="name"
                     type="text"
                     placeholder="Nama lengkap Anda"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-jakarta text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
                     value={form.name}
                     onChange={handleChange}
                     maxLength={80}
                   />
                 </div>
                 <div className="flex-1 flex flex-col gap-1.5">
-                  <label className="font-poppins font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
+                  <label className="font-jakarta font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
                     Jabatan / Peran <span className="text-red-400">*</span>
                   </label>
                   <input
                     name="title"
                     type="text"
                     placeholder="Pemilik UMKM, Mahasiswa..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-jakarta text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
                     value={form.title}
                     onChange={handleChange}
                   />
@@ -204,26 +204,26 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
 
               {/* Rating */}
               <div className="flex flex-col gap-1.5">
-                <label className="font-poppins font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">Rating</label>
+                <label className="font-jakarta font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">Rating</label>
                 <StarSelector value={form.rating} onChange={(v) => setForm(p => ({ ...p, rating: v }))} />
               </div>
 
               {/* Isi Testimoni */}
               <div className="flex flex-col gap-1.5">
-                <label className="font-poppins font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
+                <label className="font-jakarta font-semibold text-[11px] text-slate-500 uppercase tracking-[0.07em]">
                   Testimoni <span className="text-red-400">*</span>
                 </label>
                 <textarea
                   name="content"
                   rows={4}
-                  placeholder="Ceritakan pengalaman Anda menggunakan layanan HelioTechno..."
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all resize-none leading-relaxed"
+                  placeholder="Ceritakan pengalaman Anda menggunakan layanan TubaTechno..."
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/60 text-[13.5px] font-jakarta text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all resize-none leading-relaxed"
                   value={form.content}
                   onChange={handleChange}
                 />
                 <div className="flex justify-between">
-                  <span className="text-[10.5px] font-poppins text-slate-400">Minimal 20 karakter</span>
-                  <span className={`text-[10.5px] font-poppins ${form.content.length >= 20 ? "text-emerald-500" : "text-slate-400"}`}>
+                  <span className="text-[10.5px] font-jakarta text-slate-400">Minimal 20 karakter</span>
+                  <span className={`text-[10.5px] font-jakarta ${form.content.length >= 20 ? "text-emerald-500" : "text-slate-400"}`}>
                     {form.content.length} karakter
                   </span>
                 </div>
@@ -239,7 +239,7 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
               type="button"
               onClick={onClose}
               disabled={status === "loading"}
-              className="px-5 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-slate-500 hover:text-slate-700 hover:bg-white border border-transparent hover:border-slate-200 transition-all cursor-pointer"
+              className="px-5 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-slate-500 hover:text-slate-700 hover:bg-white border border-transparent hover:border-slate-200 transition-all cursor-pointer"
             >
               Batal
             </button>
@@ -247,7 +247,7 @@ const PublicTestimonialForm: React.FC<Props> = ({ onClose, onSuccess }) => {
               type="submit"
               onClick={handleSubmit}
               disabled={status === "loading"}
-              className="px-6 py-2.5 rounded-xl font-poppins font-bold text-[13px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] disabled:from-slate-300 disabled:to-slate-300 disabled:cursor-not-allowed shadow-md shadow-cyan-600/15 transition-all cursor-pointer flex items-center gap-2"
+              className="px-6 py-2.5 rounded-xl font-jakarta font-bold text-[13px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] disabled:from-slate-300 disabled:to-slate-300 disabled:cursor-not-allowed shadow-md shadow-cyan-600/15 transition-all cursor-pointer flex items-center gap-2"
             >
               {status === "loading" ? (
                 <>

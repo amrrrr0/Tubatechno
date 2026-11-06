@@ -117,7 +117,7 @@ export default function PaymentSimulatorPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-poppins">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-jakarta">
         <div className="flex flex-col items-center gap-3">
           <svg className="animate-spin h-8 w-8 text-[#00b4d8]" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -131,7 +131,7 @@ export default function PaymentSimulatorPage() {
 
   if (error || !order) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-poppins p-4">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-jakarta p-4">
         <div className="bg-white border border-slate-100 rounded-3xl p-8 max-w-sm text-center shadow-xl shadow-slate-100/50">
           <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center mx-auto mb-4">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2.5">
@@ -149,7 +149,7 @@ export default function PaymentSimulatorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-poppins p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-jakarta p-4">
       <div className="w-full max-w-md bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-100/40 overflow-hidden text-slate-800">
         
         {/* Banner Gerbang Pembayaran Simulasi */}
@@ -344,7 +344,7 @@ export default function PaymentSimulatorPage() {
                             <path d="M10 5h4M5 10h4M10 14h4"/>
                           </svg>
                         </div>
-                        <span className="absolute bottom-2 text-[8px] font-extrabold text-slate-400 tracking-wider">HELIOPAY QRIS</span>
+                        <span className="absolute bottom-2 text-[8px] font-extrabold text-slate-400 tracking-wider">TUBAPAY QRIS</span>
                       </div>
                       <p className="text-xs text-slate-400 max-w-xs">
                         Pindai kode QRIS di atas melalui aplikasi e-wallet atau m-banking Anda untuk menyelesaikan pembayaran.
@@ -426,7 +426,7 @@ export default function PaymentSimulatorPage() {
         {/* Footer */}
         <div className="bg-slate-50 border-t border-slate-100 px-6 py-4 text-center">
           <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
-            HelioTechno Technology Center · Sandbox Mode
+            TubaTechno Technology Center · Sandbox Mode
           </p>
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function AdminFloatingBar() {
         <div className="flex items-center gap-2.5">
           <div className="w-2.5 h-2.5 rounded-full bg-[#00b4d8] animate-pulse" />
           <div>
-            <p className="text-slate-800 text-xs font-bold font-poppins tracking-wide uppercase">Mode Edit CMS Aktif</p>
+            <p className="text-slate-800 text-xs font-bold font-jakarta tracking-wide uppercase">Mode Edit CMS Aktif</p>
             <p className="text-slate-400 text-[10px] hidden sm:block">Kelola teks/gambar langsung di halaman ini</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function AdminFloatingBar() {
         <div className="flex items-center gap-2">
           <a
             href="/admin/dashboard"
-            className="px-3.5 py-1.5 rounded-xl bg-slate-50 hover:bg-[#00b4d8]/10 border border-slate-200 text-slate-700 font-poppins font-bold text-xs transition-all flex items-center gap-1.5 hover:text-[#00b4d8]"
+            className="px-3.5 py-1.5 rounded-xl bg-slate-50 hover:bg-[#00b4d8]/10 border border-slate-200 text-slate-700 font-jakarta font-bold text-xs transition-all flex items-center gap-1.5 hover:text-[#00b4d8]"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -56,7 +56,7 @@ export default function AdminFloatingBar() {
           </a>
           <button
             onClick={handleExit}
-            className="px-3.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-100 text-rose-600 font-poppins font-bold text-xs transition-all"
+            className="px-3.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-100 text-rose-600 font-jakarta font-bold text-xs transition-all"
           >
             Keluar Edit
           </button>

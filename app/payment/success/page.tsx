@@ -59,7 +59,7 @@ function SuccessContent() {
 
   if (syncing) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-poppins px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-jakarta px-4">
         <div className="flex flex-col items-center gap-3">
           <svg className="animate-spin h-10 w-10 text-[#00b4d8]" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -72,7 +72,7 @@ function SuccessContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-poppins p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-jakarta p-4">
       <div className="w-full max-w-md bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-100/40 overflow-hidden text-slate-800 p-6 flex flex-col items-center text-center">
         
         {error ? (
@@ -146,7 +146,7 @@ function SuccessContent() {
 export default function SuccessPage() {
   return (
     <Suspense fallback={
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-poppins px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-jakarta px-4">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-[#00b4d8]" />
       </div>
     }>

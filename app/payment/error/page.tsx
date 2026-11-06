@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function ErrorContent() {
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-poppins p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center font-jakarta p-4">
       <div className="w-full max-w-md bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-100/40 p-6 flex flex-col items-center text-center">
         <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center mb-4 text-rose-500">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -33,7 +33,7 @@ function ErrorContent() {
 export default function ErrorPage() {
   return (
     <Suspense fallback={
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-poppins px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 font-jakarta px-4">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-[#00b4d8]" />
       </div>
     }>

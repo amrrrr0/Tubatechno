@@ -59,7 +59,7 @@ async function initDB() {
       [
         "Dr. H. Ahmad Fauzi",
         "Ketua Koperasi Mitra Surakarta",
-        "Layanan web development HelioTechno sangat responsif. Web kustom kami membantu digitalisasi transaksi koperasi dengan sangat cepat dan mudah dipahami anggota.",
+        "Layanan web development TubaTechno sangat responsif. Web kustom kami membantu digitalisasi transaksi koperasi dengan sangat cepat dan mudah dipahami anggota.",
         "https://api.dicebear.com/9.x/notionists/svg?seed=AhmadFauzi",
         5,
         1
@@ -67,7 +67,7 @@ async function initDB() {
       [
         "Rina Astuti, S.Kep.",
         "Kepala Administrasi Klinik PKU",
-        "Integrasi IoT dari HelioTechno untuk otomatisasi sistem pemantauan klinik kami bekerja sangat akurat. Timnya sangat komunikatif dan profesional.",
+        "Integrasi IoT dari TubaTechno untuk otomatisasi sistem pemantauan klinik kami bekerja sangat akurat. Timnya sangat komunikatif dan profesional.",
         "https://api.dicebear.com/9.x/notionists/svg?seed=RinaAstuti",
         5,
         1
@@ -126,14 +126,14 @@ async function initDB() {
   if (newsRows[0].count === 0) {
     const newsSeedData = [
       [
-        "HelioTechno Luncurkan Solusi IoT Pintar untuk Digitalisasi Klinik Kesehatan",
-        "heliotechno-luncurkan-solusi-iot-pintar-untuk-digitalisasi-klinik-kesehatan",
-        "Dalam upaya mempercepat transformasi digital di sektor kesehatan, HelioTechno resmi merilis sistem otomatisasi pemantauan klinik berbasis IoT. Sistem ini memungkinkan pemantauan suhu, kelembaban, dan status peralatan medis secara real-time. Melalui teknologi ini, pengelola klinik dapat meningkatkan keselamatan pasien dan efisiensi operasional harian. Layanan IoT ini telah terintegrasi dengan dashboard analitik berbasis web yang mudah digunakan oleh para tenaga medis.",
+        "TubaTechno Luncurkan Solusi IoT Pintar untuk Digitalisasi Klinik Kesehatan",
+        "tubatechno-luncurkan-solusi-iot-pintar-untuk-digitalisasi-klinik-kesehatan",
+        "Dalam upaya mempercepat transformasi digital di sektor kesehatan, TubaTechno resmi merilis sistem otomatisasi pemantauan klinik berbasis IoT. Sistem ini memungkinkan pemantauan suhu, kelembaban, dan status peralatan medis secara real-time. Melalui teknologi ini, pengelola klinik dapat meningkatkan keselamatan pasien dan efisiensi operasional harian. Layanan IoT ini telah terintegrasi dengan dashboard analitik berbasis web yang mudah digunakan oleh para tenaga medis.",
         "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
-        "Tim Humas HelioTechno",
-        "Solusi IoT Pintar untuk Digitalisasi Klinik | HelioTechno",
-        "HelioTechno merilis solusi IoT terbaru untuk otomatisasi dan digitalisasi klinik kesehatan guna meningkatkan efisiensi dan keamanan pasien.",
-        "iot klinik, digitalisasi kesehatan, heliotechno, otomatisasi klinik, sistem pemantauan iot",
+        "Tim Humas TubaTechno",
+        "Solusi IoT Pintar untuk Digitalisasi Klinik | TubaTechno",
+        "TubaTechno merilis solusi IoT terbaru untuk otomatisasi dan digitalisasi klinik kesehatan guna meningkatkan efisiensi dan keamanan pasien.",
+        "iot klinik, digitalisasi kesehatan, tubatechno, otomatisasi klinik, sistem pemantauan iot",
         "published",
         154,
         new Date()
@@ -141,12 +141,12 @@ async function initDB() {
       [
         "Pentingnya Desain UI/UX Modern untuk Aplikasi Mobile UMKM",
         "pentingnya-desain-ui-ux-modern-untuk-aplikasi-mobile-umkm",
-        "Desain UI/UX bukan sekadar tentang estetika visual, melainkan kunci utama kenyamanan pengguna saat berinteraksi dengan aplikasi mobile. Bagi UMKM, antarmuka yang intuitif dan mudah dipahami dapat meningkatkan retensi pelanggan hingga 40%. HelioTechno berkomitmen mendukung UMKM naik kelas dengan menghadirkan layanan desain UI/UX kelas dunia serta pengembangan aplikasi mobile berkinerja tinggi yang disesuaikan dengan kebutuhan pasar lokal.",
+        "Desain UI/UX bukan sekadar tentang estetika visual, melainkan kunci utama kenyamanan pengguna saat berinteraksi dengan aplikasi mobile. Bagi UMKM, antarmuka yang intuitif dan mudah dipahami dapat meningkatkan retensi pelanggan hingga 40%. TubaTechno berkomitmen mendukung UMKM naik kelas dengan menghadirkan layanan desain UI/UX kelas dunia serta pengembangan aplikasi mobile berkinerja tinggi yang disesuaikan dengan kebutuhan pasar lokal.",
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
         "Budi Prasetyo",
         "Pentingnya UI/UX Modern untuk Aplikasi Mobile UMKM",
-        "Mengapa desain UI/UX krusial untuk kesuksesan aplikasi mobile UMKM? Temukan analisis mendalam dan solusi praktis dari tim HelioTechno.",
-        "ui ux umkm, aplikasi mobile, desain antarmuka, heliotechno, digitalisasi bisnis",
+        "Mengapa desain UI/UX krusial untuk kesuksesan aplikasi mobile UMKM? Temukan analisis mendalam dan solusi praktis dari tim TubaTechno.",
+        "ui ux umkm, aplikasi mobile, desain antarmuka, tubatechno, digitalisasi bisnis",
         "published",
         88,
         new Date()

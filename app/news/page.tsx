@@ -7,23 +7,23 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
-  description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Dapatkan artikel edukatif gratis.",
-  keywords: "heliotechno, berita teknologi, iot indonesia, software house surakarta, umpk",
+  title: "Semua Berita & Artikel Teknologi Terbaru | TubaTechno",
+  description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim TubaTechno. Dapatkan artikel edukatif gratis.",
+  keywords: "tubatechno, berita teknologi, iot indonesia, software house surakarta, umpk",
   alternates: {
     canonical: "/news",
   },
   openGraph: {
-    title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
-    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Dapatkan artikel edukatif gratis.",
+    title: "Semua Berita & Artikel Teknologi Terbaru | TubaTechno",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim TubaTechno. Dapatkan artikel edukatif gratis.",
     type: "website",
     url: "/news",
-    siteName: "HelioTechno",
+    siteName: "TubaTechno",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Semua Berita & Artikel Teknologi Terbaru | HelioTechno",
-    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno.",
+    title: "Semua Berita & Artikel Teknologi Terbaru | TubaTechno",
+    description: "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim TubaTechno.",
   }
 };
 
@@ -58,7 +58,7 @@ export default async function NewsPage() {
             <div className="mt-8 mb-4">
               <a
                 href="/"
-                className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group"
+                className="inline-flex items-center gap-2 font-jakarta font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                   className="group-hover:-translate-x-1 transition-transform">

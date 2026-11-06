@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  GOOGLE APPS SCRIPT — Sinkronisasi Google Form → HelioTechno
+ *  GOOGLE APPS SCRIPT — Sinkronisasi Google Form → TubaTechno
  * ============================================================
  *
  * CARA PASANG:
@@ -128,7 +128,7 @@ function onFormSubmit(e) {
     Logger.log("Response body: " + responseText);
 
     if (responseCode === 200 || responseCode === 201) {
-      Logger.log("✅ Testimoni berhasil dikirim ke HelioTechno: " + nama);
+      Logger.log("✅ Testimoni berhasil dikirim ke TubaTechno: " + nama);
     } else {
       Logger.log("❌ Gagal kirim testimoni. Code: " + responseCode + ", Body: " + responseText);
     }
@@ -162,7 +162,7 @@ function testWebhook() {
     var response = UrlFetchApp.fetch(CONFIG.WEBHOOK_URL, options);
     Logger.log("Test response code: " + response.getResponseCode());
     Logger.log("Test response body: " + response.getContentText());
-    SpreadsheetApp.getUi().alert("✅ Test berhasil!\n\nCek website HelioTechno untuk melihat testimoni test.");
+    SpreadsheetApp.getUi().alert("✅ Test berhasil!\n\nCek website TubaTechno untuk melihat testimoni test.");
   } catch (err) {
     SpreadsheetApp.getUi().alert("❌ Gagal koneksi ke backend:\n" + err.toString() + "\n\nPastikan backend berjalan dan URL sudah benar.");
   }

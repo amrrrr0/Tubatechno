@@ -493,23 +493,39 @@ function Sidebar({
   const itemInactive =
     "text-stone-500 hover:bg-stone-100/80 hover:text-stone-900";
 
-  // Inline SVG logo icon
+  // Inline SVG logo icon (TubaTechno: Tulang + Bawang)
   const LogoIcon = () => (
     <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="sidebar_logo_grad" x1="14" y1="14" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+        <linearGradient id="sidebar_logo_grad" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#00f6ff" />
+          <stop offset="45%" stopColor="#00b4d8" />
           <stop offset="100%" stopColor="#0077b6" />
         </linearGradient>
+        <linearGradient id="sidebar_bone_grad" x1="24" y1="18" x2="40" y2="52" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#0096c7" />
+          <stop offset="100%" stopColor="#023e8a" />
+        </linearGradient>
+        <linearGradient id="sidebar_arc_grad" x1="20" y1="16" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#00f6ff" />
+          <stop offset="100%" stopColor="#00b4d8" />
+        </linearGradient>
       </defs>
-      <circle cx="32" cy="32" r="14" fill="url(#sidebar_logo_grad)" />
-      <path d="M 32,8 A 24,24 0 0,1 56,32" stroke="#00b4d8" strokeWidth="4" fill="none" strokeLinecap="round" />
-      <path d="M 32,56 A 24,24 0 0,1 8,32" stroke="#005f73" strokeWidth="4" fill="none" strokeLinecap="round" />
-      <circle cx="56" cy="32" r="4" fill="#00b4d8" />
-      <circle cx="8" cy="32" r="4" fill="#005f73" />
-      <circle cx="32" cy="32" r="6" fill="#ffffff" />
-    </svg>
-  );
+      <path d="M 32 5 C 28 17, 8 25, 8 41 C 8 51, 18 58, 28 58 C 21 54, 15 46, 15 39 C 15 27, 27 16, 32 5 Z" fill="url(#sidebar_logo_grad)" />
+      <path d="M 32 5 C 36 17, 56 25, 56 41 C 56 51, 46 58, 36 58 C 43 54, 49 46, 49 39 C 49 27, 37 16, 32 5 Z" fill="url(#sidebar_logo_grad)" />
+      <path d="M 32 14 C 29 22, 18 28, 18 39 C 18 45, 22 50, 27 51" stroke="url(#sidebar_arc_grad)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+      <path d="M 32 14 C 35 22, 46 28, 46 39 C 46 45, 42 50, 37 51" stroke="url(#sidebar_arc_grad)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+      <circle cx="27" cy="23" r="4.2" fill="url(#sidebar_bone_grad)" />
+      <circle cx="37" cy="23" r="4.2" fill="url(#sidebar_bone_grad)" />
+      <circle cx="26" cy="46" r="4.6" fill="url(#sidebar_bone_grad)" />
+      <circle cx="38" cy="46" r="4.6" fill="url(#sidebar_bone_grad)" />
+      <path d="M 28 23 L 36 23 L 34.2 46 L 29.8 46 Z" fill="url(#sidebar_bone_grad)" />
+      <rect x="30.5" y="27" width="3" height="15" rx="1.5" fill="#ffffff" opacity="0.85" />
+      <circle cx="32" cy="34.5" r="3.2" fill="url(#sidebar_logo_grad)" />
+      <circle cx="32" cy="34.5" r="1.6" fill="#ffffff" />
+      <circle cx="32" cy="5.5" r="2.2" fill="url(#sidebar_logo_grad)" />
+      <circle cx="32" cy="5.5" r="1.2" fill="#ffffff" />
+    </svg>  );
 
   return (
     <>
@@ -525,7 +541,7 @@ function Sidebar({
               <LogoIcon />
               <div>
                 <span className="block text-[15px] font-extrabold tracking-tight text-stone-900 leading-none">
-                  Helio<span className="text-[#00b4d8]">Techno</span>
+                  Tuba<span className="text-[#00b4d8]">Techno</span>
                 </span>
                 <span className="block text-[10px] font-semibold uppercase tracking-widest text-stone-400 mt-0.5">
                   Admin Portal
@@ -618,7 +634,7 @@ function Sidebar({
         {!collapsed && (
           <div className="border-t border-stone-100 px-5 py-4">
             <p className="text-[10px] text-stone-400 leading-relaxed">
-              HelioTechno &copy; {new Date().getFullYear()}
+              TubaTechno &copy; {new Date().getFullYear()}
             </p>
           </div>
         )}

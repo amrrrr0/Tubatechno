@@ -70,14 +70,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!news) {
     return {
-      title: "Artikel Tidak Ditemukan | HelioTechno",
+      title: "Artikel Tidak Ditemukan | TubaTechno",
       description: "Maaf, artikel yang Anda cari tidak dapat ditemukan di portal kami.",
     };
   }
 
-  const title = `${news.seo_title || news.title} | HelioTechno`;
+  const title = `${news.seo_title || news.title} | TubaTechno`;
   const description = news.seo_description || news.content.substring(0, 160).replace(/<[^>]*>/g, "");
-  const keywords = news.seo_keywords || "heliotechno, berita, iot, software house";
+  const keywords = news.seo_keywords || "tubatechno, berita, iot, software house";
   const imageUrl = news.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80";
 
   return {
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       publishedTime: news.published_at || news.created_at,
       modifiedTime: news.updated_at || news.created_at,
       authors: [news.author],
-      siteName: "HelioTechno",
+      siteName: "TubaTechno",
     },
     twitter: {
       card: "summary_large_image",
@@ -125,13 +125,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
-          <h2 className="font-poppins font-bold text-[24px] text-primary-dark">Artikel Tidak Ditemukan</h2>
-          <p className="font-poppins text-[14px] text-dimWhite max-w-[400px]">
+          <h2 className="font-jakarta font-bold text-[24px] text-primary-dark">Artikel Tidak Ditemukan</h2>
+          <p className="font-jakarta text-[14px] text-dimWhite max-w-[400px]">
             Maaf, artikel yang Anda cari tidak ada atau telah dihapus.
           </p>
           <a
             href="/news"
-            className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-poppins font-semibold text-[13px] transition-all shadow-md shadow-blue-500/20"
+            className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-jakarta font-semibold text-[13px] transition-all shadow-md shadow-blue-500/20"
           >
             Kembali ke Berita
           </a>
@@ -180,15 +180,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     "author": [
       {
         "@type": "Person",
-        "name": news.author || "Tim HelioTechno"
+        "name": news.author || "Tim TubaTechno"
       }
     ],
     "publisher": {
       "@type": "Organization",
-      "name": "HelioTechno",
+      "name": "TubaTechno",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://heliotechno.co/assets/brand/logo-icon.png"
+        "url": "https://tubatechno.co/assets/brand/logo-icon.png"
       }
     }
   };
@@ -218,7 +218,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           <ScrollReveal variant="fade-up" duration={700}>
             <div className="mb-6 flex flex-col gap-3">
               {/* Remah Roti (Breadcrumbs) */}
-              <nav className="flex text-[11px] font-poppins text-dimWhite/65 items-center gap-1.5 select-none tracking-wide">
+              <nav className="flex text-[11px] font-jakarta text-dimWhite/65 items-center gap-1.5 select-none tracking-wide">
                 <a href="/" className="hover:text-[#00b4d8] transition-colors">Beranda</a>
                 <span className="text-gray-600">/</span>
                 <a href="/news" className="hover:text-[#00b4d8] transition-colors">Berita</a>
@@ -228,7 +228,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
               <a
                 href="/news"
-                className="inline-flex items-center gap-2 font-poppins font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group w-fit"
+                className="inline-flex items-center gap-2 font-jakarta font-semibold text-[13px] text-dimWhite hover:text-[#00b4d8] transition-colors group w-fit"
               >
                 <svg
                   width="16"
@@ -254,7 +254,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             <ScrollReveal variant="fade-up" duration={900} delay={100}>
               <aside className="w-full lg:w-[220px] xl:w-[260px] flex-shrink-0">
                 <div className="sticky top-6">
-                  <h3 className="font-poppins font-bold text-[13px] text-[#00b4d8] uppercase tracking-wider mb-4 pb-2.5 border-b border-gray-800 select-none">
+                  <h3 className="font-jakarta font-bold text-[13px] text-[#00b4d8] uppercase tracking-wider mb-4 pb-2.5 border-b border-gray-800 select-none">
                     Berita Lainnya
                   </h3>
 
@@ -265,14 +265,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                         href={`/news/${item.slug}`}
                         className="group block py-1 transition-all duration-200"
                       >
-                        <h4 className="font-poppins font-medium text-[13.5px] leading-snug text-dimWhite group-hover:text-[#00b4d8] transition-colors line-clamp-2">
+                        <h4 className="font-jakarta font-medium text-[13.5px] leading-snug text-dimWhite group-hover:text-[#00b4d8] transition-colors line-clamp-2">
                           • {item.title}
                         </h4>
                       </a>
                     ))}
 
                     {otherNewsList.length === 0 && (
-                      <p className="text-[12px] font-poppins text-gray-500 italic py-2 select-none">
+                      <p className="text-[12px] font-jakarta text-gray-500 italic py-2 select-none">
                         Tidak ada berita lain.
                       </p>
                     )}
@@ -299,10 +299,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 {/* Article Content */}
                 <div className="p-6 sm:p-10">
                   <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                    <span className="inline-block px-3 py-1 rounded-full font-poppins font-semibold text-[10px] uppercase tracking-wider text-white bg-[#00b4d8]">
+                    <span className="inline-block px-3 py-1 rounded-full font-jakarta font-semibold text-[10px] uppercase tracking-wider text-white bg-[#00b4d8]">
                       Berita &amp; Artikel
                     </span>
-                    <span className="flex items-center gap-1 text-[11px] font-poppins text-gray-400 select-none">
+                    <span className="flex items-center gap-1 text-[11px] font-jakarta text-gray-400 select-none">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
@@ -311,12 +311,12 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                     </span>
                   </div>
 
-                  <h1 className="font-poppins font-bold text-[22px] sm:text-[28px] leading-tight text-primary-dark mb-4">
+                  <h1 className="font-jakarta font-bold text-[22px] sm:text-[28px] leading-tight text-primary-dark mb-4">
                     {news.title}
                   </h1>
 
                   {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-gray-500 font-poppins border-b border-gray-100 pb-5 mb-6">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-gray-500 font-jakarta border-b border-gray-100 pb-5 mb-6">
                     <span className="flex items-center gap-1">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -345,18 +345,18 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   </div>
 
                   {/* Body */}
-                  <p className="font-poppins text-[14px] sm:text-[15px] leading-[26px] text-gray-700 whitespace-pre-line">
+                  <p className="font-jakarta text-[14px] sm:text-[15px] leading-[26px] text-gray-700 whitespace-pre-line">
                     {news.content}
                   </p>
 
                   {/* Keywords */}
                   {keywordsArray.length > 0 && (
                     <div className="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-gray-100">
-                      <span className="font-poppins text-[12px] text-gray-400 mr-2">Tags:</span>
+                      <span className="font-jakarta text-[12px] text-gray-400 mr-2">Tags:</span>
                       {keywordsArray.map((keyword, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-1 rounded-md bg-[#e0f7fa]/60 text-[#0077b6] text-[11px] font-poppins border border-[#00b4d8]/10"
+                          className="px-2.5 py-1 rounded-md bg-[#e0f7fa]/60 text-[#0077b6] text-[11px] font-jakarta border border-[#00b4d8]/10"
                         >
                           #{keyword}
                         </span>

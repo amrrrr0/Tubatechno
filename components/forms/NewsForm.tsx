@@ -204,8 +204,8 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h3 className="font-poppins font-bold text-[18px] text-emerald-600">Berhasil Disimpan!</h3>
-            <p className="font-poppins text-[14px] text-gray-500 mt-2 max-w-[280px]">
+            <h3 className="font-jakarta font-bold text-[18px] text-emerald-600">Berhasil Disimpan!</h3>
+            <p className="font-jakarta text-[14px] text-gray-500 mt-2 max-w-[280px]">
               {isEdit ? "Berita Anda telah berhasil diperbarui di database." : "Berita Anda telah berhasil ditambahkan ke database."}
             </p>
           </div>
@@ -226,14 +226,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       <line x1="16" y1="17" x2="8" y2="17" />
                       <polyline points="10 9 9 9 8 9" />
                     </svg>
-                    <h2 className="font-poppins font-bold text-[18px] text-primary-dark">
+                    <h2 className="font-jakarta font-bold text-[18px] text-primary-dark">
                       {isEdit ? "Edit Berita & Artikel" : "Tambah Berita & Artikel"}
                     </h2>
                   </div>
 
                   {/* Judul Berita */}
                   <div className="flex flex-col gap-1.5 mb-4">
-                    <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                    <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                       Judul Berita <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -249,14 +249,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         required
                         value={form.title}
                         onChange={handleChange}
-                        className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                        className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                       />
                     </div>
                   </div>
 
                   {/* Penulis */}
                   <div className="flex flex-col gap-1.5 mb-4">
-                    <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                    <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                       Penulis <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -272,14 +272,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         required
                         value={form.author}
                         onChange={handleChange}
-                        className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                        className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                       />
                     </div>
                   </div>
 
                   {/* Konten / Isi Berita */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                    <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                       Konten / Isi Berita <span className="text-red-500">*</span>
                     </label>
                     <textarea
@@ -288,7 +288,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       rows={6}
                       value={form.content}
                       onChange={handleChange}
-                      className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all resize-none bg-gray-50/40 disabled:opacity-60"
+                      className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all resize-none bg-gray-50/40 disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -305,7 +305,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                     <div>
                       {/* Status Berita */}
                       <div className="flex flex-col gap-1.5 mb-5">
-                        <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                        <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                           {isEdit ? "Perbarui Berita" : "Simpan Berita"}
                         </label>
                         <div className="relative">
@@ -320,7 +320,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             name="status"
                             value={form.status}
                             onChange={handleChange}
-                            className="w-full font-poppins text-[14px] text-primary-dark border border-gray-200 rounded-xl pl-9 pr-8 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%209l3%203%203-3%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat"
+                            className="w-full font-jakarta text-[14px] text-primary-dark border border-gray-200 rounded-xl pl-9 pr-8 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%209l3%203%203-3%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat"
                           >
                             <option value="draft">Draft (Simpan Internal)</option>
                             <option value="published">Published (Tampilkan Publik)</option>
@@ -330,7 +330,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
 
                       {/* URL Gambar Header */}
                       <div className="flex flex-col gap-1.5 mb-5">
-                        <label className="font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
+                        <label className="font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em]">
                           URL Gambar Header
                         </label>
                         <div className="relative flex gap-2">
@@ -348,7 +348,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                               value={form.image_url}
                               onChange={handleChange}
                               placeholder="URL atau unggah ->"
-                              className="w-full font-poppins text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                              className="w-full font-jakarta text-[14px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                             />
                           </div>
                           
@@ -382,7 +382,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             </button>
                           </div>
                         </div>
-                        <span className="text-[12px] text-gray-400 font-poppins mt-0.5 flex justify-between">
+                        <span className="text-[12px] text-gray-400 font-jakarta mt-0.5 flex justify-between">
                           <span>Tempel URL atau unggah file.</span>
                           <span>(Maks 2MB)</span>
                         </span>
@@ -396,7 +396,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         <button
                           type="button"
                           onClick={() => setShowSeo(!showSeo)}
-                          className="w-full flex items-center justify-between font-poppins font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em] hover:text-primary-dark transition-all py-1 cursor-pointer"
+                          className="w-full flex items-center justify-between font-jakarta font-semibold text-[11px] text-dimWhite uppercase tracking-[0.08em] hover:text-primary-dark transition-all py-1 cursor-pointer"
                         >
                           <span>Konfigurasi SEO Lanjutan</span>
                           <svg
@@ -417,7 +417,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                           <line x1="12" y1="8" x2="12" y2="12" />
                           <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <p className="font-poppins text-[12px] text-rose-600 leading-normal font-medium">{errorMsg}</p>
+                        <p className="font-jakarta text-[12px] text-rose-600 leading-normal font-medium">{errorMsg}</p>
                       </div>
                     )}
                   </div>
@@ -428,14 +428,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       {/* URL Slug */}
                       <div className="flex flex-col gap-1">
                         <div className="flex justify-between items-center">
-                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                          <label className="font-jakarta font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
                             Kustom URL Slug
                           </label>
                           {!isSlugValid && (
                             <button
                               type="button"
                               onClick={handleFixSlug}
-                              className="px-2 py-0.5 rounded bg-amber-500 text-white font-poppins text-[9px] font-bold hover:bg-amber-600 transition-colors active:scale-95 cursor-pointer"
+                              className="px-2 py-0.5 rounded bg-amber-500 text-white font-jakarta text-[9px] font-bold hover:bg-amber-600 transition-colors active:scale-95 cursor-pointer"
                               title="Bersihkan slug otomatis"
                             >
                               Auto-Fix
@@ -455,11 +455,11 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             value={form.slug}
                             onChange={handleChange}
                             placeholder="contoh-url-slug"
-                            className={`w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border ${isSlugValid ? "border-gray-200" : "border-red-400 focus:border-red-500 focus:ring-red-500/15"} rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60`}
+                            className={`w-full font-jakarta text-[13px] text-primary-dark placeholder:text-gray-300 border ${isSlugValid ? "border-gray-200" : "border-red-400 focus:border-red-500 focus:ring-red-500/15"} rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60`}
                           />
                         </div>
                         {!isSlugValid && (
-                          <span className="text-[9.5px] font-poppins text-red-500 font-semibold mt-0.5">
+                          <span className="text-[9.5px] font-jakarta text-red-500 font-semibold mt-0.5">
                             * Slug tidak valid. Gunakan huruf kecil, angka, dan tanda hubung (-).
                           </span>
                         )}
@@ -468,10 +468,10 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       {/* Meta Title */}
                       <div className="flex flex-col gap-1">
                         <div className="flex justify-between items-center">
-                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                          <label className="font-jakarta font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
                             Meta Title
                           </label>
-                          <span className={`text-[9px] font-bold font-poppins px-1.5 py-0.5 rounded ${
+                          <span className={`text-[9px] font-bold font-jakarta px-1.5 py-0.5 rounded ${
                             seoTitleLength > 60 ? "bg-red-100 text-red-600 border border-red-200" :
                             seoTitleLength >= 40 ? "bg-emerald-100 text-emerald-600 border border-emerald-200" :
                             "bg-amber-100 text-amber-600 border border-amber-200"
@@ -491,7 +491,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             value={form.seo_title}
                             onChange={handleChange}
                             placeholder="Maks 60 karakter"
-                            className="w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                            className="w-full font-jakarta text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                           />
                         </div>
                       </div>
@@ -499,10 +499,10 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       {/* Meta Description */}
                       <div className="flex flex-col gap-1">
                         <div className="flex justify-between items-center">
-                          <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                          <label className="font-jakarta font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
                             Meta Description
                           </label>
-                          <span className={`text-[9px] font-bold font-poppins px-1.5 py-0.5 rounded ${
+                          <span className={`text-[9px] font-bold font-jakarta px-1.5 py-0.5 rounded ${
                             seoDescLength > 160 ? "bg-red-100 text-red-600 border border-red-200" :
                             seoDescLength >= 120 ? "bg-emerald-100 text-emerald-600 border border-emerald-200" :
                             "bg-amber-100 text-amber-600 border border-amber-200"
@@ -516,13 +516,13 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                           value={form.seo_description}
                           onChange={handleChange}
                           placeholder="Maks 160 karakter"
-                          className="w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 resize-none disabled:opacity-60"
+                          className="w-full font-jakarta text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 resize-none disabled:opacity-60"
                         />
                       </div>
 
                       {/* Meta Keywords */}
                       <div className="flex flex-col gap-1">
-                        <label className="font-poppins font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
+                        <label className="font-jakarta font-semibold text-[10px] text-dimWhite uppercase tracking-[0.08em]">
                           Meta Keywords
                         </label>
                         <div className="relative">
@@ -538,21 +538,21 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             value={form.seo_keywords}
                             onChange={handleChange}
                             placeholder="Pisahkan dengan koma"
-                            className="w-full font-poppins text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
+                            className="w-full font-jakarta text-[13px] text-primary-dark placeholder:text-gray-300 border border-gray-200 rounded-xl pl-8 pr-3 py-2 focus:outline-none focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 transition-all bg-gray-50/40 disabled:opacity-60"
                           />
                         </div>
                       </div>
 
                       {/* SEO Real-Time Analyzer Card */}
                       <div className="p-3.5 rounded-2xl border border-gray-200 bg-white shadow-sm flex flex-col gap-2.5">
-                        <span className="font-poppins font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5 border-b border-gray-100 pb-2 select-none">
+                        <span className="font-jakarta font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5 border-b border-gray-100 pb-2 select-none">
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                           </svg>
                           SEO Real-Time Analyzer
                         </span>
 
-                        <div className="flex flex-col gap-2.5 font-poppins text-[11px] text-gray-600">
+                        <div className="flex flex-col gap-2.5 font-jakarta text-[11px] text-gray-600">
                           {/* Focus Keyword input */}
                           <div className="flex items-center justify-between gap-2">
                             <span className="font-semibold text-gray-500">Kata Kunci Fokus:</span>
@@ -561,7 +561,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                               placeholder="Ketik kata kunci..."
                               value={focusKeyword}
                               onChange={(e) => setFocusKeyword(e.target.value)}
-                              className="px-2.5 py-1 border border-gray-200 rounded-lg text-[11px] focus:outline-none focus:border-[#00b4d8] w-36 bg-gray-50/50 font-poppins"
+                              className="px-2.5 py-1 border border-gray-200 rounded-lg text-[11px] focus:outline-none focus:border-[#00b4d8] w-36 bg-gray-50/50 font-jakarta"
                             />
                           </div>
 
@@ -626,7 +626,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                       {/* Google Search Mockup Snippet */}
                       <div className="p-3.5 rounded-2xl border border-gray-200 bg-white shadow-sm flex flex-col gap-2.5">
                         <div className="flex items-center justify-between border-b border-gray-100 pb-2 select-none">
-                          <span className="font-poppins font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="font-jakarta font-bold text-[10px] text-[#0077b6] uppercase tracking-wider flex items-center gap-1.5">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                             </svg>
@@ -636,14 +636,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                             <button
                               type="button"
                               onClick={() => setPreviewMode("mobile")}
-                              className={`px-2 py-0.5 text-[9px] font-poppins font-semibold rounded-md transition-all cursor-pointer ${previewMode === "mobile" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
+                              className={`px-2 py-0.5 text-[9px] font-jakarta font-semibold rounded-md transition-all cursor-pointer ${previewMode === "mobile" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
                             >
                               Mobile
                             </button>
                             <button
                               type="button"
                               onClick={() => setPreviewMode("desktop")}
-                              className={`px-2 py-0.5 text-[9px] font-poppins font-semibold rounded-md transition-all cursor-pointer ${previewMode === "desktop" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
+                              className={`px-2 py-0.5 text-[9px] font-jakarta font-semibold rounded-md transition-all cursor-pointer ${previewMode === "desktop" ? "bg-white text-blue-600 shadow-sm border border-slate-200/50" : "text-gray-400 hover:text-gray-600"}`}
                             >
                               Desktop
                             </button>
@@ -653,14 +653,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                         {previewMode === "mobile" ? (
                           <div className="p-3 border border-slate-100 rounded-xl bg-white flex flex-col font-sans max-w-[270px] select-none text-left">
                             <div className="flex items-center gap-1 text-[10px] text-gray-500 mb-0.5">
-                              <span className="font-semibold text-gray-800">HelioTechno</span>
+                              <span className="font-semibold text-gray-800">TubaTechno</span>
                               <span>›</span>
                               <span>news</span>
                               <span>›</span>
                               <span className="truncate max-w-[70px]">{form.slug || "slug-berita"}</span>
                             </div>
                             <h4 className="text-[#1a0dab] font-medium text-[14px] leading-tight hover:underline mb-1 line-clamp-2">
-                              {form.seo_title || (form.title ? `${form.title} | HelioTechno` : "Judul Berita | HelioTechno")}
+                              {form.seo_title || (form.title ? `${form.title} | TubaTechno` : "Judul Berita | TubaTechno")}
                             </h4>
                             <p className="text-[#4d5156] text-[11px] leading-relaxed line-clamp-3">
                               {form.seo_description || (form.content ? form.content.substring(0, 140).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}
@@ -676,7 +676,7 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                               <span className="truncate max-w-[120px]">{form.slug || "slug-berita"}</span>
                             </div>
                             <h4 className="text-[#1a0dab] text-[16px] font-medium leading-normal hover:underline mb-1">
-                              {form.seo_title || (form.title ? `${form.title} | HelioTechno` : "Judul Berita | HelioTechno")}
+                              {form.seo_title || (form.title ? `${form.title} | TubaTechno` : "Judul Berita | TubaTechno")}
                             </h4>
                             <p className="text-[#4d5156] text-[12px] leading-relaxed line-clamp-2">
                               {form.seo_description || (form.content ? form.content.substring(0, 150).replace(/<[^>]*>/g, "") : "Deskripsi SEO akan muncul di sini...")}
@@ -696,14 +696,14 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                 type="button"
                 onClick={onClose}
                 disabled={submitStatus === "loading"}
-                className="px-6 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-white bg-slate-500 hover:bg-slate-600 disabled:opacity-50 transition-all cursor-pointer"
+                className="px-6 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-white bg-slate-500 hover:bg-slate-600 disabled:opacity-50 transition-all cursor-pointer"
               >
                 Batal
               </button>
               <button
                 type="submit"
                 disabled={submitStatus === "loading"}
-                className="px-6 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
+                className="px-6 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
               >
                 {submitStatus === "loading" && (
                   <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">

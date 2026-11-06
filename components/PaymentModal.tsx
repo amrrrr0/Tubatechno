@@ -91,7 +91,7 @@ export default function PaymentModal({
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg bg-white border border-slate-100 rounded-3xl shadow-2xl overflow-hidden font-poppins text-slate-800">
+      <div className="relative w-full max-w-lg bg-white border border-slate-100 rounded-3xl shadow-2xl overflow-hidden font-jakarta text-slate-800">
 
         {/* Header */}
         <div className="bg-slate-50 border-b border-slate-100 px-6 py-5 flex items-center justify-between">

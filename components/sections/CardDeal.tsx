@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useEffect, useCallback } from "react";
 import BusinessForm from "../forms/BusinessForm";
 import { getApiUrl } from "@/utils/api";
+import { Card3DTilt } from "../ui/Card3DTilt";
 
 interface UnitUsaha {
   id: number;
@@ -13,6 +15,9 @@ interface UnitUsaha {
   isFeatured: boolean;
   logoUrl: string;
   websiteUrl: string;
+  client?: string;
+  telemetry?: string;
+  sla?: string;
 }
 
 // Fallback static list in case backend is offline
@@ -21,51 +26,57 @@ const staticUnits: UnitUsaha[] = [
     id: 1,
     slug: "simawa",
     title: "SIMAWA",
-    tagline: "Sistem Informasi Kemahasiswaan & Akademik",
-    category: "Sistem Informasi",
+    tagline: "Sistem Informasi Kemahasiswaan & Akademik Terpadu",
+    category: "Sistem Informasi Akademik",
+    client: "Universitas Muhammadiyah PKU Surakarta",
+    telemetry: "Portal Terintegrasi Mahasiswa & Dosen",
+    sla: "Beroperasi Aktif di Lingkungan Kampus",
     features: [
-      "Klien: Univ. Muhammadiyah PKU Surakarta",
-      "Portal terintegrasi mahasiswa & dosen",
-      "Manajemen data beasiswa & prestasi",
-      "Keamanan data terenkripsi standar tinggi",
-      "Dashboard analitik aktivitas kampus"
+      "Portal terintegrasi mahasiswa, dosen, dan rektorat",
+      "Manajemen data beasiswa, registrasi, dan prestasi",
+      "Keamanan data terenkripsi dan pembatasan peran akses (RBAC)",
+      "Dashboard pelaporan dan analitik akademik berkala"
     ],
     isFeatured: true,
-    logoUrl: "https://cdn-icons-png.flaticon.com/512/3105/3105807.png",
+    logoUrl: "",
     websiteUrl: "https://simawa.umpku.ac.id/"
   },
   {
     id: 2,
-    slug: "eduapp",
-    title: "EDUAPP",
-    tagline: "Platform Manajemen Edukasi Pintar",
-    category: "EdTech",
+    slug: "mawasting",
+    title: "MAWASTING",
+    tagline: "Platform Telemetri Pemantauan Gizi & Pencegahan Stunting",
+    category: "HealthTech & Telemetri",
+    client: "Institusi Layanan Kesehatan & Posyandu",
+    telemetry: "Sinkronisasi Standar Pertumbuhan WHO",
+    sla: "Integrasi Data Posyandu ke Puskesmas",
     features: [
-      "Solusi pembelajaran digital interaktif",
-      "Sistem asesmen & pelaporan otomatis",
-      "Multi-role: Guru, Siswa, & Wali Murid",
-      "Akses responsif mobile & desktop",
-      "Integrasi absensi & presensi digital"
+      "Pemantauan status gizi balita real-time berbasis standar WHO",
+      "Sistem peringatan dini (early warning) deteksi risiko stunting",
+      "Sinkronisasi data langsung antara posyandu dan puskesmas",
+      "Histori rekam medis gizi anak dan grafik pertumbuhan"
     ],
     isFeatured: false,
-    logoUrl: "https://cdn-icons-png.flaticon.com/512/2921/2921822.png",
+    logoUrl: "",
     websiteUrl: "#"
   },
   {
     id: 3,
-    slug: "mawasting",
-    title: "MAWASTING",
-    tagline: "Aplikasi Pencegahan & Monitoring Stunting",
-    category: "HealthTech",
+    slug: "eduapp",
+    title: "EDUAPP",
+    tagline: "Ekosistem Pembelajaran Digital & Manajemen Edukasi",
+    category: "EdTech & Asesmen",
+    client: "Ekosistem Sekolah & Yayasan Pendidikan",
+    telemetry: "Akses Multi-Peran (Guru, Siswa, Wali Murid)",
+    sla: "Asesmen Digital & Pelaporan Otomatis",
     features: [
-      "Klien: Institusi Layanan Kesehatan",
-      "Pemantauan status gizi balita real-time",
-      "Sistem peringatan dini risiko stunting",
-      "Grafik pertumbuhan standar WHO",
-      "Terhubung dengan posyandu & puskesmas"
+      "Solusi pembelajaran digital interaktif dan bank soal terpusat",
+      "Sistem asesmen digital dan pelaporan rapor otomatis",
+      "Portal multi-peran terpisah untuk guru, siswa, dan wali murid",
+      "Akses responsif lintas web desktop dan perangkat seluler"
     ],
     isFeatured: false,
-    logoUrl: "https://cdn-icons-png.flaticon.com/512/606/606547.png",
+    logoUrl: "",
     websiteUrl: "#"
   }
 ];
@@ -86,10 +97,9 @@ const ContactForm: React.FC = () => {
     }
     setError("");
     setLoading(true);
-    
-    // Simulate sending message
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setSuccess(true);
       setName("");
       setContact("");
@@ -103,20 +113,15 @@ const ContactForm: React.FC = () => {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 text-center">
-        <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4 border border-emerald-100">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-        <h5 className="font-poppins font-bold text-slate-800 text-[16px] mb-1.5">Pesan Berhasil Terkirim</h5>
-        <p className="font-poppins text-xs text-slate-400 max-w-[280px] leading-relaxed">
-          Terima kasih telah menghubungi kami. Tim kami akan segera menanggapi pesan Anda secepatnya.
+      <div className="flex flex-col items-center justify-center py-10 text-center font-jakarta">
+        <h5 className="font-bold text-white text-[18px] mb-2">Pesan Berhasil Terkirim</h5>
+        <p className="text-sm text-slate-300 max-w-[320px] leading-relaxed">
+          Terima kasih telah menghubungi TubaTechno. Tim rekayasa kami akan segera merespons pesan Anda secepatnya.
         </p>
         <button
           type="button"
           onClick={() => setSuccess(false)}
-          className="mt-6 px-5 py-2 text-xs font-bold text-white bg-primary-dark hover:bg-primary-dark/95 rounded-full shadow-md transition-colors cursor-pointer"
+          className="mt-6 px-6 py-2.5 text-xs font-bold text-slate-950 bg-white hover:bg-slate-100 rounded-xl transition-all cursor-pointer shadow-md"
         >
           Kirim Pesan Baru
         </button>
@@ -125,67 +130,63 @@ const ContactForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 font-jakarta">
       {error && (
-        <p className="text-rose-500 text-xs font-semibold font-poppins">{error}</p>
+        <p className="text-rose-400 text-xs font-semibold">{error}</p>
       )}
       <div>
-        <label htmlFor="contact_name" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Nama Lengkap</label>
+        <label htmlFor="contact_name" className="block text-[12px] font-semibold text-slate-300 mb-2">
+          Nama Lengkap
+        </label>
         <input
           type="text"
           id="contact_name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Masukkan nama lengkap Anda"
-          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all"
+          placeholder="Nama Anda atau perwakilan instansi"
+          className="w-full bg-[#04060d] border border-slate-800 text-white placeholder-slate-500 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 rounded-xl px-4 py-3 text-xs outline-none transition-all"
         />
       </div>
       <div>
-        <label htmlFor="contact_info" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Email atau No. WhatsApp</label>
+        <label htmlFor="contact_info" className="block text-[12px] font-semibold text-slate-300 mb-2">
+          Email atau Nomor WhatsApp
+        </label>
         <input
           type="text"
           id="contact_info"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          placeholder="contoh@mail.com atau 0812345..."
-          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all"
+          placeholder="contoh@perusahaan.com atau 0812345..."
+          className="w-full bg-[#04060d] border border-slate-800 text-white placeholder-slate-500 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 rounded-xl px-4 py-3 text-xs outline-none transition-all"
         />
       </div>
       <div>
-        <label htmlFor="contact_message" className="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Pesan Anda</label>
+        <label htmlFor="contact_message" className="block text-[12px] font-semibold text-slate-300 mb-2">
+          Kebutuhan Proyek / Sistem
+        </label>
         <textarea
           id="contact_message"
           rows={4}
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
-          placeholder="Tuliskan kebutuhan sistem kustom atau detail diskusi proyek Anda di sini..."
-          className="w-full bg-slate-50/50 focus:bg-white border border-slate-200 focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] rounded-xl px-4 py-2.5 text-xs text-slate-800 outline-none transition-all resize-none"
+          placeholder="Jelaskan gambaran sistem kustom, tantangan teknis, atau target waktu pengerjaan..."
+          className="w-full bg-[#04060d] border border-slate-800 text-white placeholder-slate-500 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 rounded-xl px-4 py-3 text-xs outline-none transition-all resize-none"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] text-white font-poppins font-bold text-[12px] transition-all cursor-pointer text-center flex items-center justify-center gap-2 disabled:opacity-80 shadow-md shadow-[#00b4d8]/10"
+        className="w-full py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-[13px] transition-all cursor-pointer text-center flex items-center justify-center gap-2 disabled:opacity-70"
       >
-        {loading ? (
-          <>
-            <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Mengirim Pesan...
-          </>
-        ) : (
-          "Kirim Pesan Sekarang"
-        )}
+        {loading ? "Mengirim Pesan..." : "Kirim Pesan Konsultasi ↗"}
       </button>
     </form>
   );
 };
 
-const CardDeal: React.FC = () => {
+export const CardDeal: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"bisnis" | "contact">("bisnis");
-  
+
   // Dynamic business units states
   const [unitUsahaList, setUnitUsahaList] = useState<UnitUsaha[]>(staticUnits);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -198,7 +199,6 @@ const CardDeal: React.FC = () => {
       const res = await fetch(getApiUrl("/api/business-units"));
       const data = await res.json();
       if (data.success && Array.isArray(data.data)) {
-        // Map API response: logoUrl comes from logo_type field, websiteUrl from website_url
         const mapped = data.data.map((u: any) => ({
           ...u,
           logoUrl: u.logoUrl || u.logo_type || "",
@@ -232,7 +232,6 @@ const CardDeal: React.FC = () => {
       window.removeEventListener("admin-state-changed", checkAdmin);
     };
   }, []);
-
 
   // Listen to hash change for scrolling to contact form
   useEffect(() => {
@@ -282,75 +281,88 @@ const CardDeal: React.FC = () => {
     setIsFormOpen(true);
   };
 
-
-  // Render logo: PNG image if URL provided, fallback to placeholder icon
-  const renderLogo = (logoUrl: string) => {
-    if (logoUrl && (logoUrl.startsWith("http") || logoUrl.startsWith("/"))) {
+  // Custom refined architectural glyphs
+  const renderProjectGlyph = (unit: UnitUsaha) => {
+    if (unit.logoUrl && (unit.logoUrl.startsWith("http") || unit.logoUrl.startsWith("/"))) {
       return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={logoUrl}
-          alt="logo"
-          className="w-8 h-8 object-contain group-hover:scale-105 transition-transform duration-300"
-          onError={e => {
-            (e.target as HTMLImageElement).style.display = "none";
-          }}
+          src={unit.logoUrl}
+          alt={unit.title}
+          className="w-6 h-6 object-contain"
         />
       );
     }
-    // Default placeholder
+
+    const key = (unit.slug || unit.title).toLowerCase();
+    if (key.includes("simawa")) {
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      );
+    }
+    if (key.includes("mawasting")) {
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      );
+    }
     return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <polyline points="21 15 16 10 5 21" />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
       </svg>
     );
   };
 
   return (
-    <section id="contact" className="flex flex-col items-center py-20 px-4 md:px-8 w-full bg-white relative overflow-hidden">
-      {/* Decorative light spotlights matching tech theme */}
-      <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-b from-[#00b4d8]/5 to-transparent blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 right-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-t from-[#00b4d8]/5 to-transparent blur-[140px] pointer-events-none" />
-
+    <section id="product" className="flex flex-col items-center py-20 sm:py-28 w-full relative overflow-hidden border-t border-slate-800/80 font-jakarta">
       {/* Header Section */}
-      <div className="flex flex-col items-center text-center max-w-[800px] mb-12 relative z-10 font-jakarta">
-        <h2 className="font-poppins font-semibold xs:text-[44px] text-[32px] text-primary-dark leading-[54px] mb-4 tracking-tight">
-          Layanan & Portofolio HelioTechno
+      <div className="flex flex-col items-center text-center max-w-3xl mb-12 sm:mb-16 relative z-10">
+        <span className="text-[12px] font-semibold tracking-[0.2em] text-[#38bdf8] uppercase mb-3 block">
+          PORTOFOLIO SISTEM TERAPLIKASI
+        </span>
+        <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-white leading-[1.12] tracking-[-0.03em]">
+          Studi Kasus & Sistem <br className="hidden sm:inline" />
+          <span className="text-[#38bdf8] font-light italic">
+            Produksi Mandiri.
+          </span>
         </h2>
-        <p className="font-jakarta font-normal text-dimWhite text-[16px] leading-[28px] max-w-[650px]">
-          Solusi teknologi dan produk digital unggulan yang kami kembangkan untuk memenuhi kebutuhan mitra dan klien kami.
+        <p className="font-normal text-slate-300 text-[15px] sm:text-[17px] leading-[1.75] max-w-2xl mt-4">
+          Kompilasi sistem kustom berkinerja tinggi yang kami rancang dan terapkan secara langsung pada operasional mitra institusi dan klien kami.
         </p>
 
-        {/* Decorative Toggle */}
-        <div className="inline-flex p-1 bg-gray-100 border border-gray-200/80 rounded-full mt-8 select-none">
+        {/* Minimalist Switcher */}
+        <div className="inline-flex p-1 bg-[#070b14] border border-slate-800 rounded-xl mt-8 select-none">
           <button
             type="button"
             onClick={() => setActiveTab("bisnis")}
-            className={`px-5 py-2 text-xs font-bold rounded-full font-jakarta shadow-md transition-all duration-300 cursor-pointer ${
+            className={`px-5 py-2 text-xs font-bold rounded-lg font-jakarta transition-all duration-200 cursor-pointer ${
               activeTab === "bisnis"
-                ? "text-white bg-primary-dark"
-                : "text-gray-500 hover:text-primary-dark bg-transparent shadow-none"
+                ? "text-slate-950 bg-white shadow-sm"
+                : "text-slate-400 hover:text-white bg-transparent"
             }`}
           >
-            Bisnis
+            Katalog Portofolio ({unitUsahaList.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("contact")}
-            className={`px-5 py-2 text-xs font-bold rounded-full font-jakarta shadow-md transition-all duration-300 cursor-pointer ${
+            className={`px-5 py-2 text-xs font-bold rounded-lg font-jakarta transition-all duration-200 cursor-pointer ${
               activeTab === "contact"
-                ? "text-white bg-primary-dark"
-                : "text-gray-500 hover:text-primary-dark bg-transparent shadow-none"
+                ? "text-slate-950 bg-white shadow-sm"
+                : "text-slate-400 hover:text-white bg-transparent"
             }`}
           >
-            Contact
+            Konsultasi Proyek
           </button>
         </div>
       </div>
 
-      {/* Admin Tambah Bisnis Button */}
+      {/* Admin Add Business Button */}
       {activeTab === "bisnis" && isAdmin && (
         <div className="flex justify-center mb-8 relative z-10">
           <button
@@ -359,246 +371,204 @@ const CardDeal: React.FC = () => {
               setEditingUnit(null);
               setIsFormOpen(true);
             }}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-[13px] text-slate-950 bg-white hover:bg-slate-100 transition-all shadow-md cursor-pointer"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
             </svg>
-            Tambah Unit Bisnis
+            Tambah Unit Sistem
           </button>
         </div>
       )}
 
       {/* Dynamic Tab Content Wrapper */}
-      <div className="relative w-full max-w-[1150px] min-h-[520px] z-10 font-jakarta">
-        {/* Bisnis Tab Content */}
-        <div
-          className={`w-full transition-all duration-500 ease-out transform ${
-            activeTab === "bisnis"
-              ? "opacity-100 translate-x-0 scale-100 pointer-events-auto"
-              : "opacity-0 -translate-x-12 scale-95 pointer-events-none absolute top-0 left-0"
-          }`}
-        >
-          <div className="flex flex-wrap justify-center gap-8 w-full">
-            {unitUsahaList.map((unit) => {
-              // Compute visual styles based on isFeatured configuration dynamically
-              const cardClass = unit.isFeatured 
-                ? "bg-gradient-to-b from-[#ecfeff] to-white border-2 border-[#00b4d8]/40 shadow-[0_20px_50px_rgba(0,246,255,0.06)] hover:border-[#00b4d8]/70"
-                : "bg-white border border-gray-200/80 hover:border-gray-300 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]";
-
-              const btnClass = unit.isFeatured
-                ? "bg-gradient-to-r from-[#00f6ff] to-[#0077b6] text-primary-dark hover:brightness-110 shadow-[0_4px_15px_rgba(0,246,255,0.2)] hover:shadow-[0_10px_25px_rgba(0,246,255,0.3)] font-extrabold border border-[#00f6ff]/30"
-                : "bg-white hover:bg-primary-dark border border-primary-dark/20 hover:border-primary-dark text-primary-dark hover:text-white";
-
-              const glowEffect = unit.isFeatured
-                ? <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#00f6ff]/3 to-transparent opacity-60 pointer-events-none" />
-                : null;
+      <div className="w-full max-w-[1440px] z-10 font-jakarta">
+        {/* ============================================================ */}
+        {/* 1. KATALOG PORTOFOLIO: 3 Expansive Columns                   */}
+        {/* ============================================================ */}
+        {activeTab === "bisnis" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 w-full">
+            {unitUsahaList.map((unit, index) => {
+              const fallbackClient = index === 0
+                ? "Universitas Muhammadiyah PKU Surakarta"
+                : index === 1
+                ? "Institusi Layanan Kesehatan & Posyandu"
+                : "Ekosistem Sekolah & Yayasan";
 
               return (
-                <div
-                  key={unit.id}
-                  className={`group relative flex flex-col justify-between rounded-[28px] p-8 w-full max-w-[280px] transition-all duration-500 ease-out hover:-translate-y-2.5 ${cardClass} ${
-                    unit.isFeatured ? "min-h-[500px] lg:-translate-y-2" : "min-h-[470px]"
-                  }`}
-                >
-                  {glowEffect}
+                <Card3DTilt key={unit.id} className="h-full rounded-2xl">
+                  <div className="group relative flex flex-col justify-between h-full p-8 rounded-2xl bg-[#070b14]/90 border border-slate-800/80 hover:border-sky-500/40 backdrop-blur-xl transition-all duration-300">
+                    {/* Admin Actions */}
+                    {isAdmin && (
+                      <div className="absolute top-4 right-4 flex items-center gap-1.5 z-20">
+                        <button
+                          type="button"
+                          className="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 flex items-center justify-center transition-all cursor-pointer text-xs font-bold"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditClick(unit);
+                          }}
+                          title="Edit"
+                        >
+                          ✎
+                        </button>
+                        <button
+                          type="button"
+                          className="w-7 h-7 rounded-lg bg-red-950/60 hover:bg-red-900 text-red-400 border border-red-800/60 flex items-center justify-center transition-all cursor-pointer text-xs"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteClick(unit.id);
+                          }}
+                          title="Hapus"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
 
-                  {/* Admin actions (Edit / Delete) */}
-                  {isAdmin && (
-                    <div className="absolute top-4 right-4 flex items-center gap-1.5 z-20">
-                      <button
-                        type="button"
-                        className="w-7 h-7 rounded-lg bg-white/95 hover:bg-white text-slate-600 hover:text-cyan-600 border border-slate-200/80 flex items-center justify-center transition-all cursor-pointer shadow-sm text-xs font-bold"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEditClick(unit);
-                        }}
-                        title="Edit Unit Usaha"
-                      >
-                        ✎
-                      </button>
-                      <button
-                        type="button"
-                        className="w-7 h-7 rounded-lg bg-red-50/95 hover:bg-red-100 text-red-500 hover:text-red-600 border border-red-100 flex items-center justify-center transition-all cursor-pointer shadow-sm text-xs"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteClick(unit.id);
-                        }}
-                        title="Hapus Unit Usaha"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  )}
-
-                  <div>
-                    {/* Header Info */}
-                    <div className="mb-6 flex flex-col items-center text-center">
-                      {/* Brand Logo Circle Wrapper */}
-                      <div className={`w-[52px] h-[52px] rounded-2xl flex items-center justify-center border shadow-sm mb-4 flex-shrink-0 overflow-hidden mx-auto ${
-                        unit.isFeatured
-                          ? "bg-[#ecfeff] border-[#00b4d8]/20"
-                          : "bg-slate-50 border-slate-100"
-                      }`}>
-                        {renderLogo(unit.logoUrl)}
+                    <div>
+                      {/* Top Bar: Icon + Category */}
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-[#38bdf8] group-hover:scale-105 group-hover:border-sky-500/40 transition-all duration-300">
+                          {renderProjectGlyph(unit)}
+                        </div>
+                        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                          {unit.category || `Studi Kasus 0${index + 1}`}
+                        </span>
                       </div>
 
-                      <span className="text-[10px] font-extrabold text-[#00b4d8] uppercase tracking-widest block mb-2">
-                        {unit.category}
-                      </span>
-                      <h4 className="font-jakarta font-extrabold text-[22px] text-primary-dark tracking-tight mb-1">
+                      {/* Title & Tagline */}
+                      <h3 className="font-bold text-[24px] sm:text-[26px] text-white tracking-tight mb-2 group-hover:text-sky-300 transition-colors">
                         {unit.title}
-                      </h4>
-                      <p className="font-jakarta font-normal text-[12px] text-dimWhite min-h-[36px] leading-tight mt-1">
+                      </h3>
+                      <p className="text-[14px] text-slate-300 leading-relaxed font-normal mb-6">
                         {unit.tagline}
                       </p>
+
+                      {/* Client Badge */}
+                      <div className="py-2.5 px-3.5 rounded-lg bg-[#04060d]/80 border border-slate-800/80 text-[12px] text-slate-300 mb-6">
+                        <span className="text-slate-400 block text-[10.5px] uppercase tracking-wider mb-0.5">Mitra / Klien:</span>
+                        <span className="font-medium text-white">{unit.client || fallbackClient}</span>
+                      </div>
+
+                      {/* Feature Checklist */}
+                      <div className="space-y-2.5 pt-1 mb-6 border-t border-slate-800/60">
+                        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2 pt-2">
+                          Ruang Lingkup Sistem:
+                        </span>
+                        {unit.features.map((feat, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5 text-[13px] text-slate-300 leading-snug">
+                            <span className="text-[#38bdf8] font-bold leading-none mt-1">•</span>
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Website Link Button */}
-                    <a
-                      href={unit.websiteUrl && unit.websiteUrl !== "#" ? unit.websiteUrl : undefined}
-                      target={unit.websiteUrl && unit.websiteUrl !== "#" ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      onClick={e => { if (!unit.websiteUrl || unit.websiteUrl === "#") e.preventDefault(); }}
-                      className={`w-full font-jakarta font-extrabold text-[13px] py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer mb-6 no-underline ${btnClass} ${
-                        (!unit.websiteUrl || unit.websiteUrl === "#") ? "opacity-60 cursor-not-allowed" : "hover:-translate-y-0.5"
-                      }`}
-                    >
-                      <span>Selengkapnya</span>
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </a>
-
-                    {/* Divider */}
-                    <div className="w-full h-[1px] bg-gray-100 mb-6" />
-
-                    {/* Features list */}
-                    <ul className="space-y-3">
-                      {unit.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-[12px] text-primary-dark font-semibold">
-                          {/* Circle Checkmark Icon */}
-                          <span className={`flex-shrink-0 w-4 h-4 rounded-full bg-cyan-50 border border-cyan-200/60 flex items-center justify-center mt-0.5`}>
-                            <svg className="w-2.5 h-2.5 text-[#00b4d8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                          </span>
-                          <span className="leading-tight text-dimWhite group-hover:text-primary-dark transition-colors duration-300">
-                            {feat}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Bottom Action CTA */}
+                    <div className="pt-5 border-t border-slate-800/60">
+                      {unit.websiteUrl && unit.websiteUrl !== "#" ? (
+                        <a
+                          href={unit.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-3 px-4 rounded-xl font-bold text-[13px] bg-slate-900 hover:bg-white text-[#38bdf8] hover:text-slate-950 border border-slate-800 hover:border-white transition-all flex items-center justify-center gap-2 cursor-pointer no-underline group/btn"
+                        >
+                          <span>Kunjungi Sistem Langsung</span>
+                          <span className="transition-transform group-hover/btn:translate-x-1">↗</span>
+                        </a>
+                      ) : (
+                        <div className="w-full py-3 px-4 rounded-xl font-medium text-[12px] bg-slate-900/60 text-slate-400 border border-slate-800 text-center select-none flex items-center justify-center gap-1.5">
+                          <span>Sistem Private Mitra</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Card3DTilt>
               );
             })}
           </div>
-        </div>
+        )}
 
-        {/* Contact Tab Content */}
-        <div
-          className={`w-full transition-all duration-500 ease-out transform ${
-            activeTab === "contact"
-              ? "opacity-100 translate-x-0 scale-100 pointer-events-auto"
-              : "opacity-0 translate-x-12 scale-95 pointer-events-none absolute top-0 left-0"
-          }`}
-        >
-          {/* Transparent container without gray card background/border */}
-          <div className="w-full flex flex-col lg:flex-row gap-12 pt-6">
-            
-            {/* Column 1: Info & Links (42% width on lg) */}
+        {/* ============================================================ */}
+        {/* 2. KONSULTASI PROYEK TAB: Dark Obsidian Contact Hub         */}
+        {/* ============================================================ */}
+        {activeTab === "contact" && (
+          <div id="contact" className="w-full flex flex-col lg:flex-row gap-10 sm:gap-12 pt-4">
+            {/* Left: Contact Specs */}
             <div className="w-full lg:w-[42%] flex flex-col justify-between text-left gap-6">
               <div>
-                <span className="text-[11px] font-extrabold text-[#00b4d8] uppercase tracking-widest block mb-3">
-                  Hubungi Kami
+                <span className="text-[12px] font-semibold text-[#38bdf8] uppercase tracking-[0.2em] block mb-3">
+                  KONSULTASI TEKNOLOGI
                 </span>
-                <h3 className="font-poppins font-extrabold text-[28px] md:text-[36px] text-slate-800 leading-tight tracking-tight">
-                  Mari Mulai <br />Sesuatu yang Hebat.
+                <h3 className="font-extrabold text-[28px] md:text-[36px] text-white leading-tight tracking-tight mb-4">
+                  Diskusikan Kebutuhan <br />
+                  <span className="text-[#38bdf8] font-light italic">Teknologi Anda.</span>
                 </h3>
-                <p className="font-poppins font-normal text-slate-400 text-[14px] leading-relaxed mt-4">
-                  Punya ide proyek digital, kebutuhan sistem kustom, atau sekadar ingin berdiskusi? Tim teknologi HelioTechno siap membantu mewujudkannya.
+                <p className="text-slate-300 text-[15px] leading-relaxed">
+                  Punya kebutuhan sistem kustom, arsitektur berskala besar, atau ingin merekayasa ulang infrastruktur digital yang sudah ada? Tim rekayasa TubaTechno siap berdiskusi.
                 </p>
               </div>
 
-              {/* Instant Contact Links */}
+              {/* Instant Contact Channels */}
               <div className="flex flex-col gap-3.5 mt-2">
                 {/* WhatsApp */}
-                <a 
-                  href="https://wa.me/6281234567890" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-emerald-500/20 hover:shadow-[0_8px_20px_rgba(16,185,129,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+                <a
+                  href="https://wa.me/6281234567890"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/contact flex items-center justify-between p-4 bg-[#070b14] rounded-xl border border-slate-800 hover:border-emerald-500/50 hover:bg-[#0a101d] transition-all no-underline"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center border border-emerald-100/30 group-hover/contact:scale-105 transition-transform duration-300">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover/contact:scale-105 transition-transform">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                       </svg>
                     </div>
-                    <div className="text-left">
-                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">WhatsApp</h4>
-                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">+62 812-3456-7890</p>
+                    <div>
+                      <h4 className="font-bold text-white text-[13.5px]">WhatsApp Langsung</h4>
+                      <p className="text-[12px] text-slate-400 mt-0.5">+62 812-3456-7890</p>
                     </div>
                   </div>
-                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-emerald-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
+                  <span className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 group-hover/contact:text-emerald-400 group-hover/contact:border-emerald-500/40 transition-colors text-xs font-bold">
+                    ↗
+                  </span>
                 </a>
 
                 {/* Email */}
-                <a 
-                  href="mailto:contact@heliotechno.co" 
-                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-cyan-500/20 hover:shadow-[0_8px_20px_rgba(6,182,212,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+                <a
+                  href="mailto:contact@tubatechno.com"
+                  className="group/contact flex items-center justify-between p-4 bg-[#070b14] rounded-xl border border-slate-800 hover:border-sky-500/50 hover:bg-[#0a101d] transition-all no-underline"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-cyan-50 text-cyan-500 flex items-center justify-center border border-cyan-100/30 group-hover/contact:scale-105 transition-transform duration-300">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20 group-hover/contact:scale-105 transition-transform">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
                       </svg>
                     </div>
-                    <div className="text-left">
-                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">Email Korespondensi</h4>
-                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5">contact@heliotechno.co</p>
+                    <div>
+                      <h4 className="font-bold text-white text-[13.5px]">Email Resmi</h4>
+                      <p className="text-[12px] text-slate-400 mt-0.5">contact@tubatechno.com</p>
                     </div>
                   </div>
-                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-cyan-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
-                </a>
-
-                {/* Address Map Link */}
-                <a 
-                  href="https://maps.google.com/?q=Jl.+Tulang+Bawang+V+No.+25,+Kadipiro,+Banjarsari,+Surakarta" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="group/contact flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-[0_2px_12px_rgba(0,4,15,0.015)] hover:border-indigo-500/20 hover:shadow-[0_8px_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center border border-indigo-100/30 group-hover/contact:scale-105 transition-transform duration-300">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <h4 className="font-poppins font-bold text-slate-700 text-[13px]">Kantor Pusat</h4>
-                      <p className="font-poppins text-[11px] text-slate-400 mt-0.5 leading-normal max-w-[200px] truncate">
-                        Jl. Tulang Bawang V No. 25, Surakarta
-                      </p>
-                    </div>
-                  </div>
-                  <span className="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover/contact:bg-indigo-500 group-hover/contact:text-white transition-all duration-300 text-xs font-bold">→</span>
+                  <span className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 group-hover/contact:text-sky-400 group-hover/contact:border-sky-500/40 transition-colors text-xs font-bold">
+                    ↗
+                  </span>
                 </a>
               </div>
             </div>
 
-            {/* Column 2: Direct Contact Form (58% width on lg) */}
-            <div className="w-full lg:w-[58%] bg-white border border-slate-150 rounded-3xl p-6 md:p-8 shadow-[0_4px_25px_rgba(15,23,42,0.03)] flex flex-col justify-center">
-              <h4 className="font-poppins font-bold text-[15px] text-slate-800 mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#00b4d8] animate-pulse" />
-                Hubungi Langsung
-              </h4>
+            {/* Right: Contact Form Console */}
+            <div className="w-full lg:w-[58%] bg-[#070b14]/90 border border-slate-800/90 rounded-2xl p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+              <div className="pb-4 mb-6 border-b border-slate-800/80">
+                <h4 className="font-bold text-white text-[16px]">Formulir Konsultasi Proyek</h4>
+                <p className="text-xs text-slate-400 mt-1">Kami akan mempelajari kebutuhan Anda dan membalas dalam waktu maksimal 1 hari kerja.</p>
+              </div>
               <ContactForm />
             </div>
-
           </div>
-        </div>
+        )}
       </div>
 
       {/* Admin Business Unit CRUD modal form */}

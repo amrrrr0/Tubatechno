@@ -24,7 +24,7 @@ interface CardProps {
 
 const TestimonialCard: React.FC<CardProps> = ({ t, isAdmin, onEdit, onDelete }) => (
   <div
-    className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-gray-100 hover:border-[#00b4d8]/30 hover:shadow-xl transition-all duration-300 cursor-default overflow-hidden flex-shrink-0"
+    className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#070b14]/90 border border-slate-800/80 hover:border-sky-500/40 hover:shadow-2xl backdrop-blur-xl font-jakarta transition-all duration-300 cursor-default overflow-hidden flex-shrink-0"
     style={{
       boxShadow: "0 2px 16px rgba(0,4,15,0.06)",
       width: "clamp(280px, 30vw, 340px)",
@@ -58,7 +58,7 @@ const TestimonialCard: React.FC<CardProps> = ({ t, isAdmin, onEdit, onDelete }) 
     {/* Top row */}
     <div className="flex items-start justify-between mb-2 flex-shrink-0">
       <svg width="28" height="20" viewBox="0 0 36 26" fill="none" className="opacity-30 flex-shrink-0">
-        <path d="M0 26V16.12C0 11.63 1.064 8.04 3.192 5.36C5.384 2.62 8.576.8 12.768 0L14.4 3.68C11.89 4.23 9.896 5.36 8.408 7.08C6.984 8.8 6.272 10.9 6.272 13.376H12.768V26H0ZM20.992 26V16.12C20.992 11.63 22.056 8.04 24.184 5.36C26.376 2.62 29.568.8 33.76 0L35.392 3.68C32.89 4.23 30.888 5.36 29.4 7.08C27.976 8.8 27.264 10.9 27.264 13.376H33.76V26H20.992Z" fill="#00b4d8"/>
+        <path d="M0 26V16.12C0 11.63 1.064 8.04 3.192 5.36C5.384 2.62 8.576.8 12.768 0L14.4 3.68C11.89 4.23 9.896 5.36 8.408 7.08C6.984 8.8 6.272 10.9 6.272 13.376H12.768V26H0ZM20.992 26V16.12C20.992 11.63 22.056 8.04 24.184 5.36C26.376 2.62 29.568.8 33.76 0L35.392 3.68C32.89 4.23 30.888 5.36 29.4 7.08C27.976 8.8 27.264 10.9 27.264 13.376H33.76V26H20.992Z" fill="#38bdf8"/>
       </svg>
       <div className="flex gap-0.5">
         {[1, 2, 3, 4, 5].map((s) => (
@@ -74,25 +74,25 @@ const TestimonialCard: React.FC<CardProps> = ({ t, isAdmin, onEdit, onDelete }) 
     </div>
 
     {/* Content with line-clamp to fit height cleanly */}
-    <p className="font-poppins font-normal text-[14px] sm:text-[15px] leading-[22px] text-[#374151] flex-1 my-2 overflow-hidden line-clamp-4">
+    <p className="font-jakarta font-normal text-[14px] sm:text-[15px] leading-[22px] text-slate-300 flex-1 my-3 overflow-hidden line-clamp-4 leading-relaxed font-normal text-[14px]">
       {t.content}
     </p>
 
     {/* Author row */}
-    <div className="flex flex-row items-center gap-3 pt-3 border-t border-gray-100 flex-shrink-0">
+    <div className="flex flex-row items-center gap-3 pt-3 border-t border-slate-800/60 flex-shrink-0">
       <div className="relative flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={t.avatar || `https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(t.name)}`}
           alt={t.name}
-          className="w-10 h-10 rounded-full object-cover bg-gray-100 border-2 border-white"
+          className="w-10 h-10 rounded-full object-cover bg-gray-100 border-2 border-slate-700"
           style={{ boxShadow: "0 2px 8px rgba(0,180,216,0.15)" }}
         />
-        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-white" />
+        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-700" />
       </div>
       <div className="min-w-0">
-        <h4 className="font-poppins font-semibold text-[14px] leading-tight text-primary-dark truncate">{t.name}</h4>
-        <p className="font-poppins text-[12px] leading-[18px] text-dimWhite truncate">{t.title}</p>
+        <h4 className="font-jakarta font-semibold text-[14px] leading-tight text-white truncate font-bold text-[14.5px]">{t.name}</h4>
+        <p className="font-jakarta text-[12px] leading-[18px] text-slate-400 truncate text-[12px]">{t.title}</p>
       </div>
     </div>
   </div>
@@ -301,19 +301,24 @@ const Testimonials: React.FC = () => {
         }
       `}</style>
 
-      <section id="clients" className="sm:py-16 py-10 flex flex-col relative">
+      <section id="clients" className="py-20 sm:py-28 flex flex-col relative border-t border-slate-800/80 font-jakarta">
         <div className="absolute z-[0] w-[60%] h-[60%] -right-[50%] rounded-full blue__gradient pointer-events-none" />
 
         {/* Header */}
-        <div className="w-full flex flex-col items-center text-center sm:mb-10 mb-8 relative z-[1] gap-5">
-          <div>
-            <h1 className="font-poppins font-semibold xs:text-[48px] text-[30px] text-primary-dark xs:leading-[76.8px] leading-[42px]">
-              Apa Kata Mitra Tentang HelioTechno
-            </h1>
-            <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[680px] mt-3 mx-auto">
-              Testimoni nyata dari pelaku UMKM dan instansi yang telah mendigitalisasi operasional mereka bersama solusi teknologi kami
-            </p>
-          </div>
+                {/* Header */}
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14 sm:mb-20 font-jakarta relative z-[1]">
+          <span className="text-[12px] font-semibold tracking-[0.2em] text-[#38bdf8] uppercase mb-3 block">
+            REPUTASI & KEPERCAYAAN MITRA
+          </span>
+          <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-white leading-[1.12] tracking-[-0.03em]">
+            Apa Kata Klien Tentang <br className="hidden sm:inline" />
+            <span className="text-[#38bdf8] font-light italic">
+              TubaTechno.
+            </span>
+          </h2>
+          <p className="text-[15px] sm:text-[17px] text-slate-300 mt-4 leading-[1.75] font-normal max-w-2xl">
+            Pengalaman nyata mitra institusi dan bisnis yang telah mendigitalisasi arsitektur operasional mereka bersama solusi teknologi kami.
+          </p>
 
           {/* Admin only buttons */}
           {isAdmin && (
@@ -321,7 +326,7 @@ const Testimonials: React.FC = () => {
               <button
                 type="button"
                 onClick={handleAddClick}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl font-poppins font-semibold text-[13px] text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl font-jakarta font-semibold text-[13px] text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
@@ -331,7 +336,7 @@ const Testimonials: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowSyncModal(true)}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl font-poppins font-semibold text-[13px] text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl font-jakarta font-semibold text-[13px] text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
                   <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
@@ -350,16 +355,16 @@ const Testimonials: React.FC = () => {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              <span className="font-poppins text-[14px] text-dimWhite">Memuat testimoni...</span>
+              <span className="font-jakarta text-[14px] text-dimWhite">Memuat testimoni...</span>
             </div>
           )}
 
           {error && !loading && (
             <div className="flex flex-col items-center justify-center py-14 gap-3">
-              <p className="font-poppins text-[14px] text-dimWhite">
+              <p className="font-jakarta text-[14px] text-dimWhite">
                 Tidak dapat memuat testimoni. Pastikan backend berjalan.
               </p>
-              <button onClick={fetchTestimonials} className="font-poppins text-[13px] text-[#00b4d8] hover:underline cursor-pointer">
+              <button onClick={fetchTestimonials} className="font-jakarta text-[13px] text-[#00b4d8] hover:underline cursor-pointer">
                 Coba lagi →
               </button>
             </div>
@@ -372,13 +377,13 @@ const Testimonials: React.FC = () => {
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>
               </div>
-              <p className="font-poppins text-[14px] text-dimWhite text-center">
+              <p className="font-jakarta text-[14px] text-dimWhite text-center">
                 Belum ada testimoni. Jadilah yang pertama!
               </p>
               <button
                 type="button"
                 onClick={() => setIsPublicFormOpen(true)}
-                className="font-poppins text-[13px] text-[#00b4d8] hover:underline cursor-pointer"
+                className="font-jakarta text-[13px] text-[#00b4d8] hover:underline cursor-pointer"
               >
                 Tulis testimoni sekarang →
               </button>
@@ -406,7 +411,7 @@ const Testimonials: React.FC = () => {
 
         {/* Hint badge when carousel is active */}
         {!loading && !error && useCarousel && (
-          <p className="text-center font-poppins text-[12px] text-dimWhite mt-6 relative z-[1]">
+          <p className="text-center font-jakarta text-[12px] text-dimWhite mt-6 relative z-[1]">
             Gerakkan kursor ke atas kartu untuk berhenti sejenak &nbsp;·&nbsp; {testimonials.length} testimoni
           </p>
         )}
@@ -450,21 +455,21 @@ const Testimonials: React.FC = () => {
               </svg>
             </div>
             <div className="text-center">
-              <p className="font-poppins font-bold text-slate-800 text-[16px]">Hapus Testimoni?</p>
-              <p className="font-poppins text-[13px] text-slate-500 mt-1.5">Tindakan ini tidak dapat dibatalkan.</p>
+              <p className="font-jakarta font-bold text-slate-800 text-[16px]">Hapus Testimoni?</p>
+              <p className="font-jakarta text-[13px] text-slate-500 mt-1.5">Tindakan ini tidak dapat dibatalkan.</p>
             </div>
             <div className="flex gap-3 w-full">
               <button
                 type="button"
                 onClick={() => setDeleteConfirmId(null)}
-                className="flex-1 py-2.5 rounded-xl font-poppins font-semibold text-[13px] text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
+                className="flex-1 py-2.5 rounded-xl font-jakarta font-semibold text-[13px] text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
               >
                 Batal
               </button>
               <button
                 type="button"
                 onClick={handleDeleteConfirm}
-                className="flex-1 py-2.5 rounded-xl font-poppins font-bold text-[13px] text-white bg-red-500 hover:bg-red-600 transition-colors cursor-pointer shadow-md shadow-red-500/20"
+                className="flex-1 py-2.5 rounded-xl font-jakarta font-bold text-[13px] text-white bg-red-500 hover:bg-red-600 transition-colors cursor-pointer shadow-md shadow-red-500/20"
               >
                 Ya, Hapus
               </button>
@@ -487,8 +492,8 @@ const Testimonials: React.FC = () => {
             {/* Header */}
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="font-poppins font-bold text-slate-800 text-[19px]">Sinkronisasi Google Sheet</h3>
-                <p className="font-poppins text-xs text-slate-400 mt-1">Hubungkan spreadsheet respon Google Form secara langsung</p>
+                <h3 className="font-jakarta font-bold text-slate-800 text-[19px]">Sinkronisasi Google Sheet</h3>
+                <p className="font-jakarta text-xs text-slate-400 mt-1">Hubungkan spreadsheet respon Google Form secara langsung</p>
               </div>
               <button
                 type="button"
@@ -500,7 +505,7 @@ const Testimonials: React.FC = () => {
             </div>
 
             {syncMessage && (
-              <div className={`p-3 border rounded-xl text-xs font-poppins flex items-center gap-2 ${
+              <div className={`p-3 border rounded-xl text-xs font-jakarta flex items-center gap-2 ${
                 syncStatus === "success" 
                   ? "bg-emerald-50 border-emerald-200 text-emerald-600" 
                   : "bg-red-50 border-red-200 text-red-600"
@@ -512,8 +517,8 @@ const Testimonials: React.FC = () => {
 
             {/* Petunjuk cara mendapatkan CSV link */}
             <div className="bg-slate-50 border border-slate-150 rounded-2xl p-4 flex flex-col gap-2">
-              <h4 className="font-poppins font-bold text-xs text-slate-700">💡 Cara Mendapatkan URL CSV Google Sheets:</h4>
-              <ol className="list-decimal pl-4 text-[11px] font-poppins text-slate-500 space-y-1.5 leading-relaxed">
+              <h4 className="font-jakarta font-bold text-xs text-slate-700">💡 Cara Mendapatkan URL CSV Google Sheets:</h4>
+              <ol className="list-decimal pl-4 text-[11px] font-jakarta text-slate-500 space-y-1.5 leading-relaxed">
                 <li>Buka Google Spreadsheet respon Form Anda.</li>
                 <li>Klik menu <b>File</b> → <b>Share</b> → <b>Publish to web</b>.</li>
                 <li>Ubah pilihan format <b>Web Page</b> menjadi <b>Comma-separated values (.csv)</b>.</li>
@@ -525,14 +530,14 @@ const Testimonials: React.FC = () => {
             {/* Form */}
             <form onSubmit={handleSyncSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="font-poppins font-semibold text-[11px] text-slate-500 uppercase tracking-[0.08em]">
+                <label className="font-jakarta font-semibold text-[11px] text-slate-500 uppercase tracking-[0.08em]">
                   URL Publik CSV (.csv)
                 </label>
                 <input
                   type="url"
                   required
                   placeholder="https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?output=csv"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/40 text-[13px] font-poppins text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/40 text-[13px] font-jakarta text-slate-800 focus:outline-none focus:border-cyan-500 focus:bg-white transition-all"
                   value={syncUrl}
                   onChange={e => setSyncUrl(e.target.value)}
                 />
@@ -544,18 +549,18 @@ const Testimonials: React.FC = () => {
                   type="button"
                   onClick={() => setShowSyncModal(false)}
                   disabled={syncLoading}
-                  className="px-4 py-2 rounded-xl font-poppins font-semibold text-[12.5px] text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-xl font-jakarta font-semibold text-[12.5px] text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-all cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={syncLoading}
-                  className="px-5 py-2.5 rounded-xl font-poppins font-bold text-[12.5px] text-white bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-300 shadow-md shadow-cyan-600/10 transition-all cursor-pointer flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl font-jakarta font-bold text-[12.5px] text-white bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-300 shadow-md shadow-cyan-600/10 transition-all cursor-pointer flex items-center gap-2"
                 >
                   {syncLoading ? (
                     <>
-                      <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-3.5 h-3.5 border-2 border-slate-700 border-t-transparent rounded-full animate-spin" />
                       Menyinkronkan...
                     </>
                   ) : (

@@ -1,149 +1,277 @@
-import styles from "@/styles/style";
-import { features } from "@/constants";
-import Image from "next/image";
-import { FeatredCardProps } from "@/types";
+"use client";
 
-const FeaturesCard: React.FC<FeatredCardProps & { isShifted: boolean }> = ({ icon, title, content, index, isShifted }) => {
-  // Custom glossy high-end SVGs matching image 2
-  const renderIcon = () => {
-    if (index === 0) {
-      // Star Icon
-      return (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" className="drop-shadow-[0_4px_10px_rgba(0,229,255,0.45)]">
-          <defs>
-            <linearGradient id="cyanGradStar" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#00b4d8" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-            fill="url(#cyanGradStar)"
-          />
-        </svg>
-      );
-    } else if (index === 1) {
-      // Shield / Check Icon
-      return (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" className="drop-shadow-[0_4px_10px_rgba(0,229,255,0.45)]">
-          <defs>
-            <linearGradient id="cyanGradCircle" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#22d3ee" />
-              <stop offset="100%" stopColor="#0891b2" />
-            </linearGradient>
-          </defs>
-          <circle cx="12" cy="12" r="10" fill="url(#cyanGradCircle)" />
-          <path
-            d="M8.5 12.5l2.2 2.2 4.8-4.8"
-            stroke="white"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    } else {
-      // Paper Plane Icon
-      return (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" className="drop-shadow-[0_4px_10px_rgba(0,229,255,0.45)]">
-          <defs>
-            <linearGradient id="cyanGradPlane" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#00b4d8" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M2 21l21-9L2 3v7l15 2-15 2z"
-            fill="url(#cyanGradPlane)"
-          />
-        </svg>
-      );
-    }
+import React, { useState } from "react";
+
+interface Capability {
+  number: string;
+  category: string;
+  badge: string;
+  title: string;
+  tagline: string;
+  desc: string;
+  metric: string;
+  scope: string[];
+  tags: string[];
+  ctaLabel: string;
+}
+
+const capabilities: Capability[] = [
+  {
+    number: "01",
+    category: "JASA PEMBUATAN WEB",
+    badge: "Full IP & Kustom",
+    title: "Pembuatan Website & Sistem Informasi Kustom",
+    tagline: "Company Profile · Toko Online · Portal Bisnis · Web App Kustom",
+    desc: "Layanan pembuatan website profesional yang dirancang khusus sesuai identitas dan alur bisnis Anda. Memiliki tampilan eksklusif, navigasi cepat, optimasi SEO untuk kemudahan pencarian Google, dan 100% kepemilikan aset digital tanpa biaya lisensi tersembunyi.",
+    metric: "100% Hak Milik Source Code · SEO & Mobile Friendly",
+    scope: [
+      "Website Profil Perusahaan (Company Profile) Eksklusif & Responsif",
+      "Toko Online (E-Commerce) dengan Integrasi Payment Gateway & Ongkir",
+      "Sistem Informasi Manajemen, Dashboard Admin & Portal Bisnis",
+      "Optimasi Kecepatan Loading (Core Web Vitals) & Kepatuhan SEO Google",
+    ],
+    tags: ["Next.js", "React", "Laravel / PHP", "Tailwind CSS", "MySQL / PostgreSQL", "REST API"],
+    ctaLabel: "Konsultasi Pembuatan Web",
+  },
+  {
+    number: "02",
+    category: "PENYEWAAN WEB & SAAS",
+    badge: "Mulai 24 Jam",
+    title: "Penyewaan Website & Sistem Bisnis Siap Pakai",
+    tagline: "Hemat Modal Awal · All-In Server & Perawatan · Langsung Aktif",
+    desc: "Solusi efisien bagi UMKM, instansi, dan pelaku usaha yang ingin langsung go-digital tanpa modal pembuatan yang besar. Cukup berlangganan bulanan atau tahunan terjangkau, seluruh kebutuhan teknis—mulai domain, server cloud cepat, hingga perbaikan rutin—kami kelola penuh.",
+    metric: "Siap Operasional 24 Jam · All-In Hosting, Domain & Maintenance",
+    scope: [
+      "Website & Sistem Siap Pakai Langsung Tayang Tanpa Menunggu Lama",
+      "Paket Langganan Fleksibel (Bulanan / Tahunan) dengan Biaya Ringan",
+      "Sudah Termasuk Domain Bisnis, Cloud Hosting NVMe Cepat & SSL",
+      "Gratis Pemeliharaan Rutin, Backup Data Harian Otomatis & Bantuan Teknis",
+    ],
+    tags: ["SaaS Siap Pakai", "Cloud Hosting NVMe", "SSL Otomatis", "Free Maintenance", "Backup Terjadwal"],
+    ctaLabel: "Pilih Paket Sewa Web",
+  },
+  {
+    number: "03",
+    category: "APLIKASI MOBILE",
+    badge: "Android & iOS",
+    title: "Pembuatan Aplikasi Mobile (Android & iOS)",
+    tagline: "Aplikasi Bisnis · Portal Layanan Pelanggan · Kasir / POS Seluler",
+    desc: "Pengembangan aplikasi seluler berkinerja tinggi untuk perangkat Android dan iOS. Menghadirkan antarmuka modern, navigasi intuitif, sinkronisasi data cloud real-time, dan pendampingan penuh hingga aplikasi resmi terbit di Google Play Store dan Apple App Store.",
+    metric: "Cross-Platform Cepat · Publikasi Play Store & App Store",
+    scope: [
+      "Aplikasi Seluler Kustom untuk Platform Android (Play Store) & iOS (App Store)",
+      "Fitur Notifikasi Push Otomatis, Otentikasi Pengguna & Sinkronisasi Cloud",
+      "Integrasi Backend Cloud, Database Terenkripsi & Akses Cepat",
+      "Perancangan UI/UX Interaktif yang Memudahkan Interaksi Pengguna",
+    ],
+    tags: ["Flutter", "React Native", "Android & iOS", "Firebase", "API Gateway", "Push Notification"],
+    ctaLabel: "Konsultasi Aplikasi Mobile",
+  },
+  {
+    number: "04",
+    category: "IT SUPPORT & MAINTENANCE",
+    badge: "SLA Uptime 99.9%",
+    title: "Pemeliharaan Website & IT Support Terpadu",
+    tagline: "Perawatan Rutin · Pembersihan Bug · Optimasi Server & Keamanan",
+    desc: "Dukungan teknis menyeluruh untuk memastikan website dan sistem digital bisnis Anda selalu beroperasi lancar, aman dari serangan siber, dan selalu up-to-date. Kami siap menangani perbaikan kendala teknis, audit keamanan, migrasi server, hingga pendampingan darurat.",
+    metric: "Jaminan Uptime 99.9% · Monitoring & Perlindungan Sistem 24/7",
+    scope: [
+      "Monitoring Server & Uptime 24/7 untuk Mencegah Website Down",
+      "Audit & Proteksi Keamanan Siber (Pembersihan Malware & Anti-DDoS)",
+      "Pembaruan Konten Berkala, Optimasi Kecepatan & Patching Bug",
+      "Migrasi Server Cloud, Manajemen Backup Rutin & Dukungan Prioritas",
+    ],
+    tags: ["Cloud VPS / Linux", "Cloudflare Protection", "Database Backup", "Bug Fixing", "Speed Optimization"],
+    ctaLabel: "Konsultasi IT Support",
+  },
+];
+
+export const Business: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleItem = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
   };
 
   return (
-    <div
-      className={`flex flex-row p-5 sm:p-6 rounded-[22px] bg-white border-2 border-[#00e5ff]/35 shadow-[0_12px_28px_rgba(0,180,216,0.04)] hover:shadow-[0_20px_40px_rgba(0,180,216,0.08)] hover:border-[#00b4d8]/75 transition-all duration-300 motion-card cursor-default ${
-        isShifted ? "lg:-translate-x-10 translate-x-0" : "lg:translate-x-0"
-      }`}
-      style={{ animationDelay: `${index * 120}ms` }}
-    >
-      <div
-        className={`w-[52px] h-[52px] sm:w-[60px] sm:h-[60px] rounded-full bg-[#e0f7fa]/50 ${styles.flexCenter} flex-shrink-0 border border-[#00b4d8]/15`}
-      >
-        {renderIcon()}
-      </div>
-      <div className="flex-1 flex flex-col ml-4">
-        <h4 className="font-poppins font-bold text-primary-dark text-[16px] sm:text-[17px] leading-[24px]">
-          {title}
-        </h4>
-        <p className="font-poppins font-normal text-slate-500 text-[13px] leading-[20px] mt-1">
-          {content}
+    <section id="features" className="w-full py-20 sm:py-28 relative z-10 font-jakarta scroll-mt-28 sm:scroll-mt-32">
+      {/* Section Header: Direct, Human & Confident */}
+      <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+        <span className="text-[12px] font-semibold tracking-[0.2em] text-[#38bdf8] uppercase mb-3 block">
+          LAYANAN & SOLUSI TEKNOLOGI IT
+        </span>
+        <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-white leading-[1.14] tracking-[-0.03em]">
+          Solusi Pengembang IT untuk <br className="hidden sm:inline" />
+          <span className="text-[#38bdf8] font-light italic">
+            Pertumbuhan Bisnis Nyata.
+          </span>
+        </h2>
+        <p className="text-[15px] sm:text-[17px] text-slate-300 mt-4 leading-[1.75] font-normal max-w-2xl">
+          Kami menyediakan layanan pengembangan perangkat lunak komprehensif — mulai dari pembuatan website kustom, sistem sewa web siap pakai, aplikasi mobile, hingga pemeliharaan infrastruktur IT terpadu.
         </p>
       </div>
-    </div>
+
+      {/* Structured Capability Rows */}
+      <div className="w-full space-y-3.5 sm:space-y-4">
+        {capabilities.map((cap, idx) => {
+          const isOpen = openIndex === idx;
+
+          return (
+            <div
+              key={cap.number}
+              className={`rounded-2xl transition-all duration-300 border overflow-hidden ${
+                isOpen
+                  ? "bg-[#070b14]/95 border-[#38bdf8]/50 shadow-[0_10px_30px_rgba(56,189,248,0.08)]"
+                  : "bg-[#070b14]/70 border-slate-800/80 hover:border-slate-700/80 hover:bg-[#070b14]/90"
+              }`}
+            >
+              {/* Row Header Trigger */}
+              <button
+                type="button"
+                onClick={() => toggleItem(idx)}
+                className="w-full p-5 sm:p-7 flex items-center justify-between text-left group transition-all cursor-pointer"
+                aria-expanded={isOpen}
+              >
+                <div className="flex items-center gap-4 sm:gap-6 flex-1 min-w-0 pr-4">
+                  {/* Number Badge */}
+                  <span
+                    className={`font-mono text-[13px] sm:text-[14px] font-bold px-3 py-1 rounded-lg border transition-colors shrink-0 ${
+                      isOpen
+                        ? "bg-[#38bdf8]/15 border-[#38bdf8]/40 text-[#38bdf8]"
+                        : "bg-slate-900/90 border-slate-800 text-slate-400 group-hover:text-[#38bdf8] group-hover:border-slate-700"
+                    }`}
+                  >
+                    {cap.number}
+                  </span>
+
+                  {/* Title & Tagline Stacked Vertically */}
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <h3
+                      className={`text-[18px] sm:text-[21px] lg:text-[23px] font-bold tracking-tight transition-colors leading-snug ${
+                        isOpen ? "text-[#38bdf8]" : "text-white group-hover:text-[#38bdf8]"
+                      }`}
+                    >
+                      {cap.title}
+                    </h3>
+                    <p className="text-[13px] sm:text-[14px] text-slate-400 font-normal mt-1 truncate">
+                      {cap.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Column: Badge & Chevron */}
+                <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+                  <span className="hidden md:inline-flex text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
+                    {cap.badge}
+                  </span>
+
+                  <div
+                    className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                      isOpen
+                        ? "border-[#38bdf8]/60 bg-[#38bdf8]/15 text-[#38bdf8] rotate-180"
+                        : "border-slate-800 bg-slate-900 text-slate-400 group-hover:border-slate-700 group-hover:text-white"
+                    }`}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </div>
+              </button>
+
+              {/* Row Expanded Specification Panel */}
+              {isOpen && (
+                <div className="px-5 sm:px-7 pb-7 sm:pb-8 pt-0 animate-fadeIn">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 pt-6 border-t border-slate-800/80">
+                    {/* Column 1: Deskripsi & Pendekatan Teknis */}
+                    <div className="lg:col-span-5 flex flex-col justify-between">
+                      <div>
+                        <span className="text-[11px] font-semibold text-[#38bdf8] uppercase tracking-[0.18em] block mb-2.5">
+                          DESKRIPSI & KEUNGGULAN LAYANAN
+                        </span>
+                        <p className="text-[14.5px] sm:text-[15px] text-slate-300 leading-relaxed font-normal mb-5">
+                          {cap.desc}
+                        </p>
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#050811] border border-slate-800/80 text-[12px] text-slate-300 font-mono mb-6">
+                          <span className="w-2 h-2 rounded-full bg-[#38bdf8]" />
+                          <span>{cap.metric}</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <a
+                          href="#contact"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 border border-slate-700/80 hover:border-[#38bdf8] text-white hover:text-[#38bdf8] text-[13px] font-semibold transition-all group/btn shadow-sm"
+                        >
+                          <span>{cap.ctaLabel}</span>
+                          <svg
+                            className="w-3.5 h-3.5 text-[#38bdf8] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <line x1="7" y1="17" x2="17" y2="7" />
+                            <polyline points="7 7 17 7 17 17" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Column 2: Ruang Lingkup Layanan */}
+                    <div className="lg:col-span-4">
+                      <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-3.5">
+                        Ruang Lingkup & Deliverables
+                      </span>
+                      <div className="space-y-3">
+                        {cap.scope.map((item, sIdx) => (
+                          <div
+                            key={sIdx}
+                            className="flex items-start gap-3 text-[13.5px] text-slate-300 leading-snug"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] mt-2 shrink-0" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column 3: Ekosistem & Stack Terverifikasi */}
+                    <div className="lg:col-span-3">
+                      <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-3.5">
+                        Teknologi & Ekosistem
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {cap.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2.5 py-1.5 rounded-lg bg-[#050811] border border-slate-800 text-slate-300 text-[12px] font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 };
-
-const Business: React.FC = () => (
-  <section
-    id="features"
-    className="relative flex flex-col lg:flex-row justify-between items-center gap-12 lg:gap-20 py-16 sm:py-24 w-full overflow-hidden"
-  >
-    {/* Geometric tech grid lines in background matching image 2 */}
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-60 select-none">
-      <svg className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[600px] text-[#00b4d8]/10" fill="none" viewBox="0 0 800 600">
-        {/* Draw tech grid lines */}
-        <path d="M 100,50 L 700,50 L 750,150 L 500,250 L 600,450 L 100,450 Z" stroke="currentColor" strokeWidth="1" strokeDasharray="5 5" />
-        <path d="M 200,100 L 600,200 L 700,400" stroke="currentColor" strokeWidth="1" />
-        <path d="M 150,300 L 400,150 L 650,350" stroke="currentColor" strokeWidth="1.5" />
-        
-        {/* Connection node circles */}
-        <circle cx="100" cy="50" r="4" fill="currentColor" />
-        <circle cx="700" cy="50" r="4" fill="currentColor" />
-        <circle cx="750" cy="150" r="4" fill="currentColor" />
-        <circle cx="500" cy="250" r="4" fill="currentColor" />
-        <circle cx="600" cy="450" r="4" fill="currentColor" />
-        <circle cx="200" cy="100" r="3" fill="currentColor" />
-        <circle cx="600" cy="200" r="3" fill="currentColor" />
-        <circle cx="400" cy="150" r="3" fill="currentColor" />
-      </svg>
-    </div>
-
-    {/* Left info column shifted slightly rightwards to reduce the middle gap and align closer to the right */}
-    <div className="flex-1 flex flex-col items-start max-w-xl relative z-10 lg:translate-x-10 xl:translate-x-16 translate-x-0">
-      <h2 className="font-poppins font-bold text-[32px] sm:text-[42px] leading-snug sm:leading-tight text-primary-dark tracking-tight">
-        Fokus pada Bisnis <br /> Anda, Kami Tangani <br /> Teknologinya.
-      </h2>
-      <p className="font-poppins font-normal text-slate-500 text-[14.5px] sm:text-[16px] leading-[24px] sm:leading-[26px] mt-5 max-w-[480px]">
-        Dengan solusi teknologi yang tepat, Anda dapat mempercepat digitalisasi bisnis, meningkatkan efisiensi operasional, dan menjangkau pelanggan lebih luas. HelioTechno hadir sebagai mitra teknologi tepercaya untuk pertumbuhan Anda.
-      </p>
-      
-      {/* Pelajari Lebih Lanjut button matching mockup */}
-      <a
-        href="#product"
-        className="mt-8 px-8 py-3.5 rounded-xl font-poppins font-bold text-[14px] text-white bg-[#00d4d8] hover:bg-[#00b4d8] hover:shadow-lg hover:shadow-[#00d4d8]/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer select-none"
-      >
-        Pelajari Lebih Lanjut
-      </a>
-    </div>
-
-    {/* Right features card column with offset shift zigzag layout */}
-    <div className="flex-1 w-full flex flex-col gap-5.5 max-w-xl relative z-10">
-      {features.map((feature, index) => {
-        // Shift Card 2 (index 1) to the left to avoid page right-clipping
-        const isShifted = index === 1;
-        return (
-          <FeaturesCard
-            key={feature.id}
-            {...feature}
-            index={index}
-            isShifted={isShifted}
-          />
-        );
-      })}
-    </div>
-  </section>
-);
 
 export default Business;

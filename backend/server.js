@@ -28,7 +28,7 @@ app.use("/api/payment", require("./routes/payment"));
 
 // Health check
 app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "HelioTechno Backend API v1.0" });
+  res.json({ status: "ok", message: "TubaTechno Backend API v1.0" });
 });
 
 // 404 handler
@@ -44,6 +44,6 @@ app.use((err, req, res, _next) => {
 
 // ── Start server ──────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`🚀 HelioTechno Backend berjalan di http://localhost:${PORT}`);
+  console.log(`🚀 TubaTechno Backend berjalan di http://localhost:${PORT}`);
   console.log(`   API: http://localhost:${PORT}/api/testimonials`);
 });

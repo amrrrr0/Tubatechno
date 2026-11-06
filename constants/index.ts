@@ -7,11 +7,11 @@ export const navLinks = [
     },
     {
         id: "features",
-        title: "Keunggulan",
+        title: "Layanan",
     },
     {
         id: "product",
-        title: "Layanan",
+        title: "Portofolio",
     },
     {
         id: "clients",

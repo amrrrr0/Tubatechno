@@ -56,7 +56,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
   return (
     <div
       onClick={onClick}
-      className="group relative flex flex-col justify-between rounded-2xl w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-gradient-to-b from-white to-slate-50/40 border border-gray-100 hover:border-[#00b4d8]/30 hover:shadow-2xl hover:shadow-[#00b4d8]/5 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden"
+      className="group relative flex flex-col justify-between rounded-2xl w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-[#070b14]/90 border border-slate-800/80 hover:border-sky-500/40 hover:shadow-2xl hover:shadow-sky-500/5 backdrop-blur-xl font-jakarta hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden"
       style={{
         animationDelay: `${delay}ms`,
         boxShadow: "0 4px 20px rgba(0,4,15,0.04)",
@@ -65,7 +65,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
       {/* Top hover accent bar */}
       <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#00b4d8] to-[#0077b6] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 z-10" />
       {/* Article Image Header */}
-      <div className="relative w-full h-[160px] overflow-hidden bg-slate-100">
+      <div className="relative w-full h-[180px] overflow-hidden bg-[#050811]">
         <img
           src={coverImage}
           alt={item.title}
@@ -79,7 +79,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
         {isAdmin && (
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             <span
-              className={`px-2.5 py-0.5 rounded-full font-poppins font-semibold text-[9px] uppercase tracking-wider text-white ${
+              className={`px-2.5 py-0.5 rounded-full font-jakarta font-semibold text-[9px] uppercase tracking-wider text-white ${
                 item.status === "published"
                   ? "bg-emerald-500/90 border border-emerald-400/20 shadow-lg"
                   : "bg-amber-500/90 border border-amber-400/20 shadow-lg"
@@ -110,7 +110,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
         )}
 
         {/* Date badge */}
-        <span className="absolute bottom-3 right-3 px-2.5 py-0.5 rounded-md font-poppins text-[10px] text-gray-200 bg-black/45 backdrop-blur-[2px]">
+        <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-300 bg-black/60 backdrop-blur-md border border-white/10">
           {publishDate}
         </span>
       </div>
@@ -119,7 +119,7 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
       <div className="p-5 flex flex-col justify-between flex-1">
         <div>
           {/* Author tag */}
-          <div className="inline-flex items-center gap-1.5 mb-3 px-2 py-0.5 rounded-md bg-[#e0f7fa]/60 text-[#0077b6] font-poppins text-[10.5px] font-semibold w-fit border border-[#00b4d8]/10">
+          <div className="flex items-center gap-2 mb-3 text-[12px] text-slate-400 font-medium">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
@@ -128,12 +128,12 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
           </div>
 
           {/* Title */}
-          <h3 className="font-poppins font-bold text-[16px] leading-[22px] text-primary-dark group-hover:text-[#00b4d8] transition-colors mb-2.5 line-clamp-2">
+          <h3 className="font-jakarta font-bold text-[16px] leading-[22px] text-white group-hover:text-[#38bdf8] transition-colors mb-3 line-clamp-2">
             {item.title}
           </h3>
 
           {/* Excerpt */}
-          <p className="font-poppins font-normal text-[13px] leading-[20px] text-dimWhite mb-3 line-clamp-3">
+          <p className="font-jakarta font-normal text-[13px] leading-[20px] text-slate-300 mb-4 line-clamp-3">
             {excerpt}
           </p>
 
@@ -141,41 +141,23 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
           {item.seo_keywords && (
             <div className="flex flex-wrap gap-1.5 mb-2">
               {item.seo_keywords.split(",").slice(0, 3).map((keyword, i) => (
-                <span key={i} className="text-[9px] font-poppins px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 border border-gray-200 uppercase tracking-wider">
+                <span key={i} className="text-[10.5px] px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 font-medium">
                   {keyword.trim()}
                 </span>
               ))}
               {item.seo_keywords.split(",").length > 3 && (
-                <span className="text-[9px] font-poppins px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 border border-gray-200 uppercase tracking-wider">...</span>
+                <span className="text-[10.5px] px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 font-medium">...</span>
               )}
             </div>
           )}
         </div>
 
-        {/* Footer info: SEO Status, Views Count, & Call to Action */}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100 text-[11px] font-poppins text-dimWhite flex-wrap gap-y-2">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" strokeWidth="2.5">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
-              SEO Aktif
-            </span>
-            <span className="text-gray-300 select-none">|</span>
-            <span className="flex items-center gap-1">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.2">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              <span>{item.views || 0} dilihat</span>
-            </span>
-          </div>
-          <span className="text-[#00b4d8] group-hover:text-[#0077b6] group-hover:underline flex items-center gap-0.5 transition-colors font-medium">
+        {/* Footer info: Clean views & Read Link */}
+        <div className="flex items-center justify-between pt-4 mt-2 border-t border-slate-800/60 text-[12px] text-slate-400 font-jakarta">
+          <span>{item.views || 0} pembaca</span>
+          <span className="text-[#38bdf8] group-hover:text-white flex items-center gap-1 transition-colors font-semibold text-[12.5px]">
             Baca Selengkapnya
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:translate-x-1 transition-transform">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+            <span className="transition-transform group-hover:translate-x-1">↗</span>
           </span>
         </div>
       </div>
@@ -363,34 +345,30 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
   const displayedNews = isDashboard ? filteredNews.slice(0, 3) : filteredNews;
 
   return (
-    <section id="news" className="sm:py-16 py-10 flex flex-col relative border-t border-gray-100">
+    <section id="news" className="sm:py-16 py-10 flex flex-col relative border-t border-slate-800/80">
       {/* Background gradients */}
       <div className="absolute z-[0] w-[40%] h-[40%] -left-[20%] rounded-full blue__gradient pointer-events-none opacity-40" />
 
       {/* Header Row */}
-      <div className="w-full flex flex-col items-center text-center sm:mb-10 mb-8 relative z-[1] gap-5">
-        <div>
-          <h2 className="font-poppins font-semibold xs:text-[48px] text-[30px] text-primary-dark xs:leading-[76.8px] leading-[42px]">
-            {isDashboard ? (
-              <>Artikel &amp; Berita Pilihan Utama</>
-            ) : (
-              <>Semua Artikel &amp; Berita SEO Terintegrasi</>
-            )}
-          </h2>
-          <p className="font-poppins font-normal text-dimWhite text-[15px] sm:text-[17px] leading-[26px] sm:leading-[30px] max-w-[600px] mt-3 mx-auto">
-            {isDashboard ? (
-              "Pantau rilis teknologi terbaru dari tim HelioTechno. Klik berita lainnya untuk melihat koleksi lengkap artikel kami."
-            ) : (
-              "Pantau wawasan industri, solusi IoT, dan rilis teknologi terbaru dari tim HelioTechno. Fitur SEO diaktifkan secara real-time."
-            )}
-          </p>
-        </div>
+      <div className="w-full flex flex-col items-center text-center sm:mb-14 mb-10 relative z-[1] font-jakarta">
+        <span className="text-[12px] font-semibold tracking-[0.2em] text-[#38bdf8] uppercase mb-3 block">
+          PUBLIKASI & WAWASAN TEKNOLOGI
+        </span>
+        <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-white leading-[1.12] tracking-[-0.03em]">
+          Artikel & Catatan Rekayasa <br className="hidden sm:inline" />
+          <span className="text-[#38bdf8] font-light italic">
+            Terbaru.
+          </span>
+        </h2>
+        <p className="font-normal text-slate-300 text-[15px] sm:text-[17px] leading-[1.75] max-w-2xl mt-4">
+          Eksplorasi wawasan industri, arsitektur perangkat lunak, dan catatan rilis teknologi dari tim TubaTechno.
+        </p>
 
         {/* CTA write news - Only visible to Admin on the full page (not dashboard) */}
         {!isDashboard && isAdmin && (
           <button
             onClick={() => { setEditNews(null); setShowForm(true); }}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl font-poppins font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl font-jakarta font-semibold text-[14px] text-white bg-gradient-to-r from-[#0077b6] to-[#00b4d8] hover:from-[#005f73] hover:to-[#0077b6] transition-all shadow-md shadow-[#00b4d8]/20 cursor-pointer whitespace-nowrap"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
@@ -409,7 +387,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
               <button
                 key={tab.key}
                 onClick={() => setStatusFilter(tab.key as any)}
-                className={`flex-1 sm:flex-initial px-4.5 py-2 text-[12px] font-semibold font-poppins rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-initial px-4.5 py-2 text-[12px] font-semibold font-jakarta rounded-lg transition-all cursor-pointer ${
                   statusFilter === tab.key
                     ? "bg-white text-primary-dark shadow-[0_2px_8px_rgba(0,4,15,0.08)] border border-slate-200/50"
                     : "text-dimWhite hover:text-primary-dark"
@@ -427,7 +405,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
               placeholder="Cari berita, konten, atau penulis..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 pl-10 font-poppins text-[13px] text-primary-dark placeholder:text-gray-400 focus:outline-none focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] transition-all shadow-[0_2px_16px_rgba(0,4,15,0.06)]"
+              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 pl-10 font-jakarta text-[13px] text-primary-dark placeholder:text-gray-400 focus:outline-none focus:border-[#00b4d8] focus:ring-1 focus:ring-[#00b4d8] transition-all shadow-[0_2px_16px_rgba(0,4,15,0.06)]"
             />
             <svg
               width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2.5"
@@ -448,18 +426,18 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <span className="font-poppins text-[14px] text-dimWhite">Memuat berita CMS...</span>
+            <span className="font-jakarta text-[14px] text-dimWhite">Memuat berita CMS...</span>
           </div>
         )}
 
         {error && !loading && (
           <div className="flex flex-col items-center justify-center py-16 gap-3 border border-dashed border-gray-200 rounded-2xl bg-gray-50">
-            <p className="font-poppins text-[14px] text-dimWhite">
+            <p className="font-jakarta text-[14px] text-dimWhite">
               Gagal memuat berita. Harap pastikan server backend menyala.
             </p>
             <button
               onClick={fetchNews}
-              className="font-poppins text-[13px] text-[#00b4d8] hover:underline cursor-pointer flex items-center gap-1.5"
+              className="font-jakarta text-[13px] text-[#00b4d8] hover:underline cursor-pointer flex items-center gap-1.5"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
@@ -485,7 +463,7 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
 
             {displayedNews.length === 0 && (
               <div className="w-full text-center py-16 border border-dashed border-gray-200 rounded-2xl bg-gray-50">
-                <p className="font-poppins text-[14px] text-dimWhite">
+                <p className="font-jakarta text-[14px] text-dimWhite">
                   Tidak ada berita yang ditemukan.
                 </p>
               </div>
@@ -496,18 +474,13 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
 
       {/* Berita Lainnya button below grid - Visible in Dashboard */}
       {isDashboard && filteredNews.length > 0 && (
-        <div className="flex justify-center mt-10 relative z-[1]">
+        <div className="flex justify-center mt-12 relative z-[1]">
           <Link
             href="/news"
-            className="group/btn font-poppins font-semibold text-[15px] text-[#00b4d8] hover:text-[#0077b6] flex items-center gap-1.5 transition-colors duration-200 cursor-pointer select-none"
+            className="px-7 py-3.5 rounded-xl font-bold text-[13.5px] bg-[#070b14] hover:bg-slate-900 text-white border border-slate-800 hover:border-[#38bdf8]/50 transition-all shadow-md inline-flex items-center gap-2 group/btn"
           >
-            Lihat Semua Berita
-            <svg
-              width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-              className="transform group-hover/btn:translate-x-1 transition-transform duration-200"
-            >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+            <span>Lihat Semua Artikel</span>
+            <span className="text-[#38bdf8] transition-transform group-hover/btn:translate-x-1">↗</span>
           </Link>
         </div>
       )}
@@ -651,10 +624,10 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
           </div>
-          <h3 className="font-poppins font-bold text-[17px] text-primary-dark">
+          <h3 className="font-jakarta font-bold text-[17px] text-primary-dark">
             Mode Administrator
           </h3>
-          <p className="font-poppins text-[11.5px] text-dimWhite mt-1.5 leading-normal max-w-[240px]">
+          <p className="font-jakarta text-[11.5px] text-dimWhite mt-1.5 leading-normal max-w-[240px]">
             Masukkan 4 digit PIN angka untuk mengakses panel kelola CMS
           </p>
         </div>
@@ -674,7 +647,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
             ))}
           </div>
           {errorMsg && (
-            <p className="text-[11.5px] font-poppins text-rose-500 font-semibold mt-1">
+            <p className="text-[11.5px] font-jakarta text-rose-500 font-semibold mt-1">
               {errorMsg}
             </p>
           )}
@@ -687,7 +660,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
               key={num}
               type="button"
               onClick={() => handleKeyPress(num)}
-              className="h-11 rounded-xl border border-gray-100 hover:border-gray-200 bg-gray-50/50 hover:bg-gray-50 active:scale-95 font-poppins font-bold text-[15px] text-primary-dark flex items-center justify-center transition-all cursor-pointer"
+              className="h-11 rounded-xl border border-gray-100 hover:border-gray-200 bg-gray-50/50 hover:bg-gray-50 active:scale-95 font-jakarta font-bold text-[15px] text-primary-dark flex items-center justify-center transition-all cursor-pointer"
             >
               {num}
             </button>
@@ -695,21 +668,21 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ onClose, onSuccess })
           <button
             type="button"
             onClick={handleClear}
-            className="h-11 rounded-xl text-[11px] font-poppins font-bold text-gray-500 hover:text-primary-dark hover:bg-gray-50 active:scale-95 flex items-center justify-center transition-all cursor-pointer"
+            className="h-11 rounded-xl text-[11px] font-jakarta font-bold text-gray-500 hover:text-primary-dark hover:bg-gray-50 active:scale-95 flex items-center justify-center transition-all cursor-pointer"
           >
             Clear
           </button>
           <button
             type="button"
             onClick={() => handleKeyPress("0")}
-            className="h-11 rounded-xl border border-gray-100 hover:border-gray-200 bg-gray-50/50 hover:bg-gray-50 active:scale-95 font-poppins font-bold text-[15px] text-primary-dark flex items-center justify-center transition-all cursor-pointer"
+            className="h-11 rounded-xl border border-gray-100 hover:border-gray-200 bg-gray-50/50 hover:bg-gray-50 active:scale-95 font-jakarta font-bold text-[15px] text-primary-dark flex items-center justify-center transition-all cursor-pointer"
           >
             0
           </button>
           <button
             type="button"
             onClick={handleDelete}
-            className="h-11 rounded-xl font-poppins font-bold text-gray-500 hover:text-primary-dark hover:bg-gray-50 active:scale-95 flex items-center justify-center transition-all cursor-pointer"
+            className="h-11 rounded-xl font-jakarta font-bold text-gray-500 hover:text-primary-dark hover:bg-gray-50 active:scale-95 flex items-center justify-center transition-all cursor-pointer"
             aria-label="Delete"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -766,10 +739,10 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
           </div>
-          <h3 className="font-poppins font-bold text-[18px] text-slate-800 tracking-tight">
+          <h3 className="font-jakarta font-bold text-[18px] text-slate-800 tracking-tight">
             Keluar Mode Admin?
           </h3>
-          <p className="font-poppins text-[12px] text-slate-400 mt-2 leading-relaxed px-1">
+          <p className="font-jakarta text-[12px] text-slate-400 mt-2 leading-relaxed px-1">
             Anda akan kehilangan hak akses kelola CMS seperti mengedit berita, unit bisnis, dan testimoni.
           </p>
         </div>
@@ -779,7 +752,7 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 font-poppins font-semibold text-[13px] text-slate-500 transition-all cursor-pointer text-center"
+            className="flex-1 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 font-jakarta font-semibold text-[13px] text-slate-500 transition-all cursor-pointer text-center"
           >
             Batal
           </button>
@@ -789,7 +762,7 @@ const AdminLogoutModal: React.FC<{ onClose: () => void; onConfirm: () => void }>
               onConfirm();
               onClose();
             }}
-            className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 font-poppins font-bold text-[13px] text-white transition-all cursor-pointer text-center shadow-lg shadow-rose-600/15 hover:shadow-rose-600/25"
+            className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 font-jakarta font-bold text-[13px] text-white transition-all cursor-pointer text-center shadow-lg shadow-rose-600/15 hover:shadow-rose-600/25"
           >
             Ya, Keluar
           </button>

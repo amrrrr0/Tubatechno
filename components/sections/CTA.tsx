@@ -1,21 +1,26 @@
 import React from "react";
-import styles from "@/styles/style";
 
 const CTA: React.FC = () => {
   return (
-    <section id="location" className={`${styles.marginY} w-full flex flex-col`}>
-      {/* Location Header */}
-      <div className="mb-8">
-        <span className="font-poppins font-semibold text-[11px] tracking-[0.15em] text-[#00b4d8] uppercase mb-1.5 block">
-          LOKASI KAMI
+    <section id="location" className="w-full py-20 sm:py-28 flex flex-col font-jakarta border-t border-slate-800/80">
+      {/* Section Header: Uniform Pattern */}
+      <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+        <span className="text-[12px] font-semibold tracking-[0.2em] text-[#38bdf8] uppercase mb-3 block">
+          KANTOR PUSAT & LOKASI
         </span>
-        <h2 className="font-poppins font-bold text-[32px] md:text-[40px] text-primary-dark leading-tight">
-          Surakarta, Indonesia
+        <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-white leading-[1.12] tracking-[-0.03em]">
+          Studio Rekayasa di <br className="hidden sm:inline" />
+          <span className="text-[#38bdf8] font-light italic">
+            Surakarta, Indonesia.
+          </span>
         </h2>
+        <p className="text-[15px] sm:text-[17px] text-slate-300 mt-4 leading-[1.75] font-normal max-w-2xl">
+          Kunjungi studio kami atau jadwalkan pertemuan teknis langsung bersama tim perekayasa perangkat lunak TubaTechno.
+        </p>
       </div>
 
       {/* Map Container - Full width, relative for floating card */}
-      <div className="relative w-full h-[420px] md:h-[520px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+      <div className="relative w-full h-[420px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80">
         {/* Google Maps Embed */}
         <iframe
           src="https://maps.google.com/maps?q=-7.533599,110.816948(Head+Office)&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -23,43 +28,42 @@ const CTA: React.FC = () => {
           allowFullScreen={true}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Lokasi HelioTechno - Head Office"
+          title="Lokasi TubaTechno - Head Office"
         />
 
-        {/* Floating Office Info Card — overlaid bottom-left like gits.id */}
-        <div className="absolute bottom-6 left-4 md:left-6 w-[260px] md:w-[280px] bg-white rounded-2xl shadow-[0_12px_40px_rgba(0,4,15,0.15)] overflow-hidden z-10 border border-slate-100">
-          
+        {/* Floating Office Info Card */}
+        <div className="absolute bottom-6 left-4 md:left-6 w-[280px] md:w-[320px] bg-[#070b14]/95 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden z-10 border border-slate-800 backdrop-blur-xl">
           {/* Campus Photo Image */}
           <div className="w-full h-[140px] relative overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/assets/images/campus-illustration.png" 
-              alt="HelioTechno Head Office" 
+              alt="TubaTechno Head Office" 
               className="w-full h-full object-cover"
             />
-            {/* Subtle overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-transparent to-transparent opacity-80" />
           </div>
 
           {/* Card Text Content */}
-          <div className="p-4 bg-white">
-            <h3 className="font-poppins font-bold text-[15px] text-primary-dark mb-1">
-              Head Office
+          <div className="p-5 bg-transparent">
+            <span className="text-[10px] font-semibold text-[#38bdf8] uppercase tracking-wider block mb-1">
+              HEAD OFFICE
+            </span>
+            <h3 className="font-bold text-[16px] text-white mb-1.5">
+              TubaTechno Studio
             </h3>
-            <p className="font-poppins font-normal text-[12.5px] text-dimWhite leading-[1.5]">
+            <p className="font-normal text-[12.5px] text-slate-300 leading-relaxed">
               Jl. Tulang Bawang Tengah No. 26, Kadipiro, Banjarsari, Surakarta 57136
             </p>
           </div>
         </div>
 
-        {/* Pin label popup (decorative tooltip hovering neatly above the red map pin) */}
+        {/* Pin label popup */}
         <div className="absolute top-[calc(50%-75px)] left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center select-none pointer-events-none">
-          <div className="flex items-center bg-white text-primary-dark font-poppins font-semibold text-[12px] px-4 py-1.5 rounded-full shadow-[0_6px_20px_rgba(0,4,15,0.12)] border border-slate-100 whitespace-nowrap gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#00b4d8] animate-pulse" />
-            Head Office
+          <div className="flex items-center bg-[#070b14] text-white border-slate-700 font-semibold text-[12px] px-4 py-1.5 rounded-full shadow-[0_6px_20px_rgba(0,4,15,0.4)] border whitespace-nowrap">
+            Kantor Pusat TubaTechno
           </div>
-          {/* Tooltip pointer triangle */}
-          <div className="w-2.5 h-2.5 bg-white border-r border-b border-slate-100 transform rotate-45 -mt-1.5 shadow-[2px_2px_4px_rgba(0,0,0,0.02)]" />
+          <div className="w-2.5 h-2.5 bg-[#070b14] border-r border-b border-slate-700 transform rotate-45 -mt-1.5" />
         </div>
       </div>
     </section>
