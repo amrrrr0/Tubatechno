@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getApiUrl } from "@/utils/api";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 interface NewsItem {
   slug: string;
@@ -12,7 +12,7 @@ interface NewsItem {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base URL production TubaTechno
-  const baseUrl = "http://localhost:3000"; // Can be updated to production domain when ready
+  const baseUrl = "https://tubatechno.web.id";
 
   // 1. Jalur statis utama
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -37,11 +37,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // 2. Jalur artikel berita dinamis dari database
+  // Catatan: pada static export, bagian ini dijalankan sekali saat build.
   let newsRoutes: MetadataRoute.Sitemap = [];
   try {
-    const res = await fetch(getApiUrl("/api/news?status=published"), {
-      cache: "no-store",
-    });
+    const res = await fetch(getApiUrl("/api/news?status=published"));
     const data = await res.json();
     if (data.success && Array.isArray(data.data)) {
       newsRoutes = data.data.map((item: NewsItem) => {
