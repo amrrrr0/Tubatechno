@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Optimasi gambar: pakai format modern (avif > webp > jpg)
+  // Wajib untuk Cloudflare Pages: hasil build jadi file statis di folder "out"
+  output: "export",
+  trailingSlash: true,
+
+  // Static export tidak punya server untuk optimasi gambar,
+  // jadi "formats" avif/webp tidak berlaku lagi
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
 
   // Tree-shake: hanya import yang dipakai
