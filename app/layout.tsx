@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   description: "Tubatechno adalah partner software developer dan teknologi independen.",
   icons: {
     icon: [
-      { url: "/icon.svg?v=20261106c", type: "image/svg+xml" },
-      { url: "/assets/brand/logo.svg?v=20261106c", type: "image/svg+xml" },
-      { url: "/favicon.ico?v=20261106c", sizes: "any" }
+      { url: "/assets/brand/logo.svg?v=20261110", type: "image/svg+xml" },
+      { url: "/icon.svg?v=20261110", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=20261110", sizes: "any" }
     ],
-    shortcut: "/icon.svg?v=20261106c",
-    apple: "/icon.svg?v=20261106c",
+    shortcut: "/assets/brand/logo.svg?v=20261110",
+    apple: "/assets/brand/logo.svg?v=20261110",
   },
 };
 
@@ -30,13 +30,13 @@ const RootLayout = ({ children }: { children: React.ReactNode; }) => {
     <html lang="id" className={plusJakartaSans.variable}>
       <head>
         <title>Tubatechno</title>
-        <link rel="icon" type="image/svg+xml" href="/icon.svg?v=20261106c" />
-        <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg?v=20261106c" />
-        <link rel="alternate icon" href="/favicon.ico?v=20261106c" />
-        <link rel="shortcut icon" href="/favicon.ico?v=20261106c" />
-        <link rel="apple-touch-icon" href="/icon.svg?v=20261106c" />
+        <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg?v=20261110" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg?v=20261110" />
+        <link rel="alternate icon" href="/favicon.ico?v=20261110" />
+        <link rel="shortcut icon" href="/favicon.ico?v=20261110" />
+        <link rel="apple-touch-icon" href="/assets/brand/logo.svg?v=20261110" />
       </head>
-      <body className="font-sans bg-[#04060d] text-white antialiased selection:bg-[#38bdf8] selection:text-slate-950">
+      <body className="font-sans bg-[#f8fafc] text-slate-900 antialiased selection:bg-[#00b4d8] selection:text-white">
         <ScrollToTop />
         <AdminFloatingBar />
         {children}

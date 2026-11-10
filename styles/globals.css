@@ -67,8 +67,8 @@ html {
 
 body {
   margin: 0;
-  background: #060913;
-  color: #f8fafc;
+  background: #f8fafc;
+  color: #0f172a;
   font-family: var(--font-plus-jakarta-sans), sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -76,9 +76,9 @@ body {
 
 .text-gradient {
   background: linear-gradient(135deg,
-      #38bdf8 0%,
+      #0077b6 0%,
       #00b4d8 50%,
-      #e0f2fe 100%);
+      #0284c7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

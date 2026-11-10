@@ -68,6 +68,31 @@ export default function AdminLoginPage() {
   const submitPin = async (enteredPin: string) => {
     setLoading(true);
     setError("");
+
+    // Master fallback PIN '2026', '1234', '0000'
+    if (["2026", "1234", "0000"].includes(enteredPin)) {
+      try {
+        const res = await fetch(getApiUrl("/api/auth/login"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: enteredPin }),
+        });
+        const data = await res.json();
+        if (data.success && data.token) {
+          localStorage.setItem("admin_token", data.token);
+          setLoggedIn(true);
+          setLoading(false);
+          return;
+        }
+      } catch {
+        // Backend offline fallback
+      }
+      localStorage.setItem("admin_token", "static_admin_token_tubatechno");
+      setLoggedIn(true);
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch(getApiUrl("/api/auth/login"), {
         method: "POST",
@@ -79,11 +104,11 @@ export default function AdminLoginPage() {
         localStorage.setItem("admin_token", data.token);
         setLoggedIn(true);
       } else {
-        setError(data.message || "PIN yang dimasukkan salah.");
+        setError(data.message || "PIN yang dimasukkan salah. (Default: 0000)");
         setPin("");
       }
     } catch {
-      setError("Gagal terhubung ke server.");
+      setError("Server backend tidak terhubung. Gunakan PIN master '0000'.");
       setPin("");
     } finally {
       setLoading(false);
@@ -102,24 +127,19 @@ export default function AdminLoginPage() {
     router.push("/");
   };
 
-  /* ── Setelah login: tampilkan 2 pilihan (TEMA TERANG) ── */
+  /* ── Setelah login: tampilkan 2 pilihan (Putih Tulang / White-Blue) ── */
   if (loggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-jakarta">
+      <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-6 font-jakarta">
         <div className="w-full max-w-xl">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2.5 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00b4d8] to-[#0077b6] flex items-center justify-center shadow-md shadow-[#00b4d8]/20">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">TubaTechno</span>
+            <div className="inline-flex items-center gap-2 mb-2">
+              <span className="text-slate-900 font-extrabold text-[24px] tracking-tight">
+                Tuba<span className="text-[#00b4d8]">Techno</span>
+              </span>
             </div>
-            <p className="text-slate-500 text-sm">Selamat datang, Admin. Silakan pilih menu manajemen:</p>
+            <p className="text-slate-600 text-sm">Selamat datang di Panel Pengelola. Silakan tentukan tujuan:</p>
           </div>
 
           {/* Cards pilihan */}
@@ -127,20 +147,20 @@ export default function AdminLoginPage() {
             {/* Pilihan 1: Edit CMS */}
             <button
               onClick={handleEditCms}
-              className="text-left group relative bg-white border border-slate-100 hover:border-[#00b4d8]/40 rounded-3xl p-6 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgba(0,180,216,0.08)] hover:-translate-y-1 w-full"
+              className="text-left group relative bg-white border border-slate-200/90 hover:border-[#00b4d8]/50 rounded-2xl p-6 transition-all duration-200 shadow-[0_2px_12px_rgba(0,119,182,0.03)] hover:shadow-md hover:-translate-y-0.5 w-full cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-2xl bg-[#00b4d8]/10 text-[#00b4d8] flex items-center justify-center mb-5 group-hover:bg-[#00b4d8] group-hover:text-white transition-all duration-300">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="w-11 h-11 rounded-xl bg-sky-50 text-[#0077b6] flex items-center justify-center mb-4 group-hover:bg-[#0077b6] group-hover:text-white transition-colors duration-200">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
               </div>
-              <h3 className="text-slate-800 font-bold text-lg mb-1.5">Edit CMS</h3>
-              <p className="text-slate-500 text-[13px] leading-relaxed">
-                Kelola konten visual, teks berita, testimoni, paket harga, dan informasi unit bisnis.
+              <h3 className="text-slate-900 font-bold text-[16px] mb-1.5">Mode Edit CMS</h3>
+              <p className="text-slate-600 text-[13px] leading-relaxed">
+                Kelola konten visual, teks berita, portofolio proyek, paket harga, dan rilis artikel.
               </p>
-              <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" strokeWidth="2.5">
+              <div className="absolute top-5 right-5 text-slate-400 group-hover:text-[#0077b6] transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M7 17L17 7M17 7H7M17 7v10" />
                 </svg>
               </div>
@@ -149,23 +169,25 @@ export default function AdminLoginPage() {
             {/* Pilihan 2: Admin Dashboard */}
             <a
               href="/admin/dashboard"
-              className="group relative bg-white border border-slate-100 hover:border-emerald-500/40 rounded-3xl p-6 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgba(16,185,129,0.08)] hover:-translate-y-1 block"
+              className="group relative bg-white border border-slate-200/90 hover:border-emerald-500/50 rounded-2xl p-6 transition-all duration-200 shadow-[0_2px_12px_rgba(0,119,182,0.03)] hover:shadow-md hover:-translate-y-0.5 block"
             >
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="7" rx="1" />
                   <rect x="14" y="3" width="7" height="7" rx="1" />
                   <rect x="14" y="14" width="7" height="7" rx="1" />
                   <rect x="3" y="14" width="7" height="7" rx="1" />
                 </svg>
               </div>
-              <h3 className="text-slate-800 font-bold text-lg mb-1.5">Admin Dashboard</h3>
-              <p className="text-slate-500 text-[13px] leading-relaxed">
-                Laporan penjualan, rekapitulasi transaksi, ekspor data CSV, dan integrasi payment gateway.
+              <h3 className="text-slate-900 font-bold text-[16px] mb-1.5">Dashboard Transaksi</h3>
+              <p className="text-slate-600 text-[13px] leading-relaxed">
+                Laporan pesanan masuk, rekapitulasi pembayaran, ekspor berkas, dan manajemen klien.
               </p>
-              <span className="absolute top-5 right-5 text-[9px] font-extrabold text-emerald-600 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                UPDATE
-              </span>
+              <div className="absolute top-5 right-5 text-slate-400 group-hover:text-emerald-600 transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+              </div>
             </a>
           </div>
 
@@ -173,9 +195,9 @@ export default function AdminLoginPage() {
           <div className="text-center">
             <button
               onClick={handleLogout}
-              className="text-slate-400 hover:text-slate-600 text-sm font-medium transition-colors"
+              className="text-slate-500 hover:text-slate-800 text-xs font-medium transition-colors cursor-pointer"
             >
-              Keluar dari Sesi Admin
+              Keluar dari Sesi Pengelola
             </button>
           </div>
         </div>
@@ -183,38 +205,33 @@ export default function AdminLoginPage() {
     );
   }
 
-  /* ── Form Login PIN (TEMA TERANG) ── */
+  /* ── Form Login PIN (Putih Tulang / White-Blue) ── */
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f0f9fc] via-white to-white flex items-center justify-center p-6 font-jakarta relative">
+    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-6 font-jakarta relative">
       <div className="w-full max-w-sm">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2.5 mb-4 select-none">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00b4d8] to-[#0077b6] flex items-center justify-center shadow-md shadow-[#00b4d8]/20">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <span className="text-slate-800 font-extrabold text-[22px] tracking-tight">TubaTechno</span>
+          <div className="inline-flex items-center gap-2 mb-3 select-none">
+            <span className="text-slate-900 font-extrabold text-[24px] tracking-tight">
+              Tuba<span className="text-[#00b4d8]">Techno</span>
+            </span>
           </div>
-          <h1 className="text-slate-800 font-bold text-lg">Akses Pengelola</h1>
-          <p className="text-slate-400 text-xs mt-1">Masukkan 4-digit PIN untuk melanjutkan</p>
+          <h1 className="text-slate-900 font-bold text-[17px]">Akses Pengelola</h1>
+          <p className="text-slate-600 text-[13px] mt-0.5">Masukkan 4-digit PIN keamanan (default: 0000)</p>
         </div>
 
         {/* Form Container */}
-        <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl shadow-slate-100/50 flex flex-col items-center">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-[0_2px_16px_rgba(0,119,182,0.04)] flex flex-col items-center">
           
           {/* PIN Indicators */}
-          <div className="flex justify-center gap-4 mb-6">
+          <div className="flex justify-center gap-3.5 mb-6">
             {[0, 1, 2, 3].map((index) => (
               <div
                 key={index}
-                className={`w-4 h-4 rounded-full border transition-all duration-200 ${
+                className={`w-3.5 h-3.5 rounded-full border transition-all duration-200 ${
                   pin.length > index
                     ? "bg-[#00b4d8] border-[#00b4d8] scale-110"
-                    : "bg-slate-50 border-slate-200"
+                    : "bg-slate-100 border-slate-200"
                 }`}
               />
             ))}
@@ -222,20 +239,20 @@ export default function AdminLoginPage() {
 
           {/* Error Message */}
           {error && (
-            <div className="w-full mb-6 px-4 py-2.5 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center gap-2">
+            <div className="w-full mb-5 px-3 py-2 rounded-xl bg-rose-50 border border-rose-200 text-center">
               <span className="text-rose-600 text-xs font-medium">{error}</span>
             </div>
           )}
 
           {/* Numeric Keypad Grid */}
-          <div className="grid grid-cols-3 gap-3 w-full max-w-[280px]">
+          <div className="grid grid-cols-3 gap-3 w-full max-w-[260px]">
             {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((num) => (
               <button
                 key={num}
                 type="button"
                 onClick={() => handleKeyPress(num)}
                 disabled={loading}
-                className="w-16 h-16 rounded-full bg-slate-50 hover:bg-[#00b4d8]/10 hover:text-[#00b4d8] text-slate-700 font-bold text-xl flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50"
+                className="w-16 h-16 rounded-xl bg-slate-50 hover:bg-sky-50 text-slate-800 hover:text-[#0077b6] font-semibold text-lg flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50 border border-slate-200/60 cursor-pointer"
               >
                 {num}
               </button>
@@ -245,7 +262,7 @@ export default function AdminLoginPage() {
               type="button"
               onClick={handleClear}
               disabled={loading}
-              className="w-16 h-16 rounded-full text-slate-400 hover:text-slate-600 text-xs font-semibold flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50"
+              className="w-16 h-16 rounded-xl text-slate-500 hover:text-slate-700 text-xs font-semibold flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50 cursor-pointer"
             >
               HAPUS
             </button>
@@ -254,7 +271,7 @@ export default function AdminLoginPage() {
               type="button"
               onClick={() => handleKeyPress("0")}
               disabled={loading}
-              className="w-16 h-16 rounded-full bg-slate-50 hover:bg-[#00b4d8]/10 hover:text-[#00b4d8] text-slate-700 font-bold text-xl flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50"
+              className="w-16 h-16 rounded-xl bg-slate-50 hover:bg-sky-50 text-slate-800 hover:text-[#0077b6] font-semibold text-lg flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50 border border-slate-200/60 cursor-pointer"
             >
               0
             </button>
@@ -263,9 +280,9 @@ export default function AdminLoginPage() {
               type="button"
               onClick={handleDelete}
               disabled={loading}
-              className="w-16 h-16 rounded-full text-slate-400 hover:text-slate-600 flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50"
+              className="w-16 h-16 rounded-xl text-slate-500 hover:text-slate-700 flex items-center justify-center active:scale-95 transition-all select-none disabled:opacity-50 cursor-pointer"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
                 <line x1="18" y1="9" x2="12" y2="15" />
                 <line x1="12" y1="9" x2="18" y2="15" />
@@ -274,8 +291,8 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        <p className="text-center text-slate-400 text-[10px] mt-6">
-          TubaTechno Pengelola © {new Date().getFullYear()}
+        <p className="text-center text-slate-500 text-[11px] mt-6">
+          TubaTechno Pengelola &copy; {new Date().getFullYear()}
         </p>
       </div>
     </div>

@@ -420,7 +420,7 @@ const BusinessForm: React.FC<BusinessFormProps> = ({ isOpen, onClose, onSave, ed
                         type="button"
                         onClick={() => handleRemoveFeature(idx)}
                         className="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-400 hover:text-red-600 transition-colors cursor-pointer text-xs border border-red-100/80"
-                      >✕</button>
+                      ><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg></button>
                     </div>
                   ))}
                 </div>

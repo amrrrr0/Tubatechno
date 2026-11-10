@@ -8,11 +8,11 @@ const Clients: React.FC = () => {
   const marqueeClients = [...clients, ...clients, ...clients, ...clients];
 
   return (
-    <section className="w-full py-14 sm:py-16 border-t border-slate-800/80 overflow-hidden relative font-jakarta">
+    <section className="w-full py-14 sm:py-16 border-t border-slate-200/80 overflow-hidden relative font-jakarta">
       {/* Label */}
       <div className="text-center mb-8">
         <span className="text-[11px] font-semibold tracking-[0.22em] text-slate-500 uppercase">
-          DIPERCAYA OLEH MITRA INSTITUSI & EKOSISTEM BISNIS
+          DIPERCAYA OLEH MITRA INSTITUSI &amp; EKOSISTEM BISNIS
         </span>
       </div>
 
@@ -48,7 +48,7 @@ const Clients: React.FC = () => {
                 alt={client.name}
                 className="h-[34px] sm:h-[44px] w-auto object-contain opacity-40 group-hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
               />
-              <span className="font-medium text-[11.5px] sm:text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors duration-300 whitespace-nowrap">
+              <span className="text-[12px] font-semibold text-slate-500 group-hover:text-slate-900 tracking-tight transition-colors">
                 {client.name}
               </span>
             </div>

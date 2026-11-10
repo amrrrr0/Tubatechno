@@ -166,13 +166,13 @@ const NewsDetailsModal: React.FC<Props> = ({ news, onClose }) => {
               <div className="flex justify-between items-center bg-white px-3.5 py-2.5 rounded-lg border border-slate-100">
                 <span>Meta Title Length:</span>
                 <span className={`font-semibold ${titleLength > 60 ? "text-amber-500" : "text-emerald-500"}`}>
-                  {titleLength} chars {titleLength > 60 ? "⚠️" : "✓"}
+                  {titleLength} chars {titleLength > 60 ? "Melebihi batas" : "Ideal"}
                 </span>
               </div>
               <div className="flex justify-between items-center bg-white px-3.5 py-2.5 rounded-lg border border-slate-100">
                 <span>Meta Description Length:</span>
                 <span className={`font-semibold ${descLength > 160 ? "text-amber-500" : "text-emerald-500"}`}>
-                  {descLength} chars {descLength > 160 ? "⚠️" : "✓"}
+                  {descLength} chars {descLength > 160 ? "Melebihi batas" : "Ideal"}
                 </span>
               </div>
             </div>

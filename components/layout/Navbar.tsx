@@ -34,8 +34,8 @@ const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-[999] w-full transition-all duration-300 ${
         scrolled
-          ? "bg-[#060913]/92 backdrop-blur-2xl border-b border-slate-800/80 shadow-[0_12px_36px_rgba(0,0,0,0.6)]"
-          : "bg-[#060913]/60 backdrop-blur-md border-b border-slate-800/40"
+          ? "bg-[#f8fafc]/95 backdrop-blur-2xl border-b border-slate-200/90 shadow-[0_4px_20px_rgba(0,119,182,0.05)]"
+          : "bg-[#f8fafc]/80 backdrop-blur-md border-b border-slate-200/60"
       }`}
     >
       <div className="w-full max-w-[1560px] 2xl:max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 h-[68px] sm:h-[76px] flex items-center justify-between font-jakarta">
@@ -52,8 +52,8 @@ const Navbar: React.FC = () => {
             style={{ width: "30px", height: "30px" }}
             className="object-contain"
           />
-          <span className="font-extrabold text-[18px] sm:text-[20px] text-white tracking-tight">
-            Tuba<span className="text-[#38bdf8] font-bold">Techno</span>
+          <span className="font-extrabold text-[18px] sm:text-[20px] text-slate-900 tracking-tight">
+            Tuba<span className="text-[#00b4d8] font-bold">Techno</span>
           </span>
         </a>
 
@@ -66,19 +66,19 @@ const Navbar: React.FC = () => {
                   href={(nav as any).externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-300 hover:text-white hover:bg-slate-800/40 transition-all duration-200"
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
                 >
                   {nav.title}
                   <svg
-                    width="9"
-                    height="9"
+                    width="10"
+                    height="10"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="opacity-50"
+                    className="opacity-60"
                   >
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                     <polyline points="15 3 21 3 21 9" />
@@ -88,14 +88,14 @@ const Navbar: React.FC = () => {
               ) : (nav as any).route ? (
                 <Link
                   href={(nav as any).route}
-                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-300 hover:text-white hover:bg-slate-800/40 transition-all duration-200 block"
+                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
                 >
                   {nav.title}
                 </Link>
               ) : (
                 <a
                   href={getLinkHref(nav.id)}
-                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-300 hover:text-white hover:bg-slate-800/40 transition-all duration-200 block"
+                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
                 >
                   {nav.title}
                 </a>
@@ -108,9 +108,13 @@ const Navbar: React.FC = () => {
         <div className="hidden sm:flex items-center">
           <a
             href={getLinkHref("contact")}
-            className="px-5 py-2 rounded-xl font-bold text-[12.5px] text-slate-950 bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] hover:from-[#7dd3fc] hover:to-[#38bdf8] shadow-[0_0_16px_rgba(56,189,248,0.25)] hover:shadow-[0_0_24px_rgba(56,189,248,0.4)] transition-all duration-200 cursor-pointer select-none"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_2px_12px_rgba(0,180,216,0.25)] hover:shadow-[0_4px_16px_rgba(0,180,216,0.35)] transition-all duration-200 cursor-pointer select-none"
           >
-            Konsultasi Proyek →
+            <span>Konsultasi Proyek</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </a>
         </div>
 
@@ -119,20 +123,25 @@ const Navbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setToggle((prev) => !prev)}
-            className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+            className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 flex items-center justify-center transition-colors cursor-pointer shadow-xs"
             aria-label="Toggle Navigation"
           >
-            <Image
-              src={toggle ? close : menu}
-              alt="menu"
-              className="object-contain brightness-200"
-              width={20}
-              height={20}
-            />
+            {toggle ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            )}
           </button>
 
           {toggle && (
-            <div className="p-5 bg-[#0b1120]/95 backdrop-blur-2xl border border-slate-800 shadow-2xl absolute top-16 right-4 min-w-[200px] rounded-2xl z-[1000] flex flex-col gap-3 font-jakarta">
+            <div className="p-5 bg-white/98 backdrop-blur-2xl border border-slate-200 shadow-xl absolute top-16 right-4 min-w-[220px] rounded-2xl z-[1000] flex flex-col gap-3 font-jakarta">
               <ul className="list-none flex flex-col gap-1.5 w-full">
                 {navLinks.map((nav) => (
                   <li key={nav.id} className="w-full">
@@ -142,16 +151,30 @@ const Navbar: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setToggle(false)}
-                        className="flex items-center justify-between px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium text-[13.5px]"
+                        className="flex items-center justify-between px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors"
                       >
-                        <span>{nav.title}</span>
-                        <span className="text-xs text-slate-500">↗</span>
+                        {nav.title}
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="opacity-50"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
                       </a>
                     ) : (nav as any).route ? (
                       <Link
                         href={(nav as any).route}
                         onClick={() => setToggle(false)}
-                        className="block px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium text-[13.5px]"
+                        className="px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
                       >
                         {nav.title}
                       </Link>
@@ -159,7 +182,7 @@ const Navbar: React.FC = () => {
                       <a
                         href={getLinkHref(nav.id)}
                         onClick={() => setToggle(false)}
-                        className="block px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium text-[13.5px]"
+                        className="px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
                       >
                         {nav.title}
                       </a>
@@ -168,15 +191,13 @@ const Navbar: React.FC = () => {
                 ))}
               </ul>
 
-              <div className="pt-2.5 border-t border-slate-800">
-                <a
-                  href={getLinkHref("contact")}
-                  onClick={() => setToggle(false)}
-                  className="block text-center bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] text-slate-950 font-bold text-[12.5px] py-2 rounded-xl transition-all"
-                >
-                  Konsultasi Proyek →
-                </a>
-              </div>
+              <a
+                href={getLinkHref("contact")}
+                onClick={() => setToggle(false)}
+                className="w-full mt-1 py-2.5 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] shadow-sm text-center block"
+              >
+                Konsultasi Proyek
+              </a>
             </div>
           )}
         </div>

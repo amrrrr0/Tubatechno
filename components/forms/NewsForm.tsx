@@ -569,21 +569,21 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                           <div className="flex flex-col gap-2 pt-1 border-t border-gray-50">
                             <div className="flex items-center gap-2">
                               <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isTitleLengthOk ? "bg-emerald-500" : "bg-amber-500"}`}>
-                                {isTitleLengthOk ? "✓" : "!"}
+                                {isTitleLengthOk ? "OK" : "!"}
                               </span>
                               <span>Panjang Judul SEO: {seoTitleLength}/60 karakter</span>
                             </div>
 
                             <div className="flex items-center gap-2">
                               <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isDescLengthOk ? "bg-emerald-500" : "bg-amber-500"}`}>
-                                {isDescLengthOk ? "✓" : "!"}
+                                {isDescLengthOk ? "OK" : "!"}
                               </span>
                               <span>Panjang Deskripsi: {seoDescLength}/160 karakter</span>
                             </div>
 
                             <div className="flex items-center gap-2">
                               <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${isSlugValid ? "bg-emerald-500" : "bg-red-500"}`}>
-                                {isSlugValid ? "✓" : "✗"}
+                                {isSlugValid ? "OK" : "x"}
                               </span>
                               <span className={isSlugValid ? "" : "text-red-500 font-semibold"}>URL Slug: {isSlugValid ? "Valid" : "Format Salah"}</span>
                             </div>
@@ -592,21 +592,21 @@ const NewsForm: React.FC<Props> = ({ onClose, onSuccess, editData }) => {
                               <>
                                 <div className="flex items-center gap-2">
                                   <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInTitle ? "bg-emerald-500" : "bg-amber-500"}`}>
-                                    {hasKeywordInTitle ? "✓" : "!"}
+                                    {hasKeywordInTitle ? "OK" : "!"}
                                   </span>
                                   <span>Kata kunci di Judul: {hasKeywordInTitle ? "Ditemukan" : "Tidak ada"}</span>
                                 </div>
 
                                 <div className="flex items-center gap-2">
                                   <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInDesc ? "bg-emerald-500" : "bg-amber-500"}`}>
-                                    {hasKeywordInDesc ? "✓" : "!"}
+                                    {hasKeywordInDesc ? "OK" : "!"}
                                   </span>
                                   <span>Kata kunci di Deskripsi: {hasKeywordInDesc ? "Ditemukan" : "Tidak ada"}</span>
                                 </div>
 
                                 <div className="flex items-center gap-2">
                                   <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8.5px] font-extrabold text-white select-none ${hasKeywordInContent && keywordDensity >= 0.8 && keywordDensity <= 2.5 ? "bg-emerald-500" : "bg-amber-500"}`}>
-                                    {hasKeywordInContent && keywordDensity >= 0.8 && keywordDensity <= 2.5 ? "✓" : "!"}
+                                    {hasKeywordInContent && keywordDensity >= 0.8 && keywordDensity <= 2.5 ? "OK" : "!"}
                                   </span>
                                   <span>
                                     Kepadatan Kata Kunci: {keywordDensity.toFixed(1)}% ({keywordCount}x)

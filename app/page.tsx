@@ -8,9 +8,9 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const Home = () => {
   return (
-    <main id="home" className="motion-page bg-[#060913] text-slate-100 w-full overflow-hidden min-h-screen relative">
-      {/* Global Cold Ambient Background Lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-[#38bdf8]/8 via-[#0284c7]/3 to-transparent rounded-full blur-[180px] pointer-events-none" />
+    <main id="home" className="motion-page bg-[#f8fafc] text-slate-900 w-full overflow-hidden min-h-screen relative">
+      {/* Soft Ambient Logo White-Blue Lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-[#00b4d8]/8 via-[#0077b6]/4 to-transparent rounded-full blur-[180px] pointer-events-none" />
 
       {/* Global Fixed Navbar */}
       <Navbar />

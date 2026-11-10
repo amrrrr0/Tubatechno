@@ -1,8 +1,8 @@
 const styles = {
     boxWidth: "max-w-[1480px] 2xl:max-w-[1640px] w-full",
 
-    heading2: "font-jakarta font-extrabold text-[28px] sm:text-[36px] md:text-[42px] text-white leading-tight tracking-tight w-full",
-    paragraph: "font-jakarta font-normal text-slate-300 text-[14.5px] sm:text-[15.5px] leading-relaxed",
+    heading2: "font-jakarta font-extrabold text-[28px] sm:text-[36px] md:text-[42px] text-slate-900 leading-tight tracking-tight w-full",
+    paragraph: "font-jakarta font-normal text-slate-600 text-[14.5px] sm:text-[15.5px] leading-relaxed",
 
     flexCenter: "flex justify-center items-center",
     flexStart: "flex justify-center items-start",

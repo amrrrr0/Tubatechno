@@ -3,15 +3,15 @@ import { Navbar, Pricing, Footer } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
-  title: "Tubatechno — Harga Layanan",
+  title: "Tubatechno",
   description: "Daftar harga dan paket layanan pembuatan website kustom, penyewaan web siap pakai, aplikasi mobile, dan IT maintenance Tubatechno.",
 };
 
 const PricingPage = () => {
   return (
-    <main id="pricing-page" className="motion-page bg-[#060913] text-slate-100 w-full min-h-screen flex flex-col relative overflow-hidden font-jakarta">
+    <main id="pricing-page" className="motion-page bg-[#f8fafc] text-slate-900 w-full min-h-screen flex flex-col relative overflow-hidden font-jakarta">
       {/* Global Ambient Radial Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[550px] bg-gradient-to-b from-[#38bdf8]/10 via-[#0284c7]/4 to-transparent rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[550px] bg-gradient-to-b from-[#00b4d8]/8 via-[#0077b6]/3 to-transparent rounded-full blur-[180px] pointer-events-none" />
 
       {/* Global Fixed Navbar */}
       <Navbar />
@@ -24,7 +24,7 @@ const PricingPage = () => {
       </div>
 
       {/* Footer */}
-      <div className={`${styles.paddingX} ${styles.flexStart} mt-auto relative z-10 border-t border-slate-800/80`}>
+      <div className={`${styles.paddingX} ${styles.flexStart} mt-auto relative z-10 border-t border-slate-200/80`}>
         <div className={`${styles.boxWidth}`}>
           <Footer />
         </div>

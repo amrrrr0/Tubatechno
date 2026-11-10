@@ -134,9 +134,9 @@ export const FleavaHeroCanvas: React.FC = () => {
 
       // 1. Soft radial ambient blue glow behind the sculpture across full screen
       const glowGrad = ctx.createRadialGradient(cx, cy, 50, cx, cy, Math.max(width, height) * 0.7);
-      glowGrad.addColorStop(0, "rgba(56, 189, 248, 0.18)");
-      glowGrad.addColorStop(0.35, "rgba(2, 132, 199, 0.06)");
-      glowGrad.addColorStop(1, "rgba(4, 6, 13, 0)");
+      glowGrad.addColorStop(0, "rgba(0, 180, 216, 0.14)");
+      glowGrad.addColorStop(0.35, "rgba(0, 119, 182, 0.05)");
+      glowGrad.addColorStop(1, "rgba(248, 250, 252, 0)");
       ctx.fillStyle = glowGrad;
       ctx.fillRect(0, 0, width, height);
 
@@ -149,7 +149,7 @@ export const FleavaHeroCanvas: React.FC = () => {
           const alpha = Math.min(Math.max((proj.z + 400) / 800, 0.12), 0.75);
           ctx.beginPath();
           ctx.arc(proj.px, proj.py, p.size * proj.scale, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(224, 242, 254, ${alpha})`;
+          ctx.fillStyle = `rgba(0, 180, 216, ${alpha * 0.6})`;
           ctx.fill();
         }
       }
@@ -215,8 +215,8 @@ export const FleavaHeroCanvas: React.FC = () => {
 
         ctx.strokeStyle =
           r === Math.floor(numRibbons / 2)
-            ? `rgba(255, 255, 255, ${strokeAlpha})` // Crisp white core
-            : `rgba(56, 189, 248, ${strokeAlpha * 0.85})`; // Ice cyan outer strands
+            ? `rgba(0, 119, 182, ${strokeAlpha})` // Vibrant Blue Core (#0077b6)
+            : `rgba(0, 180, 216, ${strokeAlpha * 0.85})`; // Cyan-sky outer strands (#00b4d8)
 
         ctx.lineWidth = r === Math.floor(numRibbons / 2) ? 2.0 : 1.2;
         ctx.stroke();
@@ -249,7 +249,7 @@ export const FleavaHeroCanvas: React.FC = () => {
           ctx.beginPath();
           ctx.moveTo(p1.px, p1.py);
           ctx.lineTo(p2.px, p2.py);
-          ctx.strokeStyle = "rgba(56, 189, 248, 0.22)";
+          ctx.strokeStyle = "rgba(0, 180, 216, 0.22)";
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
