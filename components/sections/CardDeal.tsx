@@ -482,13 +482,9 @@ export const CardDeal: React.FC = () => {
                           href={unit.websiteUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full py-3 px-4 rounded-xl font-bold text-[13px] bg-slate-50 hover:bg-[#0077b6] text-[#0077b6] hover:text-white border border-slate-200 hover:border-[#0077b6] transition-all flex items-center justify-center gap-2 cursor-pointer no-underline group/btn"
+                          className="w-full py-3 px-4 rounded-xl font-bold text-[13px] bg-slate-50 hover:bg-[#0077b6] text-[#0077b6] hover:text-white border border-slate-200 hover:border-[#0077b6] transition-all flex items-center justify-center cursor-pointer no-underline"
                         >
-                          <span>Kunjungi Sistem Langsung</span>
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                          </svg>
+                          Kunjungi Sistem Langsung
                         </a>
                       ) : (
                         <div className="w-full py-3 px-4 rounded-xl font-medium text-[12px] bg-slate-50 text-slate-500 border border-slate-200 text-center select-none flex items-center justify-center gap-1.5">
@@ -543,12 +539,6 @@ export const CardDeal: React.FC = () => {
                       <p className="text-[12px] text-slate-500 mt-0.5">+62 812-3456-7890</p>
                     </div>
                   </div>
-                  <span className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 group-hover/contact:text-emerald-600 group-hover/contact:border-emerald-500/40 transition-colors">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </span>
                 </a>
 
                 {/* Email */}
@@ -568,12 +558,6 @@ export const CardDeal: React.FC = () => {
                       <p className="text-[12px] text-slate-500 mt-0.5">contact@tubatechno.com</p>
                     </div>
                   </div>
-                  <span className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 group-hover/contact:text-[#0077b6] group-hover/contact:border-[#00b4d8]/40 transition-colors">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </span>
                 </a>
               </div>
             </div>

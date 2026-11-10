@@ -171,12 +171,8 @@ const Pricing: React.FC = () => {
                   Rp 199rb <span className="text-[13px] text-slate-500 font-normal">/bulan</span>
                 </span>
               </div>
-              <a href="/#contact" className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#0077b6] hover:text-[#023e8a] transition-colors">
-                <span>Konsultasi</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
+              <a href="/#contact" className="inline-flex items-center text-[12px] font-semibold text-[#0077b6] hover:text-[#023e8a] transition-colors">
+                Konsultasi
               </a>
             </div>
           </motion.div>
@@ -217,12 +213,8 @@ const Pricing: React.FC = () => {
                   Rp 5 Juta <span className="text-[12px] text-slate-500 font-normal">(One-Time)</span>
                 </span>
               </div>
-              <a href="/#contact" className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#0077b6] hover:text-[#023e8a] transition-colors">
-                <span>Mulai Diskusi</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
+              <a href="/#contact" className="inline-flex items-center text-[12px] font-semibold text-[#0077b6] hover:text-[#023e8a] transition-colors">
+                Mulai Diskusi
               </a>
             </div>
           </motion.div>

@@ -156,9 +156,8 @@ const NewsCard: React.FC<{ item: NewsItem; onClick: () => void; onEdit?: () => v
         {/* Footer info: Clean views & Read Link */}
         <div className="flex items-center justify-between pt-4 mt-2 border-t border-slate-100 text-[12px] text-slate-500 font-jakarta">
           <span>{item.views || 0} pembaca</span>
-          <span className="text-[#0077b6] group-hover:text-[#00b4d8] flex items-center gap-1.5 transition-colors font-semibold text-[12.5px]">
-            <span>Baca Selengkapnya</span>
-            <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+          <span className="text-[#0077b6] group-hover:text-[#00b4d8] transition-colors font-semibold text-[12.5px]">
+            Baca Selengkapnya
           </span>
         </div>
       </div>
@@ -479,10 +478,9 @@ const News: React.FC<NewsProps> = ({ isDashboard = false, initialNews }) => {
         <div className="flex justify-center mt-12 relative z-[1]">
           <Link
             href="/news"
-            className="px-7 py-3.5 rounded-xl font-bold text-[13.5px] bg-white hover:bg-sky-50 text-slate-800 hover:text-[#0077b6] border border-slate-200/90 hover:border-[#00b4d8] transition-all shadow-xs inline-flex items-center gap-2 group/btn"
+            className="px-7 py-3.5 rounded-xl font-bold text-[13.5px] bg-white hover:bg-sky-50 text-slate-800 hover:text-[#0077b6] border border-slate-200/90 hover:border-[#00b4d8] transition-all shadow-xs inline-flex items-center"
           >
-            <span>Lihat Semua Artikel</span>
-            <svg className="w-4 h-4 text-[#0077b6] transition-transform group-hover/btn:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+            Lihat Semua Artikel
           </Link>
         </div>
       )}

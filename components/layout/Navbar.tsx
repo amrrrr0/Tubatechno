@@ -66,24 +66,9 @@ const Navbar: React.FC = () => {
                   href={(nav as any).externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
+                  className="flex items-center px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
                 >
                   {nav.title}
-                  <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="opacity-60"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
                 </a>
               ) : (nav as any).route ? (
                 <Link
@@ -108,13 +93,9 @@ const Navbar: React.FC = () => {
         <div className="hidden sm:flex items-center">
           <a
             href={getLinkHref("contact")}
-            className="flex items-center gap-1.5 px-5 py-2 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_2px_12px_rgba(0,180,216,0.25)] hover:shadow-[0_4px_16px_rgba(0,180,216,0.35)] transition-all duration-200 cursor-pointer select-none"
+            className="flex items-center px-5 py-2.5 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_2px_12px_rgba(0,180,216,0.25)] hover:shadow-[0_4px_16px_rgba(0,180,216,0.35)] transition-all duration-200 cursor-pointer select-none"
           >
-            <span>Konsultasi Proyek</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            Konsultasi Proyek
           </a>
         </div>
 
@@ -151,24 +132,9 @@ const Navbar: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setToggle(false)}
-                        className="flex items-center justify-between px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors"
+                        className="flex items-center px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors"
                       >
                         {nav.title}
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="opacity-50"
-                        >
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
                       </a>
                     ) : (nav as any).route ? (
                       <Link

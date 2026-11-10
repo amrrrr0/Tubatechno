@@ -222,21 +222,9 @@ export const Business: React.FC = () => {
 
                 <a
                   href={service.ctaHref}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-[#0077b6] text-white text-[13px] font-semibold transition-all shadow-xs group/btn cursor-pointer"
+                  className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-[#0077b6] text-white text-[13px] font-semibold transition-all shadow-xs cursor-pointer"
                 >
-                  <span>{service.ctaLabel}</span>
-                  <svg
-                    className="w-3.5 h-3.5 text-[#00b4d8] group-hover/btn:text-white group-hover/btn:translate-x-0.5 transition-transform"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
+                  {service.ctaLabel}
                 </a>
               </div>
             </div>

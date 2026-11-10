@@ -39,13 +39,9 @@ const Hero: React.FC = () => {
           <div className="flex flex-wrap items-center gap-4.5 w-full sm:w-auto font-jakarta pointer-events-auto">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-[14.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_4px_20px_rgba(0,180,216,0.25)] hover:shadow-[0_6px_28px_rgba(0,180,216,0.4)] transition-all duration-200 text-center cursor-pointer select-none"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-[14.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_4px_20px_rgba(0,180,216,0.25)] hover:shadow-[0_6px_28px_rgba(0,180,216,0.4)] transition-all duration-200 text-center cursor-pointer select-none"
             >
-              <span>Konsultasi Proyek</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
-              </svg>
+              Konsultasi Proyek
             </a>
             <a
               href="#product"
