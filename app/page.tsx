@@ -5,10 +5,14 @@ import {
   Clients, CTA, Footer, News
 } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
+import OpeningAnimation from "@/components/ui/OpeningAnimation";
 
 const Home = () => {
   return (
-    <main id="home" className="motion-page bg-[#f8fafc] text-slate-900 w-full overflow-hidden min-h-screen relative">
+    <main id="home" className="motion-page bg-[#f8fafc] text-slate-900 w-full overflow-hidden min-h-screen relative font-jakarta">
+      {/* Global Studio Opening Animation Transition */}
+      <OpeningAnimation />
+
       {/* Soft Ambient Logo White-Blue Lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-[#00b4d8]/8 via-[#0077b6]/4 to-transparent rounded-full blur-[180px] pointer-events-none" />
 
