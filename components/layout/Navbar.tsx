@@ -39,26 +39,26 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="w-full max-w-[1560px] 2xl:max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 h-[68px] sm:h-[76px] flex items-center justify-between font-jakarta">
-        {/* Brand Logo - Sleek & Balanced */}
+        {/* Brand Logo - Sleek & Prominent */}
         <a
           href={getLinkHref("home")}
-          className="flex items-center gap-2.5 select-none cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
+          className="flex items-center gap-3 select-none cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
         >
           <Image
             src={logo}
             alt="TubaTechno"
-            width={30}
-            height={30}
-            style={{ width: "30px", height: "30px" }}
+            width={38}
+            height={38}
+            style={{ width: "38px", height: "38px" }}
             className="object-contain"
           />
-          <span className="font-extrabold text-[18px] sm:text-[20px] text-slate-900 tracking-tight">
+          <span className="font-extrabold text-[22px] sm:text-[24px] text-slate-900 tracking-tight">
             Tuba<span className="text-[#00b4d8] font-bold">Techno</span>
           </span>
         </a>
 
-        {/* Navigation Links - Refined Typography */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+        {/* Navigation Links - Clear & Readable */}
+        <nav className="hidden md:flex items-center gap-1.5 lg:gap-2.5">
           {navLinks.map((nav) => (
             <div key={nav.id}>
               {(nav as any).externalUrl ? (
@@ -66,21 +66,21 @@ const Navbar: React.FC = () => {
                   href={(nav as any).externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
+                  className="flex items-center px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
                 >
                   {nav.title}
                 </a>
               ) : (nav as any).route ? (
                 <Link
                   href={(nav as any).route}
-                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
+                  className="px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
                 >
                   {nav.title}
                 </Link>
               ) : (
                 <a
                   href={getLinkHref(nav.id)}
-                  className="px-3 py-1.5 rounded-lg font-medium text-[13.5px] text-slate-600 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
+                  className="px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
                 >
                   {nav.title}
                 </a>
@@ -89,11 +89,11 @@ const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* CTA Button - Sleek & Refined */}
+        {/* CTA Button - Bold & Confident */}
         <div className="hidden sm:flex items-center">
           <a
             href={getLinkHref("contact")}
-            className="flex items-center px-5 py-2.5 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_2px_12px_rgba(0,180,216,0.25)] hover:shadow-[0_4px_16px_rgba(0,180,216,0.35)] transition-all duration-200 cursor-pointer select-none"
+            className="flex items-center px-6 py-2.5 sm:py-3 rounded-xl font-bold text-[14px] sm:text-[14.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] shadow-[0_4px_16px_rgba(0,180,216,0.25)] hover:shadow-[0_6px_22px_rgba(0,180,216,0.35)] transition-all duration-200 cursor-pointer select-none"
           >
             Konsultasi Proyek
           </a>
@@ -122,7 +122,7 @@ const Navbar: React.FC = () => {
           </button>
 
           {toggle && (
-            <div className="p-5 bg-white/98 backdrop-blur-2xl border border-slate-200 shadow-xl absolute top-16 right-4 min-w-[220px] rounded-2xl z-[1000] flex flex-col gap-3 font-jakarta">
+            <div className="p-5 bg-white/98 backdrop-blur-2xl border border-slate-200 shadow-xl absolute top-16 right-4 min-w-[240px] rounded-2xl z-[1000] flex flex-col gap-3 font-jakarta">
               <ul className="list-none flex flex-col gap-1.5 w-full">
                 {navLinks.map((nav) => (
                   <li key={nav.id} className="w-full">
@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setToggle(false)}
-                        className="flex items-center px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors"
+                        className="flex items-center px-4 py-2.5 rounded-xl text-[15px] font-semibold text-slate-800 hover:text-[#0077b6] hover:bg-sky-50 transition-colors"
                       >
                         {nav.title}
                       </a>
@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
                       <Link
                         href={(nav as any).route}
                         onClick={() => setToggle(false)}
-                        className="px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
+                        className="px-4 py-2.5 rounded-xl text-[15px] font-semibold text-slate-800 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
                       >
                         {nav.title}
                       </Link>
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
                       <a
                         href={getLinkHref(nav.id)}
                         onClick={() => setToggle(false)}
-                        className="px-3 py-2 rounded-lg text-[13.5px] font-medium text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
+                        className="px-4 py-2.5 rounded-xl text-[15px] font-semibold text-slate-800 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
                       >
                         {nav.title}
                       </a>
@@ -160,7 +160,7 @@ const Navbar: React.FC = () => {
               <a
                 href={getLinkHref("contact")}
                 onClick={() => setToggle(false)}
-                className="w-full mt-1 py-2.5 rounded-xl font-bold text-[12.5px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] shadow-sm text-center block"
+                className="w-full mt-1 py-3 rounded-xl font-bold text-[14px] text-white bg-gradient-to-r from-[#00b4d8] to-[#0077b6] shadow-md shadow-[#00b4d8]/20 text-center block"
               >
                 Konsultasi Proyek
               </a>
