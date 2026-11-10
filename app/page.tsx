@@ -5,8 +5,6 @@ import {
   Clients, CTA, Footer, News
 } from "@/components";
 import ScrollReveal from "@/components/ScrollReveal";
-import LiveStats from "@/components/sections/LiveStats";
-import FloatingScrollControl from "@/components/ui/FloatingScrollControl";
 
 const Home = () => {
   return (
@@ -14,7 +12,7 @@ const Home = () => {
       {/* Soft Ambient Logo White-Blue Lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-b from-[#00b4d8]/8 via-[#0077b6]/4 to-transparent rounded-full blur-[180px] pointer-events-none" />
 
-      {/* Global Fixed Navbar with ScrollSpy and Reading Progress */}
+      {/* Global Fixed Navbar */}
       <Navbar />
 
       {/* Hero Section: Full-Bleed Edge-to-Edge 100vw Canvas */}
@@ -22,19 +20,10 @@ const Home = () => {
         <Hero />
       </div>
 
-      {/* Live Scroll-Triggered Architectural Metrics (JavaScript CountUp) */}
-      <div className={`${styles.paddingX} ${styles.flexCenter} relative z-10 w-full`}>
-        <div className={`${styles.boxWidth}`}>
-          <ScrollReveal variant="zoom-in" duration={750}>
-            <LiveStats />
-          </ScrollReveal>
-        </div>
-      </div>
-
       {/* Engineering Capabilities / Bento Grid */}
       <div className={`${styles.paddingX} ${styles.flexCenter} relative z-10 w-full`}>
         <div className={`${styles.boxWidth}`}>
-          <ScrollReveal variant="fade-up" duration={800}>
+          <ScrollReveal variant="fade-up" duration={750}>
             <Business />
           </ScrollReveal>
         </div>
@@ -43,22 +32,22 @@ const Home = () => {
       {/* Standards & Workflow */}
       <div className={`${styles.paddingX} ${styles.flexCenter} relative z-10 w-full`}>
         <div className={`${styles.boxWidth}`}>
-          <ScrollReveal variant="fade-up" duration={800}>
+          <ScrollReveal variant="fade-up" duration={750}>
             <Billing />
           </ScrollReveal>
-          <ScrollReveal variant="zoom-in" duration={800}>
+          <ScrollReveal variant="zoom-in" duration={750}>
             <CardDeal />
           </ScrollReveal>
-          <ScrollReveal variant="fade-up" duration={800}>
+          <ScrollReveal variant="fade-up" duration={750}>
             <News isDashboard={true} />
           </ScrollReveal>
-          <ScrollReveal variant="fade-up" duration={800}>
+          <ScrollReveal variant="fade-up" duration={750}>
             <Testimonials />
           </ScrollReveal>
-          <ScrollReveal variant="zoom-in" duration={800}>
+          <ScrollReveal variant="zoom-in" duration={750}>
             <Clients />
           </ScrollReveal>
-          <ScrollReveal variant="fade-up" duration={800}>
+          <ScrollReveal variant="fade-up" duration={750}>
             <CTA />
           </ScrollReveal>
         </div>
@@ -66,9 +55,6 @@ const Home = () => {
 
       {/* Full-Bleed Edge-to-Edge Footer */}
       <Footer />
-
-      {/* Interactive Floating Circular Scroll-To-Top Control */}
-      <FloatingScrollControl />
     </main>
   );
 };

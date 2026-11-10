@@ -6,7 +6,6 @@ import { logo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import ScrollProgress from "@/components/ui/ScrollProgress";
 
 const Navbar: React.FC = () => {
   const [toggle, setToggle] = useState(false);
@@ -58,8 +57,7 @@ const Navbar: React.FC = () => {
           : "bg-[#f8fafc]/80 backdrop-blur-md border-b border-slate-200/60"
       }`}
     >
-      {/* Realtime JavaScript Scroll Reading Progress Bar */}
-      <ScrollProgress />
+      {/* Header Container */}
 
       <div className="w-full max-w-[1560px] 2xl:max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 h-[68px] sm:h-[76px] flex items-center justify-between font-jakarta">
         {/* Brand Logo - Sleek & Prominent */}
