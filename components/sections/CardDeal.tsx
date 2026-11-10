@@ -95,17 +95,33 @@ const ContactForm: React.FC = () => {
       setError("Semua kolom formulir wajib diisi.");
       return;
     }
-    setError("");
+
     setLoading(true);
+    setError("");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setSuccess(true);
-      setName("");
-      setContact("");
-      setMessageText("");
+      const res = await fetch(getApiUrl("/api/leads"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          contact: contact.trim(),
+          notes: messageText.trim(),
+          service_type: "Konsultasi Umum (Portofolio)",
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSuccess(true);
+        setName("");
+        setContact("");
+        setMessageText("");
+      } else {
+        setError(data.message || "Gagal mengirimkan pesan. Silakan coba lagi.");
+      }
     } catch {
-      setError("Gagal mengirim pesan. Silakan coba lagi.");
+      setError("Terjadi kendala koneksi ke server. Silakan hubungi kami via WhatsApp.");
     } finally {
       setLoading(false);
     }
@@ -113,101 +129,130 @@ const ContactForm: React.FC = () => {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 text-center font-jakarta">
-        <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-3">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <div className="p-8 text-center bg-sky-50/70 border border-sky-100 rounded-2xl animate-fadeIn">
+        <div className="w-12 h-12 bg-[#0077b6] text-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h5 className="font-bold text-slate-900 text-[18px] mb-2">Pesan Berhasil Terkirim</h5>
-        <p className="text-sm text-slate-600 max-w-[320px] leading-relaxed">
-          Terima kasih telah menghubungi TubaTechno. Tim rekayasa kami akan segera merespons pesan Anda secepatnya.
+        <h4 className="text-[18px] font-bold text-slate-900 font-jakarta">Pesan Terkirim</h4>
+        <p className="text-[13.5px] text-slate-600 mt-2 max-w-sm mx-auto font-jakarta">
+          Terima kasih. Tim konsultan rekayasa TubaTechno akan menelaah kebutuhan Anda dan menghubungi kembali dalam 1 hari kerja.
         </p>
         <button
           type="button"
           onClick={() => setSuccess(false)}
-          className="mt-6 px-6 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-all cursor-pointer shadow-sm"
+          className="mt-5 px-5 py-2 text-xs font-semibold text-[#0077b6] bg-white border border-sky-200 rounded-lg hover:bg-sky-50 transition-all font-jakarta cursor-pointer"
         >
-          Kirim Pesan Baru
+          Kirim Pesan Lainnya
         </button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 font-jakarta">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-jakarta">
       {error && (
-        <p className="text-rose-500 text-xs font-semibold">{error}</p>
+        <div className="p-3 text-xs bg-rose-50 border border-rose-200 text-rose-700 rounded-xl">
+          {error}
+        </div>
       )}
+
       <div>
-        <label htmlFor="contact_name" className="block text-[12px] font-semibold text-slate-700 mb-2">
-          Nama Lengkap
+        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+          Nama Lengkap / Instansi <span className="text-rose-500">*</span>
         </label>
         <input
           type="text"
-          id="contact_name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Nama Anda atau perwakilan instansi"
-          className="w-full bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 rounded-xl px-4 py-3 text-xs outline-none transition-all"
+          placeholder="Contoh: Budi Santoso / PT Solusi Bersama"
+          className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#00b4d8] focus:bg-white transition-all placeholder:text-slate-400"
+          required
         />
       </div>
+
       <div>
-        <label htmlFor="contact_info" className="block text-[12px] font-semibold text-slate-700 mb-2">
-          Email atau Nomor WhatsApp
+        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+          Kontak (WhatsApp / Email Aktif) <span className="text-rose-500">*</span>
         </label>
         <input
           type="text"
-          id="contact_info"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          placeholder="contoh@perusahaan.com atau 0812345..."
-          className="w-full bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 rounded-xl px-4 py-3 text-xs outline-none transition-all"
+          placeholder="08123456789 atau email@perusahaan.com"
+          className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#00b4d8] focus:bg-white transition-all placeholder:text-slate-400"
+          required
         />
       </div>
+
       <div>
-        <label htmlFor="contact_message" className="block text-[12px] font-semibold text-slate-700 mb-2">
-          Kebutuhan Proyek / Sistem
+        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+          Gambaran Kebutuhan Sistem / Proyek <span className="text-rose-500">*</span>
         </label>
         <textarea
-          id="contact_message"
           rows={4}
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
-          placeholder="Jelaskan gambaran sistem kustom, tantangan teknis, atau target waktu pengerjaan..."
-          className="w-full bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:border-[#00b4d8] focus:ring-2 focus:ring-[#00b4d8]/15 rounded-xl px-4 py-3 text-xs outline-none transition-all resize-none"
+          placeholder="Jelaskan kebutuhan aplikasi, sistem informasi, atau tantangan bisnis yang ingin Anda selesaikan..."
+          className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#00b4d8] focus:bg-white transition-all placeholder:text-slate-400 resize-none"
+          required
         />
       </div>
+
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00b4d8] to-[#0077b6] hover:from-[#0096c7] hover:to-[#023e8a] text-white font-bold text-[13px] transition-all cursor-pointer text-center flex items-center justify-center gap-2 disabled:opacity-70 shadow-sm shadow-[#00b4d8]/20"
+        className="w-full py-3 px-5 rounded-xl font-bold text-sm text-white bg-slate-900 hover:bg-[#0077b6] transition-all shadow-md cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
       >
-        <span>{loading ? "Mengirim Pesan..." : "Kirim Konsultasi Proyek"}</span>
+        {loading ? (
+          <>
+            <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            <span>Memproses...</span>
+          </>
+        ) : (
+          <span>Kirim Formulir Konsultasi</span>
+        )}
       </button>
     </form>
   );
 };
 
 export const CardDeal: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"bisnis" | "contact">("bisnis");
   const [unitUsahaList, setUnitUsahaList] = useState<UnitUsaha[]>(staticUnits);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [activeTab, setActiveTab] = useState<"bisnis" | "contact">("bisnis");
+
+  // Admin CRUD states
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingUnit, setEditingUnit] = useState<UnitUsaha | null>(null);
 
-  // Fetch business units from API
   const fetchBusinessUnits = useCallback(async () => {
     try {
-      const res = await fetch(getApiUrl("/api/business-units"), {
-        headers: { "Cache-Control": "no-cache" }
-      });
+      const res = await fetch(getApiUrl("/api/business-units"));
       const data = await res.json();
-      if (data.success && Array.isArray(data.data)) {
-        const mapped = data.data.map((u: any) => ({
-          ...u,
-          logoUrl: u.logoUrl || u.logo_type || "",
-          websiteUrl: u.websiteUrl || u.website_url || "#"
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+        // Map backend keys to camelCase
+        const mapped: UnitUsaha[] = data.data.map((item: any) => ({
+          id: item.id,
+          slug: item.slug || "",
+          title: item.title,
+          tagline: item.tagline,
+          category: item.category,
+          features: Array.isArray(item.features)
+            ? item.features
+            : typeof item.features === "string"
+            ? JSON.parse(item.features)
+            : [],
+          isFeatured: Boolean(item.is_featured || item.isFeatured),
+          logoUrl: item.logo_type || item.logoUrl || "",
+          websiteUrl: item.website_url || item.websiteUrl || "#",
+          client: item.client,
+          telemetry: item.telemetry,
+          sla: item.sla,
         }));
         setUnitUsahaList(mapped);
       } else {
@@ -218,61 +263,30 @@ export const CardDeal: React.FC = () => {
     }
   }, []);
 
-  // Fetch on mount
   useEffect(() => {
     fetchBusinessUnits();
   }, [fetchBusinessUnits]);
 
-  // Read admin state & listen to event
   useEffect(() => {
     const checkAdmin = () => {
-      const stored = localStorage.getItem("isAdmin") === "true";
-      setIsAdmin(stored);
+      setIsAdmin(localStorage.getItem("isAdmin") === "true");
     };
-
     checkAdmin();
     window.addEventListener("admin-state-changed", checkAdmin);
-    return () => {
-      window.removeEventListener("admin-state-changed", checkAdmin);
-    };
+    return () => window.removeEventListener("admin-state-changed", checkAdmin);
   }, []);
 
-  // Listen to hash change for scrolling to contact form
-  useEffect(() => {
-    const checkHash = () => {
-      if (window.location.hash === "#contact") {
-        setActiveTab("contact");
-        setTimeout(() => {
-          const element = document.getElementById("contact");
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 200);
-      }
-    };
-    checkHash();
-    window.addEventListener("hashchange", checkHash);
-    return () => window.removeEventListener("hashchange", checkHash);
-  }, []);
-
-  // Delete handler
   const handleDeleteClick = async (id: number) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus unit bisnis ini secara permanen?")) {
-      return;
-    }
-
+    if (!confirm("Apakah Anda yakin ingin menghapus unit usaha ini?")) return;
     try {
       const res = await fetch(getApiUrl(`/api/business-units/${id}`), {
-        method: "DELETE"
+        method: "DELETE",
       });
-      const data = await res.json();
-      if (data.success) {
+      if (res.ok) {
         fetchBusinessUnits();
-      } else {
-        alert(data.message || "Gagal menghapus.");
       }
-    } catch {
-      alert("Gagal menghubungi server.");
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -280,83 +294,55 @@ export const CardDeal: React.FC = () => {
     setEditingUnit({
       ...unit,
       logoUrl: unit.logoUrl || "",
-      websiteUrl: unit.websiteUrl || "#"
+      websiteUrl: unit.websiteUrl || "#",
     });
     setIsFormOpen(true);
   };
 
-  // Custom refined architectural glyphs
-  const renderProjectGlyph = (unit: UnitUsaha) => {
-    if (unit.logoUrl && (unit.logoUrl.startsWith("http") || unit.logoUrl.startsWith("/"))) {
-      return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={unit.logoUrl}
-          alt={unit.title}
-          className="w-6 h-6 object-contain"
-        />
-      );
+  // Bespoke Project Metadata Resolver (Checks both slug and title)
+  const getProjectData = (unit: UnitUsaha) => {
+    const combined = `${unit.slug || ""} ${unit.title || ""}`.toLowerCase();
+
+    if (combined.includes("simawa")) {
+      return {
+        type: "simawa" as const,
+        domain: "simawa.umpku.ac.id",
+        client: unit.client || "Universitas Muhammadiyah PKU Surakarta",
+        category: "Sistem Informasi Kemahasiswaan & Prestasi",
+        liveUrl: "https://simawa.umpku.ac.id/",
+        statusBadge: "Live Production",
+        techStack: ["Next.js 15", "Laravel 11", "MySQL", "Tailwind CSS", "RBAC"],
+        narrative: "Menggantikan birokrasi berkas fisik manual dengan platform terpusat satu pintu untuk pendataan prestasi, verifikasi beasiswa, dan tata kelola ormawa di seluruh fakultas.",
+        impactNote: "1.240+ Mahasiswa Terhubung",
+      };
     }
 
-    const key = (unit.slug || unit.title).toLowerCase();
-    if (key.includes("simawa")) {
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-        </svg>
-      );
+    if (combined.includes("mawasting") || combined.includes("boga")) {
+      return {
+        type: "mawasting" as const,
+        domain: "mawasting.health.id",
+        client: unit.client || "Institusi Layanan Kesehatan & Posyandu Mitra",
+        category: "HealthTech & Telemetri Ibu Hamil",
+        liveUrl: "#",
+        statusBadge: "Standar WHO Aktif",
+        techStack: ["React Native", "Node.js", "PostgreSQL", "Telemetri WHO", "PWA"],
+        narrative: "Aplikasi e-rekam medis antenatal care (ANC) untuk bidan dan kader posyandu dalam memantau parameter vital ibu hamil serta deteksi dini faktor risiko stunting berstandar WHO.",
+        impactNote: "Kurva Pertumbuhan WHO Terintegrasi",
+      };
     }
-    if (key.includes("mawasting")) {
-      return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-      );
-    }
-    return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-      </svg>
-    );
-  };
 
-  // Technology stack mapping per project
-  const getTechStack = (slug: string, title: string): string[] => {
-    const key = (slug || title).toLowerCase();
-    if (key.includes("simawa")) {
-      return ["Next.js", "Laravel", "MySQL", "Tailwind CSS", "RBAC"];
-    }
-    if (key.includes("mawasting")) {
-      return ["React Native", "Node.js", "PostgreSQL", "Telemetri WHO", "PWA"];
-    }
-    return ["React", "Express.js", "MySQL", "Socket.io", "Cloud NVMe"];
-  };
-
-  const getSystemDomain = (unit: UnitUsaha): string => {
-    if (unit.websiteUrl && unit.websiteUrl !== "#") {
-      try {
-        return new URL(unit.websiteUrl).hostname;
-      } catch {
-        // fallback
-      }
-    }
-    const key = (unit.slug || unit.title).toLowerCase();
-    if (key.includes("simawa")) return "simawa.umpku.ac.id";
-    if (key.includes("mawasting")) return "mawasting.health.id";
-    return "eduapp.platform.id";
-  };
-
-  const getProjectMetric = (unit: UnitUsaha): { label: string; value: string } => {
-    const key = (unit.slug || unit.title).toLowerCase();
-    if (key.includes("simawa")) {
-      return { label: "Pengguna Aktif", value: "1.200+ Mahasiswa" };
-    }
-    if (key.includes("mawasting")) {
-      return { label: "Standar Telemetri", value: "WHO Growth Curve" };
-    }
-    return { label: "Kapabilitas", value: "LMS & Rapor Digital" };
+    // Default: EDUAPP
+    return {
+      type: "eduapp" as const,
+      domain: "eduapp.platform.id",
+      client: unit.client || "Ekosistem Sekolah & Yayasan Pendidikan",
+      category: "EdTech & Manajemen Edukasi",
+      liveUrl: "#",
+      statusBadge: "Multi-Role LMS",
+      techStack: ["React", "Express.js", "MySQL", "Socket.io", "Cloud NVMe"],
+      narrative: "Platform terpadu yang menyatukan kegiatan belajar mengajar, absensi siswa real-time, bank soal interaktif, dan kalkulasi otomatis rapor digital dalam satu ekosistem multi-tenant.",
+      impactNote: "Otomasi Rapor & Absensi Terpadu",
+    };
   };
 
   return (
@@ -364,16 +350,16 @@ export const CardDeal: React.FC = () => {
       {/* Header Section */}
       <div className="flex flex-col items-center text-center max-w-3xl mb-12 sm:mb-16 relative z-10">
         <span className="text-[12px] font-semibold tracking-[0.2em] text-[#0077b6] uppercase mb-3 block">
-          PORTOFOLIO SISTEM TERAPLIKASI
+          STUDI KASUS SISTEM PRODUKSI
         </span>
         <h2 className="font-extrabold text-[32px] sm:text-[44px] lg:text-[48px] text-slate-900 leading-[1.12] tracking-[-0.03em]">
           Studi Kasus &amp; Sistem <br className="hidden sm:inline" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00b4d8] to-[#0077b6] italic">
-            Produksi Mandiri.
+            Operasional Klien.
           </span>
         </h2>
         <p className="font-normal text-slate-600 text-[15px] sm:text-[17px] leading-[1.75] max-w-2xl mt-4">
-          Kompilasi sistem kustom berkinerja tinggi yang kami rancang dan terapkan secara langsung pada operasional mitra institusi dan klien kami.
+          Aplikasi dan sistem informasi berkinerja tinggi yang kami kembangkan dan telah beroperasi aktif mendukung institusi pendidikan serta layanan kesehatan.
         </p>
 
         {/* Minimalist Switcher */}
@@ -387,7 +373,7 @@ export const CardDeal: React.FC = () => {
                 : "text-slate-600 hover:text-slate-900 bg-transparent"
             }`}
           >
-            Katalog Portofolio ({unitUsahaList.length})
+            Katalog Studi Kasus ({unitUsahaList.length})
           </button>
           <button
             type="button"
@@ -429,23 +415,15 @@ export const CardDeal: React.FC = () => {
         {/* ============================================================ */}
         {activeTab === "bisnis" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
-            {unitUsahaList.map((unit, index) => {
-              const fallbackClient = index === 0
-                ? "Universitas Muhammadiyah PKU Surakarta"
-                : index === 1
-                ? "Institusi Layanan Kesehatan & Posyandu"
-                : "Ekosistem Sekolah & Yayasan";
-
-              const domain = getSystemDomain(unit);
-              const metric = getProjectMetric(unit);
-              const techStack = getTechStack(unit.slug, unit.title);
-              const uniqueFeatures = Array.from(new Set(unit.features)).slice(0, 4);
+            {unitUsahaList.map((unit) => {
+              const project = getProjectData(unit);
+              const uniqueFeatures = Array.from(new Set(unit.features)).slice(0, 3);
 
               return (
                 <Card3DTilt key={unit.id} className="h-full rounded-3xl">
-                  <div className="group relative flex flex-col justify-between h-full rounded-3xl bg-white border border-slate-200/90 hover:border-[#00b4d8] shadow-[0_4px_20px_rgba(0,119,182,0.04)] hover:shadow-[0_16px_40px_rgba(0,180,216,0.10)] transition-all duration-300 overflow-hidden font-jakarta">
+                  <div className="group relative flex flex-col justify-between h-full rounded-3xl bg-white border border-slate-200/90 hover:border-[#00b4d8] shadow-[0_4px_24px_rgba(0,119,182,0.04)] hover:shadow-[0_16px_40px_rgba(0,180,216,0.10)] transition-all duration-300 overflow-hidden font-jakarta">
                     {/* Top Accent Gradient Bar on Hover */}
-                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#00b4d8] to-[#0077b6] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 z-30" />
+                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#00b4d8] via-[#0077b6] to-[#00b4d8] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 z-30" />
 
                     {/* Admin Actions */}
                     {isAdmin && (
@@ -481,44 +459,133 @@ export const CardDeal: React.FC = () => {
                       </div>
                     )}
 
-                    {/* 1. Simulated App Browser Window Viewport Header */}
-                    <div className="relative w-full bg-slate-50/90 border-b border-slate-100 p-4 pt-4.5">
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
-                        </div>
-                        <div className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200/80 text-[11px] font-mono text-slate-500 truncate max-w-[170px]">
-                          {domain}
-                        </div>
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          Aktif
-                        </span>
-                      </div>
-
-                      {/* Mockup Dashboard Mini Viewport */}
-                      <div className="h-[92px] rounded-2xl bg-gradient-to-br from-white via-sky-50/60 to-blue-50/30 border border-slate-200/80 p-3.5 flex flex-col justify-between overflow-hidden relative group-hover:border-sky-300 transition-colors shadow-2xs">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-xl bg-sky-50 text-[#0077b6] border border-sky-100 flex items-center justify-center shadow-2xs">
-                              {renderProjectGlyph(unit)}
+                    {/* 1. Realistic System Viewport / Dashboard Mockup Header */}
+                    <div className="p-4 sm:p-5 bg-slate-50/80 border-b border-slate-100">
+                      {project.type === "simawa" && (
+                        <div className="rounded-2xl bg-slate-900 text-white p-3.5 sm:p-4 font-sans overflow-hidden shadow-2xs border border-slate-800">
+                          {/* Mini browser chrome */}
+                          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-800 text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-full bg-rose-500" />
+                              <span className="w-2 h-2 rounded-full bg-amber-500" />
+                              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                              <span className="font-mono text-slate-400 ml-1.5 truncate max-w-[140px]">simawa.umpku.ac.id</span>
                             </div>
-                            <div>
-                              <span className="text-[13px] font-bold text-slate-900 tracking-tight block leading-tight">{unit.title}</span>
-                              <span className="text-[10px] text-slate-500 font-mono">v2.6 Enterprise</span>
+                            <span className="text-emerald-400 font-mono text-[9px] bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">
+                              Live System
+                            </span>
+                          </div>
+                          {/* Viewport content */}
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold text-sky-400">Portal Kemahasiswaan UMPKU</span>
+                              <span className="text-slate-400 text-[9.5px] font-mono">1.240 Mahasiswa</span>
+                            </div>
+                            <div className="grid grid-cols-3 gap-1.5 text-[9.5px]">
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Ormawa</div>
+                                <div className="font-bold text-white text-[12px]">38 Unit</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Prestasi</div>
+                                <div className="font-bold text-white text-[12px]">342 Data</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Validasi</div>
+                                <div className="font-bold text-emerald-400 text-[12px]">99.2%</div>
+                              </div>
+                            </div>
+                            <div className="bg-slate-800/50 px-2.5 py-1.5 rounded-lg border border-slate-700/50 flex items-center justify-between text-[9px] text-slate-300">
+                              <span className="truncate">SK Prestasi Mahasiswa Nasional 2026</span>
+                              <span className="text-emerald-400 font-mono font-semibold">Tervalidasi</span>
                             </div>
                           </div>
-                          <span className="text-[10.5px] font-semibold text-[#0077b6] bg-sky-50 border border-sky-100/90 px-2 py-0.5 rounded-md">
-                            {unit.category || "Produksi"}
-                          </span>
                         </div>
-                        <div className="flex items-center justify-between pt-1.5 border-t border-slate-100/90 text-[11.5px]">
-                          <span className="text-slate-500 font-medium">{metric.label}</span>
-                          <span className="font-bold text-[#0077b6] font-mono">{metric.value}</span>
+                      )}
+
+                      {project.type === "mawasting" && (
+                        <div className="rounded-2xl bg-slate-900 text-white p-3.5 sm:p-4 font-sans overflow-hidden shadow-2xs border border-slate-800">
+                          {/* Mini browser chrome */}
+                          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-800 text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-full bg-rose-500" />
+                              <span className="w-2 h-2 rounded-full bg-amber-500" />
+                              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                              <span className="font-mono text-slate-400 ml-1.5 truncate max-w-[140px]">mawasting.health.id</span>
+                            </div>
+                            <span className="text-cyan-400 font-mono text-[9px] bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">
+                              ANC Telemetry
+                            </span>
+                          </div>
+                          {/* Viewport content */}
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold text-cyan-300">Rekam Medis ANC &amp; Gizi Ibu</span>
+                              <span className="text-slate-400 text-[9.5px] font-mono">Standar WHO</span>
+                            </div>
+                            <div className="grid grid-cols-3 gap-1.5 text-[9.5px]">
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Tekanan Darah</div>
+                                <div className="font-bold text-emerald-400 text-[12px]">118/75</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Kadar Hb</div>
+                                <div className="font-bold text-white text-[12px]">12.4 g/dL</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">LILA</div>
+                                <div className="font-bold text-white text-[12px]">25.5 cm</div>
+                              </div>
+                            </div>
+                            <div className="bg-slate-800/50 px-2.5 py-1.5 rounded-lg border border-slate-700/50 flex items-center justify-between text-[9px] text-slate-300">
+                              <span className="truncate">Deteksi Risiko Dini Stunting</span>
+                              <span className="text-emerald-400 font-mono font-semibold">Risiko Rendah</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      )}
+
+                      {project.type === "eduapp" && (
+                        <div className="rounded-2xl bg-slate-900 text-white p-3.5 sm:p-4 font-sans overflow-hidden shadow-2xs border border-slate-800">
+                          {/* Mini browser chrome */}
+                          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-800 text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-full bg-rose-500" />
+                              <span className="w-2 h-2 rounded-full bg-amber-500" />
+                              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                              <span className="font-mono text-slate-400 ml-1.5 truncate max-w-[140px]">eduapp.platform.id</span>
+                            </div>
+                            <span className="text-indigo-300 font-mono text-[9px] bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-800/60">
+                              LMS Multi-Role
+                            </span>
+                          </div>
+                          {/* Viewport content */}
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold text-sky-300">Sistem Akademik &amp; Rapor Digital</span>
+                              <span className="text-slate-400 text-[9.5px] font-mono">420 Siswa</span>
+                            </div>
+                            <div className="grid grid-cols-3 gap-1.5 text-[9.5px]">
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Kehadiran</div>
+                                <div className="font-bold text-emerald-400 text-[12px]">98.4%</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Bank Soal</div>
+                                <div className="font-bold text-white text-[12px]">1.850 Butir</div>
+                              </div>
+                              <div className="bg-slate-800/80 p-2 rounded-lg border border-slate-700/60 text-center">
+                                <div className="text-slate-400 text-[9px]">Rapor Digital</div>
+                                <div className="font-bold text-white text-[12px]">Otomatis</div>
+                              </div>
+                            </div>
+                            <div className="bg-slate-800/50 px-2.5 py-1.5 rounded-lg border border-slate-700/50 flex items-center justify-between text-[9px] text-slate-300">
+                              <span className="truncate">Rekapitulasi Penilaian Semester</span>
+                              <span className="text-sky-400 font-mono font-semibold">Tersinkron</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* 2. Project Body Details */}
@@ -530,25 +597,29 @@ export const CardDeal: React.FC = () => {
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                           </svg>
-                          <span className="truncate">{unit.client || fallbackClient}</span>
+                          <span className="truncate">{project.client}</span>
                         </div>
 
                         {/* Title & Tagline */}
-                        <h3 className="font-bold text-[22px] sm:text-[24px] text-slate-900 tracking-tight group-hover:text-[#0077b6] transition-colors leading-snug">
+                        <h3 className="font-bold text-[22px] sm:text-[23px] text-slate-900 tracking-tight group-hover:text-[#0077b6] transition-colors leading-snug">
                           {unit.title}
                         </h3>
-                        <p className="text-[13.5px] text-slate-600 leading-relaxed font-normal mt-2">
-                          {unit.tagline}
+                        <p className="text-[11.5px] font-mono text-[#0077b6] font-semibold mt-1">
+                          {project.category}
                         </p>
 
-                        {/* Key Capabilities Matrix (clean checkmarks, no raw bullets) */}
+                        <p className="text-[13.5px] text-slate-600 leading-relaxed font-normal mt-3">
+                          {project.narrative}
+                        </p>
+
+                        {/* Key Capabilities Highlights */}
                         <div className="my-5 pt-4 border-t border-slate-100">
-                          <span className="text-[10.5px] font-bold uppercase tracking-wider text-slate-400 block mb-3">
-                            Kapabilitas &amp; Arsitektur Kunci
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
+                            Kapabilitas Terverifikasi
                           </span>
                           <div className="space-y-2">
                             {uniqueFeatures.map((feat, idx) => (
-                              <div key={idx} className="flex items-start gap-2.5 text-[13px] text-slate-700 leading-snug">
+                              <div key={idx} className="flex items-start gap-2.5 text-[12.5px] text-slate-700 leading-snug">
                                 <div className="w-4 h-4 rounded-full bg-sky-50 text-[#00b4d8] flex items-center justify-center shrink-0 mt-0.5">
                                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                     <polyline points="20 6 9 17 4 12" />
@@ -562,7 +633,7 @@ export const CardDeal: React.FC = () => {
 
                         {/* Tech Stack Pills */}
                         <div className="flex flex-wrap gap-1.5 mb-6">
-                          {techStack.map((tech) => (
+                          {project.techStack.map((tech) => (
                             <span
                               key={tech}
                               className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 text-slate-600 text-[11px] font-mono"
@@ -575,22 +646,22 @@ export const CardDeal: React.FC = () => {
 
                       {/* 3. Action CTA */}
                       <div className="pt-4 border-t border-slate-100">
-                        {unit.websiteUrl && unit.websiteUrl !== "#" ? (
+                        {project.liveUrl && project.liveUrl !== "#" ? (
                           <a
-                            href={unit.websiteUrl}
+                            href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full py-2.5 px-4 rounded-xl font-bold text-[13px] bg-slate-900 hover:bg-[#0077b6] text-white transition-all flex items-center justify-center cursor-pointer no-underline shadow-xs"
                           >
-                            Buka Sistem Langsung
+                            Buka {project.domain}
                           </a>
                         ) : (
-                          <div className="w-full py-2.5 px-4 rounded-xl font-medium text-[12px] bg-slate-50 text-slate-500 border border-slate-200/80 text-center select-none flex items-center justify-center gap-2">
+                          <div className="w-full py-2.5 px-4 rounded-xl font-medium text-[12px] bg-slate-50 text-slate-600 border border-slate-200/80 text-center select-none flex items-center justify-center gap-2">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                             </svg>
-                            <span>Sistem Privat Mitra</span>
+                            <span>Sistem Privat Institusi Mitra</span>
                           </div>
                         )}
                       </div>
