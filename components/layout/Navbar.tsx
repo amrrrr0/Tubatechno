@@ -2,29 +2,49 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { close, logo, menu } from "@/public/assets";
+import { logo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 const Navbar: React.FC = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
   const pathname = usePathname();
 
   const isHome = pathname === "/";
 
   useEffect(() => {
+    const sections = ["home", "features", "product", "clients"];
+
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 30);
+
+      if (isHome) {
+        const scrollPos = scrollY + 180;
+        let current = "home";
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el) {
+            const top = el.offsetTop;
+            if (scrollPos >= top) {
+              current = sections[i];
+              break;
+            }
+          }
+        }
+        setActiveSection(current);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome]);
 
   const getLinkHref = (id: string) => {
     return isHome ? `#${id}` : `/#${id}`;
@@ -38,6 +58,9 @@ const Navbar: React.FC = () => {
           : "bg-[#f8fafc]/80 backdrop-blur-md border-b border-slate-200/60"
       }`}
     >
+      {/* Realtime JavaScript Scroll Reading Progress Bar */}
+      <ScrollProgress />
+
       <div className="w-full max-w-[1560px] 2xl:max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 h-[68px] sm:h-[76px] flex items-center justify-between font-jakarta">
         {/* Brand Logo - Sleek & Prominent */}
         <a
@@ -57,36 +80,47 @@ const Navbar: React.FC = () => {
           </span>
         </a>
 
-        {/* Navigation Links - Clear & Readable */}
+        {/* Navigation Links - ScrollSpy Active States */}
         <nav className="hidden md:flex items-center gap-1.5 lg:gap-2.5">
-          {navLinks.map((nav) => (
-            <div key={nav.id}>
-              {(nav as any).externalUrl ? (
-                <a
-                  href={(nav as any).externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
-                >
-                  {nav.title}
-                </a>
-              ) : (nav as any).route ? (
-                <Link
-                  href={(nav as any).route}
-                  className="px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
-                >
-                  {nav.title}
-                </Link>
-              ) : (
-                <a
-                  href={getLinkHref(nav.id)}
-                  className="px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
-                >
-                  {nav.title}
-                </a>
-              )}
-            </div>
-          ))}
+          {navLinks.map((nav) => {
+            const isActive = isHome && activeSection === nav.id;
+
+            return (
+              <div key={nav.id}>
+                {(nav as any).externalUrl ? (
+                  <a
+                    href={(nav as any).externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200"
+                  >
+                    {nav.title}
+                  </a>
+                ) : (nav as any).route ? (
+                  <Link
+                    href={(nav as any).route}
+                    className="px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] text-slate-700 hover:text-[#0077b6] hover:bg-sky-50 transition-all duration-200 block"
+                  >
+                    {nav.title}
+                  </Link>
+                ) : (
+                  <a
+                    href={getLinkHref(nav.id)}
+                    className={`px-3.5 py-2 rounded-xl font-semibold text-[15px] sm:text-[15.5px] transition-all duration-200 block relative ${
+                      isActive
+                        ? "text-[#0077b6] bg-sky-50/90 shadow-2xs font-bold"
+                        : "text-slate-700 hover:text-[#0077b6] hover:bg-sky-50"
+                    }`}
+                  >
+                    {nav.title}
+                    {isActive && (
+                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00b4d8]" />
+                    )}
+                  </a>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         {/* CTA Button - Bold & Confident */}
@@ -148,7 +182,11 @@ const Navbar: React.FC = () => {
                       <a
                         href={getLinkHref(nav.id)}
                         onClick={() => setToggle(false)}
-                        className="px-4 py-2.5 rounded-xl text-[15px] font-semibold text-slate-800 hover:text-[#0077b6] hover:bg-sky-50 transition-colors block"
+                        className={`px-4 py-2.5 rounded-xl text-[15px] font-semibold transition-colors block ${
+                          isHome && activeSection === nav.id
+                            ? "text-[#0077b6] bg-sky-50 font-bold"
+                            : "text-slate-800 hover:text-[#0077b6] hover:bg-sky-50"
+                        }`}
                       >
                         {nav.title}
                       </a>

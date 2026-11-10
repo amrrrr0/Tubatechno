@@ -1196,15 +1196,31 @@ body {
   transform: translateY(0) !important;
 }
 
-/* ── Hidden state: translateY saja (zero compositing overhead vs scale) ── */
-.scroll-anim--fade-up,
-.scroll-anim--fade-down,
-.scroll-anim--fade-left,
-.scroll-anim--fade-right,
+/* ── Dynamic direction states with rich GPU transforms ── */
+.scroll-anim--fade-up {
+  opacity: 0;
+  transform: translate3d(0, 38px, 0);
+}
+
+.scroll-anim--fade-down {
+  opacity: 0;
+  transform: translate3d(0, -38px, 0);
+}
+
+.scroll-anim--fade-left {
+  opacity: 0;
+  transform: translate3d(42px, 0, 0);
+}
+
+.scroll-anim--fade-right {
+  opacity: 0;
+  transform: translate3d(-42px, 0, 0);
+}
+
 .scroll-anim--zoom-in,
 .scroll-anim--slide-up {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translate3d(0, 26px, 0) scale(0.96);
 }
 
 /* ── Reduced motion ── */
