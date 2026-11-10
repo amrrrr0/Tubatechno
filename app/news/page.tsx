@@ -74,13 +74,10 @@ export default async function NewsPage() {
         </div>
       </div>
 
-      <ScrollReveal>
-        <div className={`bg-white border-t border-slate-200/90 ${styles.paddingX}`}>
-          <div className={`${styles.boxWidth}`}>
-            <Footer />
-          </div>
-        </div>
-      </ScrollReveal>
+      {/* Full-Bleed Edge-to-Edge Footer */}
+      <div className="w-full mt-auto relative z-10">
+        <Footer />
+      </div>
     </main>
   );
 }

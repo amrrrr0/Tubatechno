@@ -23,11 +23,9 @@ const PricingPage = () => {
         </ScrollReveal>
       </div>
 
-      {/* Footer */}
-      <div className={`${styles.paddingX} ${styles.flexStart} mt-auto relative z-10 border-t border-slate-200/80`}>
-        <div className={`${styles.boxWidth}`}>
-          <Footer />
-        </div>
+      {/* Full-Bleed Edge-to-Edge Footer */}
+      <div className="w-full mt-auto relative z-10">
+        <Footer />
       </div>
     </main>
   );

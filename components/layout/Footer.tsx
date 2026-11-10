@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="w-full bg-white border-t border-slate-200/90 pt-16 pb-12 text-slate-600 relative z-10 font-jakarta">
-      <div className="max-w-[1480px] 2xl:max-w-[1640px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 flex flex-col gap-12">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 flex flex-col gap-12">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 w-full">
           {/* Brand Column */}

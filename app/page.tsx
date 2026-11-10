@@ -38,9 +38,11 @@ const Home = () => {
           <ScrollReveal><Testimonials /></ScrollReveal>
           <ScrollReveal><Clients /></ScrollReveal>
           <ScrollReveal><CTA /></ScrollReveal>
-          <ScrollReveal><Footer /></ScrollReveal>
         </div>
       </div>
+
+      {/* Full-Bleed Edge-to-Edge Footer */}
+      <Footer />
     </main>
   );
 };
