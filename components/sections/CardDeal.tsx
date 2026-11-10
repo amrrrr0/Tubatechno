@@ -322,6 +322,43 @@ export const CardDeal: React.FC = () => {
     );
   };
 
+  // Technology stack mapping per project
+  const getTechStack = (slug: string, title: string): string[] => {
+    const key = (slug || title).toLowerCase();
+    if (key.includes("simawa")) {
+      return ["Next.js", "Laravel", "MySQL", "Tailwind CSS", "RBAC"];
+    }
+    if (key.includes("mawasting")) {
+      return ["React Native", "Node.js", "PostgreSQL", "Telemetri WHO", "PWA"];
+    }
+    return ["React", "Express.js", "MySQL", "Socket.io", "Cloud NVMe"];
+  };
+
+  const getSystemDomain = (unit: UnitUsaha): string => {
+    if (unit.websiteUrl && unit.websiteUrl !== "#") {
+      try {
+        return new URL(unit.websiteUrl).hostname;
+      } catch {
+        // fallback
+      }
+    }
+    const key = (unit.slug || unit.title).toLowerCase();
+    if (key.includes("simawa")) return "simawa.umpku.ac.id";
+    if (key.includes("mawasting")) return "mawasting.health.id";
+    return "eduapp.platform.id";
+  };
+
+  const getProjectMetric = (unit: UnitUsaha): { label: string; value: string } => {
+    const key = (unit.slug || unit.title).toLowerCase();
+    if (key.includes("simawa")) {
+      return { label: "Pengguna Aktif", value: "1.200+ Mahasiswa" };
+    }
+    if (key.includes("mawasting")) {
+      return { label: "Standar Telemetri", value: "WHO Growth Curve" };
+    }
+    return { label: "Kapabilitas", value: "LMS & Rapor Digital" };
+  };
+
   return (
     <section id="product" className="flex flex-col items-center py-20 sm:py-28 w-full relative overflow-hidden border-t border-slate-200/80 font-jakarta">
       {/* Header Section */}
@@ -388,10 +425,10 @@ export const CardDeal: React.FC = () => {
       {/* Dynamic Tab Content Wrapper */}
       <div className="w-full max-w-[1440px] z-10 font-jakarta">
         {/* ============================================================ */}
-        {/* 1. KATALOG PORTOFOLIO: 3 Expansive Columns                   */}
+        {/* 1. KATALOG PORTOFOLIO: Bespoke Software Case Studies         */}
         {/* ============================================================ */}
         {activeTab === "bisnis" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
             {unitUsahaList.map((unit, index) => {
               const fallbackClient = index === 0
                 ? "Universitas Muhammadiyah PKU Surakarta"
@@ -399,15 +436,23 @@ export const CardDeal: React.FC = () => {
                 ? "Institusi Layanan Kesehatan & Posyandu"
                 : "Ekosistem Sekolah & Yayasan";
 
+              const domain = getSystemDomain(unit);
+              const metric = getProjectMetric(unit);
+              const techStack = getTechStack(unit.slug, unit.title);
+              const uniqueFeatures = Array.from(new Set(unit.features)).slice(0, 4);
+
               return (
-                <Card3DTilt key={unit.id} className="h-full rounded-2xl">
-                  <div className="group relative flex flex-col justify-between h-full p-8 rounded-2xl bg-white border border-slate-200/90 hover:border-[#00b4d8] shadow-[0_2px_12px_rgba(0,119,182,0.03)] hover:shadow-md transition-all duration-300">
+                <Card3DTilt key={unit.id} className="h-full rounded-3xl">
+                  <div className="group relative flex flex-col justify-between h-full rounded-3xl bg-white border border-slate-200/90 hover:border-[#00b4d8] shadow-[0_4px_20px_rgba(0,119,182,0.04)] hover:shadow-[0_16px_40px_rgba(0,180,216,0.10)] transition-all duration-300 overflow-hidden font-jakarta">
+                    {/* Top Accent Gradient Bar on Hover */}
+                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#00b4d8] to-[#0077b6] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 z-30" />
+
                     {/* Admin Actions */}
                     {isAdmin && (
-                      <div className="absolute top-4 right-4 flex items-center gap-1.5 z-20">
+                      <div className="absolute top-3 right-3 flex items-center gap-1.5 z-40">
                         <button
                           type="button"
-                          className="w-7 h-7 rounded-lg bg-white hover:bg-sky-50 text-slate-700 hover:text-[#0077b6] border border-slate-200 flex items-center justify-center transition-all cursor-pointer text-xs"
+                          className="w-7 h-7 rounded-lg bg-white/95 hover:bg-sky-50 text-slate-700 hover:text-[#0077b6] border border-slate-200 flex items-center justify-center transition-all cursor-pointer text-xs shadow-xs"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleEditClick(unit);
@@ -421,7 +466,7 @@ export const CardDeal: React.FC = () => {
                         </button>
                         <button
                           type="button"
-                          className="w-7 h-7 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 flex items-center justify-center transition-all cursor-pointer text-xs"
+                          className="w-7 h-7 rounded-lg bg-white/95 hover:bg-rose-50 text-rose-600 border border-slate-200 hover:border-rose-200 flex items-center justify-center transition-all cursor-pointer text-xs shadow-xs"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDeleteClick(unit.id);
@@ -436,61 +481,119 @@ export const CardDeal: React.FC = () => {
                       </div>
                     )}
 
-                    <div>
-                      {/* Top Bar: Icon + Category */}
-                      <div className="flex items-center justify-between mb-6">
-                        <div className="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0077b6] group-hover:scale-105 group-hover:bg-[#0077b6] group-hover:text-white transition-all duration-300">
-                          {renderProjectGlyph(unit)}
+                    {/* 1. Simulated App Browser Window Viewport Header */}
+                    <div className="relative w-full bg-slate-50/90 border-b border-slate-100 p-4 pt-4.5">
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
                         </div>
-                        <span className="text-[11px] font-semibold text-[#0077b6] uppercase tracking-wider bg-sky-50 px-2.5 py-1 rounded-md border border-sky-100">
-                          {unit.category || `Studi Kasus 0${index + 1}`}
+                        <div className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200/80 text-[11px] font-mono text-slate-500 truncate max-w-[170px]">
+                          {domain}
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Aktif
                         </span>
                       </div>
 
-                      {/* Title & Tagline */}
-                      <h3 className="font-bold text-[24px] sm:text-[26px] text-slate-900 tracking-tight mb-2 group-hover:text-[#0077b6] transition-colors">
-                        {unit.title}
-                      </h3>
-                      <p className="text-[14px] text-slate-600 leading-relaxed font-normal mb-6">
-                        {unit.tagline}
-                      </p>
-
-                      {/* Client Badge */}
-                      <div className="py-2.5 px-3.5 rounded-lg bg-slate-50 border border-slate-200/80 text-[12px] text-slate-700 mb-6">
-                        <span className="text-slate-500 block text-[10.5px] uppercase tracking-wider mb-0.5">Mitra / Klien:</span>
-                        <span className="font-medium text-slate-900">{unit.client || fallbackClient}</span>
-                      </div>
-
-                      {/* Feature Checklist */}
-                      <div className="space-y-2.5 pt-1 mb-6 border-t border-slate-100">
-                        <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-2 pt-2">
-                          Ruang Lingkup Sistem:
-                        </span>
-                        {unit.features.map((feat, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 text-[13px] text-slate-600 leading-snug">
-                            <span className="text-[#00b4d8] font-bold leading-none mt-1">•</span>
-                            <span>{feat}</span>
+                      {/* Mockup Dashboard Mini Viewport */}
+                      <div className="h-[92px] rounded-2xl bg-gradient-to-br from-white via-sky-50/60 to-blue-50/30 border border-slate-200/80 p-3.5 flex flex-col justify-between overflow-hidden relative group-hover:border-sky-300 transition-colors shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-xl bg-sky-50 text-[#0077b6] border border-sky-100 flex items-center justify-center shadow-2xs">
+                              {renderProjectGlyph(unit)}
+                            </div>
+                            <div>
+                              <span className="text-[13px] font-bold text-slate-900 tracking-tight block leading-tight">{unit.title}</span>
+                              <span className="text-[10px] text-slate-500 font-mono">v2.6 Enterprise</span>
+                            </div>
                           </div>
-                        ))}
+                          <span className="text-[10.5px] font-semibold text-[#0077b6] bg-sky-50 border border-sky-100/90 px-2 py-0.5 rounded-md">
+                            {unit.category || "Produksi"}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between pt-1.5 border-t border-slate-100/90 text-[11.5px]">
+                          <span className="text-slate-500 font-medium">{metric.label}</span>
+                          <span className="font-bold text-[#0077b6] font-mono">{metric.value}</span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Bottom Action CTA */}
-                    <div className="pt-5 border-t border-slate-100">
-                      {unit.websiteUrl && unit.websiteUrl !== "#" ? (
-                        <a
-                          href={unit.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full py-3 px-4 rounded-xl font-bold text-[13px] bg-slate-50 hover:bg-[#0077b6] text-[#0077b6] hover:text-white border border-slate-200 hover:border-[#0077b6] transition-all flex items-center justify-center cursor-pointer no-underline"
-                        >
-                          Kunjungi Sistem Langsung
-                        </a>
-                      ) : (
-                        <div className="w-full py-3 px-4 rounded-xl font-medium text-[12px] bg-slate-50 text-slate-500 border border-slate-200 text-center select-none flex items-center justify-center gap-1.5">
-                          <span>Sistem Private Mitra</span>
+                    {/* 2. Project Body Details */}
+                    <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
+                      <div>
+                        {/* Client Accreditation Chip */}
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[11.5px] text-slate-700 font-medium mb-3 max-w-full">
+                          <svg className="w-3.5 h-3.5 text-[#0077b6] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                          </svg>
+                          <span className="truncate">{unit.client || fallbackClient}</span>
                         </div>
-                      )}
+
+                        {/* Title & Tagline */}
+                        <h3 className="font-bold text-[22px] sm:text-[24px] text-slate-900 tracking-tight group-hover:text-[#0077b6] transition-colors leading-snug">
+                          {unit.title}
+                        </h3>
+                        <p className="text-[13.5px] text-slate-600 leading-relaxed font-normal mt-2">
+                          {unit.tagline}
+                        </p>
+
+                        {/* Key Capabilities Matrix (clean checkmarks, no raw bullets) */}
+                        <div className="my-5 pt-4 border-t border-slate-100">
+                          <span className="text-[10.5px] font-bold uppercase tracking-wider text-slate-400 block mb-3">
+                            Kapabilitas &amp; Arsitektur Kunci
+                          </span>
+                          <div className="space-y-2">
+                            {uniqueFeatures.map((feat, idx) => (
+                              <div key={idx} className="flex items-start gap-2.5 text-[13px] text-slate-700 leading-snug">
+                                <div className="w-4 h-4 rounded-full bg-sky-50 text-[#00b4d8] flex items-center justify-center shrink-0 mt-0.5">
+                                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                  </svg>
+                                </div>
+                                <span>{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Tech Stack Pills */}
+                        <div className="flex flex-wrap gap-1.5 mb-6">
+                          {techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 text-slate-600 text-[11px] font-mono"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* 3. Action CTA */}
+                      <div className="pt-4 border-t border-slate-100">
+                        {unit.websiteUrl && unit.websiteUrl !== "#" ? (
+                          <a
+                            href={unit.websiteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2.5 px-4 rounded-xl font-bold text-[13px] bg-slate-900 hover:bg-[#0077b6] text-white transition-all flex items-center justify-center cursor-pointer no-underline shadow-xs"
+                          >
+                            Buka Sistem Langsung
+                          </a>
+                        ) : (
+                          <div className="w-full py-2.5 px-4 rounded-xl font-medium text-[12px] bg-slate-50 text-slate-500 border border-slate-200/80 text-center select-none flex items-center justify-center gap-2">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <span>Sistem Privat Mitra</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </Card3DTilt>
